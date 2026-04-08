@@ -1,0 +1,25 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.next/
+coverage/
+
+# env
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+pnpm-debug.log*
+
+# cache
+.turbo/
+.cache/
+.eslintcache
+*.tsbuildinfo
+
+# system
+.DS_Store
