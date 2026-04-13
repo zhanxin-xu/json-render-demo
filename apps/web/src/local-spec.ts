@@ -256,13 +256,9 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       name: "81033:18324",
       spec: containerElements(
         {
-          sourceLabel: "Ed's Picks for You",
           noticeTitle: "Trending Stocks",
           detailUrl: "https://example.com/asset/NVDA",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
-          dislikeLabel: "Dislike",
-          detailLabel: "View Details",
-          askEdLabel: "Ask Ed"
         },
         [{ id: "list", type: "AssetRecommendationList", props: { sectionLabel: "Theme", assets: trendingAssets } }]
       )
@@ -272,14 +268,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       name: "81148:35892",
       spec: containerElements(
         {
-          sourceLabel: "Alpha Picks",
           noticeTitle: "My Pick This Week: TSM",
           detailUrl: "https://example.com/asset/TSM",
           insightText:
             "Revenue Growth +33% YoY — near the top of sector, driven by AI chip demand. Advanced Node revenue now 68% of total, strengthening pricing power in leading-edge process. Valuation 28/103, Growth 8/103 — growth far outpacing valuation, offering strong value.",
-          dislikeLabel: "Dislike",
-          detailLabel: "View Details",
-          askEdLabel: "Ask Ed"
         },
         [
           {
@@ -306,7 +298,6 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       name: "81033:18596",
       spec: containerElements(
         {
-          sourceLabel: "Ratings & Discovery",
           noticeTitle: "Semiconductor Watchlist Comparison",
           detailUrl: "https://example.com/watchlist/semiconductors",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text"
@@ -325,14 +316,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       name: "81033:19338",
       spec: containerElements(
         {
-          sourceLabel: "Alpha Picks",
           noticeTitle: "My Pick This Week: TSM",
           detailUrl: "https://example.com/asset/TSM",
           insightText:
             "Revenue Growth +33% YoY — near the top of sector, driven by AI chip demand. Advanced Node revenue now 68% of total, strengthening pricing power in leading-edge process. Valuation 28/103, Growth 8/103 — growth far outpacing valuation, offering strong value.",
-          showDislike: false,
-          showDetail: false,
-          showAskEd: false
         },
         [
           {
@@ -353,13 +340,9 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       name: "81033:18901",
       spec: containerElements(
         {
-          sourceLabel: "Ratings & Discovery",
           noticeTitle: "单资产健康检查",
           detailUrl: "https://example.com/asset/health/nvda",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
-          showDislike: false,
-          showDetail: false,
-          showAskEd: false
         },
         [
           {
@@ -376,13 +359,9 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       name: "81033:18948",
       spec: containerElements(
         {
-          sourceLabel: "Ratings & Discovery",
           noticeTitle: "Semiconductor Watchlist Comparison",
           detailUrl: "https://example.com/watchlist/semiconductors",
           insightText: "Ed's Insight (placeholder bodyEd's Insight placeholder body text",
-          showDislike: false,
-          showDetail: false,
-          showAskEd: false
         },
         [
           {
@@ -398,15 +377,32 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       name: "81033:19183",
       spec: containerElements(
         {
-          sourceLabel: "Earnings Call",
           noticeTitle: "Earnings Update",
           detailUrl: "https://example.com/earnings/nvda",
           insightText: "Ed's Insight (placeholder bodyEd's Insight placeholder body text",
-          showDislike: false,
-          showDetail: false,
-          showAskEd: false
         },
-        [{ id: "earnings", type: "EarningsSnapshotCard", props: earningsProps }]
+        [
+          {
+            id: "asset-context-header",
+            type: "AssetContextHeader",
+            props: { assetLogo: earningsProps.assetLogo, assetSymbol: earningsProps.assetSymbol, title: earningsProps.eventTitle }
+          },
+          {
+            id: "key-stats-strip",
+            type: "KeyStatsStrip",
+            props: { items: earningsProps.summaryMetrics }
+          },
+          {
+            id: "data-grid-table",
+            type: "DataGridTable",
+            props: {
+              tableColumns: earningsProps.tableColumns,
+              tableRows: earningsProps.tableRows,
+              badgeColumnKeys: ["result"],
+              accentColumnKeys: ["yoy"]
+            }
+          }
+        ]
       )
     },
     {
@@ -414,15 +410,22 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       name: "81033:19281",
       spec: containerElements(
         {
-          sourceLabel: "Earnings Call",
           noticeTitle: "Earnings Update",
           detailUrl: "https://example.com/management-call/nvda",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
-          showDislike: false,
-          showDetail: false,
-          showAskEd: false
         },
-        [{ id: "highlights", type: "ManagementCallHighlightsCard", props: managementCallProps }]
+        [
+          {
+            id: "asset-context-header",
+            type: "AssetContextHeader",
+            props: { assetLogo: managementCallProps.assetLogo, assetSymbol: managementCallProps.assetSymbol, title: managementCallProps.eventTitle }
+          },
+          {
+            id: "narrative-highlights-list",
+            type: "NarrativeHighlightsList",
+            props: { items: managementCallProps.highlights }
+          }
+        ]
       )
     },
     {
@@ -430,15 +433,22 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       name: "81033:19034",
       spec: containerElements(
         {
-          sourceLabel: "Ed's Daily Discovery",
           noticeTitle: "Rating Rank Movement",
           detailUrl: "https://example.com/rank-movement/nvda",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
-          showDislike: false,
-          showDetail: false,
-          showAskEd: false
         },
-        [{ id: "rank", type: "DimensionRankChangeCard", props: rankChangeProps }]
+        [
+          {
+            id: "asset-context-header",
+            type: "AssetContextHeader",
+            props: { assetLogo: rankChangeProps.assetLogo, assetSymbol: rankChangeProps.assetSymbol, title: rankChangeProps.assetName }
+          },
+          {
+            id: "dimension-rank-change-table",
+            type: "DimensionRankChangeTable",
+            props: { rows: rankChangeProps.dimensionRankChanges }
+          }
+        ]
       )
     },
     {
@@ -446,24 +456,24 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       name: "81033:19095",
       spec: containerElements(
         {
-          sourceLabel: "Ed's Daily Discovery",
           noticeTitle: "Rating Rank Movement",
           detailUrl: "https://example.com/rank-movement/btc",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
-          showDislike: false,
-          showDetail: false,
-          showAskEd: false
         },
         [
           {
-            id: "rank",
-            type: "DimensionRankChangeCard",
+            id: "asset-context-header",
+            type: "AssetContextHeader",
             props: {
               assetLogo: assetLogos.BTC,
               assetSymbol: "BTC",
-              assetName: "Bitcoin",
-              dimensionRankChanges: rankChangeProps.dimensionRankChanges
+              title: "Bitcoin"
             }
+          },
+          {
+            id: "dimension-rank-change-table",
+            type: "DimensionRankChangeTable",
+            props: { rows: rankChangeProps.dimensionRankChanges }
           }
         ]
       )
@@ -473,13 +483,9 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       name: "81033:19157",
       spec: containerElements(
         {
-          sourceLabel: "Ed's Daily Discovery",
           noticeTitle: "Technical Signal Update",
           detailUrl: "https://example.com/technical-signal/btc",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
-          showDislike: false,
-          showDetail: false,
-          showAskEd: false
         },
         [{ id: "rating", type: "RatingChangeComparisonList", props: ratingChangeProps }]
       )
@@ -489,13 +495,9 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       name: "81033:19395",
       spec: containerElements(
         {
-          sourceLabel: "Ed's Picks for You",
           noticeTitle: "Trending Stocks",
           detailUrl: "https://example.com/asset/NVDA",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
-          showDislike: false,
-          showDetail: false,
-          showAskEd: false
         },
         [{ id: "list", type: "AssetRecommendationList", props: { sectionLabel: "Theme", assets: trendingAssets } }]
       )
@@ -505,13 +507,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       name: "81033:18043",
       spec: containerElements(
         {
-          sourceLabel: "Alpha Picks",
           noticeTitle: "My Pick This Week: TSM",
           detailUrl: "https://example.com/asset/TSM",
           insightText:
             "Revenue Growth +33% YoY — near the top of sector, driven by AI chip demand. Advanced Node revenue now 68% of total, strengthening pricing power in leading-edge process. Valuation 28/103, Growth 8/103 — growth far outpacing valuation, offering strong value.",
-          showDetail: false,
-          disableDislike: true
         },
         [
           {

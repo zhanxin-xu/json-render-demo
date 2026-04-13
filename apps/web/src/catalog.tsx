@@ -90,25 +90,95 @@ const ratingChangeSchema = z.object({
   toRating: z.string()
 });
 
+const assetContextHeaderSchema = z.object({
+  assetLogo: z.string().optional(),
+  assetSymbol: z.string(),
+  title: z.string()
+});
+
+const keyStatsStripSchema = z.object({
+  items: z.array(summaryMetricSchema)
+});
+
+const dataGridTableSchema = z.object({
+  tableColumns: z.array(tableColumnSchema),
+  tableRows: z.array(tableRowSchema),
+  firstColumnHeader: z.string().optional(),
+  badgeColumnKeys: z.array(z.string()).optional(),
+  accentColumnKeys: z.array(z.string()).optional()
+});
+
+const narrativeHighlightsListSchema = z.object({
+  items: z.array(highlightSchema)
+});
+
+const dimensionRankChangeTableSchema = z.object({
+  rows: z.array(dimensionRankChangeSchema),
+  dimensionLabel: z.string().optional(),
+  rankLabel: z.string().optional(),
+  changeLabel: z.string().optional()
+});
+
+type AssetContextHeaderProps = {
+  assetLogo?: string;
+  assetSymbol: string;
+  title: string;
+};
+
+type KeyStatsStripProps = {
+  items: Array<{
+    metricKey: string;
+    metricName: string;
+    metricValue: string;
+    metricChange: string;
+  }>;
+};
+
+type DataGridTableProps = {
+  tableColumns: Array<{
+    columnKey: string;
+    columnTitle: string;
+  }>;
+  tableRows: Array<{
+    rowKey: string;
+    rowName: string;
+    cells: Array<{
+      columnKey: string;
+      cellValue: string;
+    }>;
+  }>;
+  firstColumnHeader?: string;
+  badgeColumnKeys?: string[];
+  accentColumnKeys?: string[];
+};
+
+type NarrativeHighlightsListProps = {
+  items: Array<{
+    title: string;
+    description: string;
+  }>;
+};
+
+type DimensionRankChangeTableProps = {
+  rows: Array<{
+    dimensionKey: string;
+    dimensionName: string;
+    rankValue: number;
+    rankTotalAssets: number;
+    rankChange: number;
+  }>;
+  dimensionLabel?: string;
+  rankLabel?: string;
+  changeLabel?: string;
+};
+
 const catalog = defineCatalog(schema, {
   components: {
     NotificationCardContainer: {
       description: "Notification card container mapped from Figma node 81033:18324",
       props: z.object({
         noticeTitle: z.string(),
-        detailUrl: z.string(),
-        sourceLabel: z.string().optional(),
-        metaRightText: z.string().optional(),
-        insightText: z.string().optional(),
-        dislikeLabel: z.string().optional(),
-        detailLabel: z.string().optional(),
-        askEdLabel: z.string().optional(),
-        showDislike: z.boolean().optional(),
-        showDetail: z.boolean().optional(),
-        showAskEd: z.boolean().optional(),
-        disableDislike: z.boolean().optional(),
-        disableDetail: z.boolean().optional(),
-        disableAskEd: z.boolean().optional()
+        detailUrl: z.string()
       })
     },
     NotificationText: {
@@ -147,34 +217,25 @@ const catalog = defineCatalog(schema, {
         assets: z.array(multiAssetDimensionItemSchema)
       })
     },
-    EarningsSnapshotCard: {
-      description: "Earnings snapshot card mapped from Figma node 81033:19191",
-      props: z.object({
-        assetLogo: z.string().optional(),
-        assetSymbol: z.string(),
-        eventTitle: z.string(),
-        summaryMetrics: z.array(summaryMetricSchema),
-        tableColumns: z.array(tableColumnSchema),
-        tableRows: z.array(tableRowSchema)
-      })
+    AssetContextHeader: {
+      description: "Reusable asset + context title header",
+      props: assetContextHeaderSchema
     },
-    ManagementCallHighlightsCard: {
-      description: "Management call highlights card mapped from Figma node 81033:19289",
-      props: z.object({
-        assetLogo: z.string().optional(),
-        assetSymbol: z.string(),
-        eventTitle: z.string(),
-        highlights: z.array(highlightSchema)
-      })
+    KeyStatsStrip: {
+      description: "Reusable key stats strip",
+      props: keyStatsStripSchema
     },
-    DimensionRankChangeCard: {
-      description: "Dimension rank change card mapped from Figma node 81033:19042",
-      props: z.object({
-        assetLogo: z.string().optional(),
-        assetSymbol: z.string(),
-        assetName: z.string(),
-        dimensionRankChanges: z.array(dimensionRankChangeSchema)
-      })
+    DataGridTable: {
+      description: "Reusable tabular data block",
+      props: dataGridTableSchema
+    },
+    NarrativeHighlightsList: {
+      description: "Reusable narrative highlights list",
+      props: narrativeHighlightsListSchema
+    },
+    DimensionRankChangeTable: {
+      description: "Reusable dimension rank change table",
+      props: dimensionRankChangeTableSchema
     },
     RatingChangeComparisonList: {
       description: "Rating change comparison list mapped from Figma node 81033:19165",
@@ -260,7 +321,7 @@ function renderScoreBadge(score: number, total: number, label = "Score") {
   );
 }
 
-function renderFooterButton(label: string, variant: "primary" | "secondary", disabled?: boolean, href?: string) {
+function renderFooterButton(label: string, variant: "primary" | "secondary", href?: string) {
   const style = {
     minHeight: 28,
     minWidth: 80,
@@ -282,10 +343,10 @@ function renderFooterButton(label: string, variant: "primary" | "secondary", dis
     whiteSpace: "nowrap" as const,
     textDecoration: "none",
     overflow: "hidden" as const,
-    opacity: disabled ? 0.45 : 1
+    opacity: 1
   };
 
-  if (href && !disabled) {
+  if (href) {
     return (
       <button type="button" onClick={() => window.location.assign(href)} style={{ ...style, cursor: "pointer" }}>
         {label + " \u2192"}
@@ -294,9 +355,158 @@ function renderFooterButton(label: string, variant: "primary" | "secondary", dis
   }
 
   return (
-    <button type="button" disabled={disabled} style={{ ...style, cursor: disabled ? "not-allowed" : "pointer" }}>
+    <button type="button" style={{ ...style, cursor: "pointer" }}>
       {label + " \u2192"}
     </button>
+  );
+}
+
+function renderAssetContextHeader(props: AssetContextHeaderProps) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      {renderAssetLogo(props.assetLogo, props.assetSymbol, 20)}
+      <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{props.assetSymbol}</p>
+      <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.62)" }}>{props.title}</p>
+    </div>
+  );
+}
+
+function renderKeyStatsStrip(props: KeyStatsStripProps) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: `repeat(${Math.max(1, props.items.length)}, minmax(0, 1fr))`, gap: 12, borderRadius: 10, background: "rgba(10,10,10,0.04)", padding: "10px 12px" }}>
+      {props.items.map((metric) => (
+        <div key={metric.metricKey} style={{ padding: 0 }}>
+          <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)" }}>{metric.metricName}</p>
+          <p style={{ margin: "2px 0 0 0", fontSize: 16, lineHeight: "24px", fontWeight: 700 }}>{metric.metricValue}</p>
+          <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: getPriceChangeColor(metric.metricChange), fontWeight: 600 }}>{metric.metricChange}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function renderDataGridTable(props: DataGridTableProps) {
+  const tableGridTemplateColumns = `minmax(110px,1.25fr) repeat(${props.tableColumns.length}, minmax(0, 1fr))`;
+  const badgeKeys = new Set(props.badgeColumnKeys ?? []);
+  const accentKeys = new Set(props.accentColumnKeys ?? []);
+
+  return (
+    <div style={{ border: "none", borderRadius: 0, overflow: "hidden" }}>
+      <div style={{ minWidth: "auto" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: tableGridTemplateColumns,
+            borderBottom: "1px solid rgba(10,10,10,0.08)"
+          }}
+        >
+          <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.38)" }}>{props.firstColumnHeader ?? ""}</p>
+          {props.tableColumns.map((column) => (
+            <p key={column.columnKey} style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.38)", textAlign: "center" }}>
+              {column.columnTitle}
+            </p>
+          ))}
+        </div>
+        {props.tableRows.map((row, index) => {
+          const rowMap = new Map(row.cells.map((cell) => [cell.columnKey, cell.cellValue]));
+          return (
+            <div
+              key={row.rowKey}
+              style={{
+                display: "grid",
+                gridTemplateColumns: tableGridTemplateColumns,
+                borderBottom: index === props.tableRows.length - 1 ? "none" : "1px solid rgba(10,10,10,0.08)"
+              }}
+            >
+              <p style={{ margin: 0, padding: "12px 8px", fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.72)" }}>{row.rowName}</p>
+              {props.tableColumns.map((column) => {
+                const value = rowMap.get(column.columnKey) ?? "-";
+
+                if (badgeKeys.has(column.columnKey) && value !== "-") {
+                  return (
+                    <p key={`${row.rowKey}-${column.columnKey}`} style={{ margin: 0, padding: "12px 8px", fontSize: 14, lineHeight: "20px", textAlign: "center" }}>
+                      <span style={{ display: "inline-flex", padding: "1px 6px", borderRadius: 6, background: "rgba(45,107,79,0.2)", color: accentColor, fontSize: 12, lineHeight: "18px" }}>
+                        {value}
+                      </span>
+                    </p>
+                  );
+                }
+
+                return (
+                  <p
+                    key={`${row.rowKey}-${column.columnKey}`}
+                    style={{
+                      margin: 0,
+                      padding: "12px 8px",
+                      fontSize: 14,
+                      lineHeight: "20px",
+                      textAlign: "center",
+                      color: accentKeys.has(column.columnKey) ? accentColor : "inherit",
+                      fontWeight: accentKeys.has(column.columnKey) ? 700 : 600
+                    }}
+                  >
+                    {value}
+                  </p>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function renderNarrativeHighlightsList(props: NarrativeHighlightsListProps) {
+  return (
+    <div style={{ borderRadius: 8, background: "rgba(10,10,10,0.04)", padding: "10px 8px", display: "flex", flexDirection: "column", gap: 12 }}>
+      {props.items.map((highlight, index) => (
+        <div key={`${highlight.title}-${index}`} style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{highlight.title}</p>
+          <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.68)" }}>{highlight.description}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function renderDimensionRankChangeTable(props: DimensionRankChangeTableProps) {
+  return (
+    <div style={{ border: "1px solid rgba(10,10,10,0.08)", borderRadius: 8, overflow: "hidden" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "minmax(120px,1.2fr) 1fr 1fr", borderBottom: "1px solid rgba(10,10,10,0.08)", background: "rgba(10,10,10,0.04)" }}>
+        <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)" }}>{props.dimensionLabel ?? "维度"}</p>
+        <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)", textAlign: "center" }}>{props.rankLabel ?? "排行"}</p>
+        <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)", textAlign: "center" }}>{props.changeLabel ?? "变化"}</p>
+      </div>
+      {props.rows.map((row, index) => (
+        <div
+          key={`${row.dimensionKey}-${index}`}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(120px,1.2fr) 1fr 1fr",
+            borderBottom: index === props.rows.length - 1 ? "none" : "1px solid rgba(10,10,10,0.08)"
+          }}
+        >
+          <p style={{ margin: 0, padding: "12px 8px", fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.72)" }}>{row.dimensionName}</p>
+          <p style={{ margin: 0, padding: "12px 8px", fontSize: 14, lineHeight: "20px", textAlign: "center" }}>
+            {row.rankValue}/{row.rankTotalAssets}
+          </p>
+          <p
+            style={{
+              margin: 0,
+              padding: "12px 8px",
+              fontSize: 14,
+              lineHeight: "20px",
+              textAlign: "center",
+              color: row.rankChange > 0 ? "#e04f5f" : row.rankChange < 0 ? "#15a46d" : "rgba(10,10,10,0.52)",
+              fontWeight: 600
+            }}
+          >
+            {row.rankChange > 0 ? `+${row.rankChange}` : row.rankChange}
+          </p>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -320,28 +530,20 @@ const { registry } = defineRegistry(catalog, {
           fontFamily: baseFontFamily
         }}
       >
-        {props.sourceLabel || props.metaRightText ? (
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
-            <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", letterSpacing: 0.1, fontWeight: 500, color: "rgba(10,10,10,0.56)" }}>{props.sourceLabel ?? ""}</p>
-            {props.metaRightText ? <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.4)" }}>{props.metaRightText}</p> : null}
-          </div>
-        ) : null}
         <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{props.noticeTitle}</p>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>{children}</div>
-        {(props.showDislike ?? true) || (props.showDetail ?? true) || (props.showAskEd ?? true) ? (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              flexWrap: "wrap",
-              gap: 12
-            }}
-          >
-            {props.showDislike ?? true ? renderFooterButton(props.dislikeLabel ?? "Dislike", "secondary", props.disableDislike) : null}
-            {props.showDetail ?? true ? renderFooterButton(props.detailLabel ?? "View Details", "secondary", props.disableDetail, props.detailUrl) : null}
-            {props.showAskEd ?? true ? renderFooterButton(props.askEdLabel ?? "Ask Ed", "primary", props.disableAskEd) : null}
-          </div>
-        ) : null}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: 12
+          }}
+        >
+          {renderFooterButton("Dislike", "secondary")}
+          {renderFooterButton("View Details", "secondary", props.detailUrl)}
+          {renderFooterButton("Ask Ed", "primary")}
+        </div>
       </section>
     ),
 
@@ -476,155 +678,15 @@ const { registry } = defineRegistry(catalog, {
       );
     },
 
-    EarningsSnapshotCard: ({ props }) => {
-      const tableGridTemplateColumns = `minmax(110px,1.25fr) repeat(${props.tableColumns.length}, minmax(0, 1fr))`;
+    AssetContextHeader: ({ props }) => renderAssetContextHeader(props),
 
-      const headerCells = props.tableColumns.map((column) => (
-        <p key={column.columnKey} style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.38)", textAlign: "center" }}>
-          {column.columnTitle}
-        </p>
-      ));
+    KeyStatsStrip: ({ props }) => renderKeyStatsStrip(props),
 
-      return (
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            {renderAssetLogo(props.assetLogo, props.assetSymbol, 20)}
-            <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{props.assetSymbol}</p>
-            <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.62)" }}>{props.eventTitle}</p>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: `repeat(${Math.max(1, props.summaryMetrics.length)}, minmax(0, 1fr))`, gap: 12, borderRadius: 10, background: "rgba(10,10,10,0.04)", padding: "10px 12px" }}>
-            {props.summaryMetrics.map((metric) => (
-              <div key={metric.metricKey} style={{ padding: 0 }}>
-                <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)" }}>{metric.metricName}</p>
-                <p style={{ margin: "2px 0 0 0", fontSize: 16, lineHeight: "24px", fontWeight: 700 }}>{metric.metricValue}</p>
-                <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: getPriceChangeColor(metric.metricChange), fontWeight: 600 }}>{metric.metricChange}</p>
-              </div>
-            ))}
-          </div>
-          <div style={{ border: "none", borderRadius: 0, overflow: "hidden" }}>
-            <div style={{ minWidth: "auto" }}>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: tableGridTemplateColumns,
-                  borderBottom: "1px solid rgba(10,10,10,0.08)"
-                }}
-              >
-                <p style={{ margin: 0, padding: "8px" }} />
-                {headerCells}
-              </div>
-              {props.tableRows.map((row, index) => {
-                const rowMap = new Map(row.cells.map((cell) => [cell.columnKey, cell.cellValue]));
-                return (
-                  <div
-                    key={row.rowKey}
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: tableGridTemplateColumns,
-                      borderBottom: index === props.tableRows.length - 1 ? "none" : "1px solid rgba(10,10,10,0.08)"
-                    }}
-                  >
-                    <p style={{ margin: 0, padding: "12px 8px", fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.72)" }}>{row.rowName}</p>
-                    {props.tableColumns.map((column) => {
-                      const value = rowMap.get(column.columnKey) ?? "-";
-                      if (column.columnKey === "result" && value !== "-") {
-                        return (
-                          <p key={`${row.rowKey}-${column.columnKey}`} style={{ margin: 0, padding: "12px 8px", fontSize: 14, lineHeight: "20px", textAlign: "center" }}>
-                            <span style={{ display: "inline-flex", padding: "1px 6px", borderRadius: 6, background: "rgba(45,107,79,0.2)", color: accentColor, fontSize: 12, lineHeight: "18px" }}>
-                              {value}
-                            </span>
-                          </p>
-                        );
-                      }
+    DataGridTable: ({ props }) => renderDataGridTable(props),
 
-                      return (
-                        <p
-                          key={`${row.rowKey}-${column.columnKey}`}
-                          style={{
-                            margin: 0,
-                            padding: "12px 8px",
-                            fontSize: 14,
-                            lineHeight: "20px",
-                            textAlign: "center",
-                            color: column.columnKey === "yoy" ? accentColor : "inherit",
-                            fontWeight: column.columnKey === "yoy" ? 700 : 600
-                          }}
-                        >
-                          {value}
-                        </p>
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      );
-    },
+    NarrativeHighlightsList: ({ props }) => renderNarrativeHighlightsList(props),
 
-    ManagementCallHighlightsCard: ({ props }) => (
-      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          {renderAssetLogo(props.assetLogo, props.assetSymbol, 20)}
-          <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{props.assetSymbol}</p>
-          <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.62)" }}>{props.eventTitle}</p>
-        </div>
-        <div style={{ borderRadius: 8, background: "rgba(10,10,10,0.04)", padding: "10px 8px", display: "flex", flexDirection: "column", gap: 12 }}>
-          {props.highlights.map((highlight, index) => (
-            <div key={`${highlight.title}-${index}`} style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{highlight.title}</p>
-              <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.68)" }}>{highlight.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    ),
-
-    DimensionRankChangeCard: ({ props }) => (
-      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          {renderAssetLogo(props.assetLogo, props.assetSymbol, 20)}
-          <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{props.assetSymbol}</p>
-          <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)" }}>{props.assetName}</p>
-        </div>
-        <div style={{ border: "1px solid rgba(10,10,10,0.08)", borderRadius: 8, overflow: "hidden" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "minmax(120px,1.2fr) 1fr 1fr", borderBottom: "1px solid rgba(10,10,10,0.08)", background: "rgba(10,10,10,0.04)" }}>
-            <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)" }}>维度</p>
-            <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)", textAlign: "center" }}>排行</p>
-            <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)", textAlign: "center" }}>变化</p>
-          </div>
-          {props.dimensionRankChanges.map((row, index) => (
-            <div
-              key={`${row.dimensionKey}-${index}`}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "minmax(120px,1.2fr) 1fr 1fr",
-                borderBottom: index === props.dimensionRankChanges.length - 1 ? "none" : "1px solid rgba(10,10,10,0.08)"
-              }}
-            >
-              <p style={{ margin: 0, padding: "12px 8px", fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.72)" }}>{row.dimensionName}</p>
-              <p style={{ margin: 0, padding: "12px 8px", fontSize: 14, lineHeight: "20px", textAlign: "center" }}>
-                {row.rankValue}/{row.rankTotalAssets}
-              </p>
-              <p
-                style={{
-                  margin: 0,
-                  padding: "12px 8px",
-                  fontSize: 14,
-                  lineHeight: "20px",
-                  textAlign: "center",
-                  color: row.rankChange > 0 ? "#e04f5f" : row.rankChange < 0 ? "#15a46d" : "rgba(10,10,10,0.52)",
-                  fontWeight: 600
-                }}
-              >
-                {row.rankChange > 0 ? `+${row.rankChange}` : row.rankChange}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    ),
+    DimensionRankChangeTable: ({ props }) => renderDimensionRankChangeTable(props),
 
     RatingChangeComparisonList: ({ props }) => (
       <div style={{ border: "1px solid rgba(10,10,10,0.08)", borderRadius: 8, overflow: "hidden" }}>
