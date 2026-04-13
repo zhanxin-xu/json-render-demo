@@ -3,7 +3,8 @@ import { defineRegistry } from "@json-render/react";
 import { schema } from "@json-render/react/schema";
 import { z } from "zod";
 
-const baseFontFamily = '"SF Pro Text", "PingFang SC", "Helvetica Neue", Arial, sans-serif';
+const baseFontFamily = '"General Sans", "SF Pro Text", "PingFang SC", "Helvetica Neue", Arial, sans-serif';
+const buttonFontFamily = '"Bricolage Grotesque", "General Sans", "SF Pro Text", "PingFang SC", "Helvetica Neue", Arial, sans-serif';
 const accentColor = "#2d6b4f";
 
 const assetRecommendationListItemSchema = z.object({
@@ -97,14 +98,29 @@ const catalog = defineCatalog(schema, {
         noticeTitle: z.string(),
         detailUrl: z.string(),
         sourceLabel: z.string().optional(),
+        metaRightText: z.string().optional(),
+        insightText: z.string().optional(),
         dislikeLabel: z.string().optional(),
         detailLabel: z.string().optional(),
-        askEdLabel: z.string().optional()
+        askEdLabel: z.string().optional(),
+        showDislike: z.boolean().optional(),
+        showDetail: z.boolean().optional(),
+        showAskEd: z.boolean().optional(),
+        disableDislike: z.boolean().optional(),
+        disableDetail: z.boolean().optional(),
+        disableAskEd: z.boolean().optional()
+      })
+    },
+    NotificationText: {
+      description: "Notification body text block rendered inside NotificationCardContainer",
+      props: z.object({
+        text: z.string()
       })
     },
     AssetRecommendationList: {
       description: "Asset recommendation list mapped from Figma node 81033:18334",
       props: z.object({
+        sectionLabel: z.string().optional(),
         assets: z.array(assetRecommendationListItemSchema)
       })
     },
@@ -226,7 +242,7 @@ function renderScoreBadge(score: number, total: number, label = "Score") {
             width: 30,
             height: 30,
             borderRadius: 999,
-            background: "#fff",
+            background: "#f3f3f3",
             color: accentColor,
             fontSize: 15,
             lineHeight: "20px",
@@ -244,84 +260,94 @@ function renderScoreBadge(score: number, total: number, label = "Score") {
   );
 }
 
+function renderFooterButton(label: string, variant: "primary" | "secondary", disabled?: boolean, href?: string) {
+  const style = {
+    minHeight: 28,
+    minWidth: 80,
+    boxSizing: "border-box" as const,
+    borderRadius: 6,
+    border: variant === "primary" ? `1px solid ${accentColor}` : "1px solid rgba(10,10,10,0.2)",
+    background: variant === "primary" ? accentColor : "#fff",
+    padding: "6px 8px",
+    fontSize: 12,
+    lineHeight: "16px",
+    fontWeight: 700,
+    letterSpacing: 0,
+    fontFamily: buttonFontFamily,
+    color: variant === "primary" ? "#fff" : "#1f1f1f",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 4,
+    whiteSpace: "nowrap" as const,
+    textDecoration: "none",
+    overflow: "hidden" as const,
+    opacity: disabled ? 0.45 : 1
+  };
+
+  if (href && !disabled) {
+    return (
+      <button type="button" onClick={() => window.location.assign(href)} style={{ ...style, cursor: "pointer" }}>
+        {label + " \u2192"}
+      </button>
+    );
+  }
+
+  return (
+    <button type="button" disabled={disabled} style={{ ...style, cursor: disabled ? "not-allowed" : "pointer" }}>
+      {label + " \u2192"}
+    </button>
+  );
+}
+
 const { registry } = defineRegistry(catalog, {
   components: {
+    NotificationText: ({ props }) => (
+      <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 400, color: "rgba(10,10,10,0.8)" }}>{props.text}</p>
+    ),
+
     NotificationCardContainer: ({ props, children }) => (
       <section
         style={{
           borderRadius: 12,
           border: "1px solid rgba(10,10,10,0.1)",
-          background: "#fefdfc",
+          background: "#FEFDFC",
           color: "#0a0a0a",
           padding: 12,
           display: "flex",
           flexDirection: "column",
-          gap: 10,
+          gap: 8,
           fontFamily: baseFontFamily
         }}
       >
-        {props.sourceLabel ? <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.56)" }}>{props.sourceLabel}</p> : null}
-        <p style={{ margin: 0, fontSize: 34, lineHeight: "38px", fontWeight: 700 }}>{props.noticeTitle}</p>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{children}</div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-          <button
-            type="button"
+        {props.sourceLabel || props.metaRightText ? (
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
+            <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", letterSpacing: 0.1, fontWeight: 500, color: "rgba(10,10,10,0.56)" }}>{props.sourceLabel ?? ""}</p>
+            {props.metaRightText ? <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.4)" }}>{props.metaRightText}</p> : null}
+          </div>
+        ) : null}
+        <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{props.noticeTitle}</p>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>{children}</div>
+        {(props.showDislike ?? true) || (props.showDetail ?? true) || (props.showAskEd ?? true) ? (
+          <div
             style={{
-              minHeight: 38,
-              borderRadius: 10,
-              border: "1px solid rgba(10,10,10,0.2)",
-              background: "#fff",
-              fontSize: 14,
-              lineHeight: "20px",
-              fontWeight: 600,
-              color: "#222",
-              cursor: "pointer"
-            }}
-          >
-            {(props.dislikeLabel ?? "Dislike") + "  \u2192"}
-          </button>
-          <a
-            href={props.detailUrl}
-            style={{
-              minHeight: 38,
-              borderRadius: 10,
-              border: "1px solid rgba(10,10,10,0.2)",
-              background: "#fff",
-              fontSize: 14,
-              lineHeight: "20px",
-              fontWeight: 600,
-              color: "#222",
-              textDecoration: "none",
-              display: "inline-flex",
+              display: "flex",
               alignItems: "center",
-              justifyContent: "center",
-              whiteSpace: "nowrap"
+              flexWrap: "wrap",
+              gap: 12
             }}
           >
-            {(props.detailLabel ?? "View Details") + "  \u2192"}
-          </a>
-          <button
-            type="button"
-            style={{
-              minHeight: 38,
-              borderRadius: 10,
-              border: `1px solid ${accentColor}`,
-              background: accentColor,
-              fontSize: 14,
-              lineHeight: "20px",
-              fontWeight: 700,
-              color: "#fff",
-              cursor: "pointer"
-            }}
-          >
-            {(props.askEdLabel ?? "Ask Ed") + "  \u2192"}
-          </button>
-        </div>
+            {props.showDislike ?? true ? renderFooterButton(props.dislikeLabel ?? "Dislike", "secondary", props.disableDislike) : null}
+            {props.showDetail ?? true ? renderFooterButton(props.detailLabel ?? "View Details", "secondary", props.disableDetail, props.detailUrl) : null}
+            {props.showAskEd ?? true ? renderFooterButton(props.askEdLabel ?? "Ask Ed", "primary", props.disableAskEd) : null}
+          </div>
+        ) : null}
       </section>
     ),
 
     AssetRecommendationList: ({ props }) => (
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        {props.sectionLabel ? <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.62)" }}>{props.sectionLabel}</p> : null}
         {props.assets.map((asset, index) => (
           <div key={`${asset.assetSymbol}-${index}`} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 0, flex: "1 1 0" }}>
@@ -353,45 +379,52 @@ const { registry } = defineRegistry(catalog, {
     ),
 
     AssetDimensionScoreTable: ({ props }) => (
-      <div style={{ border: "1px solid rgba(10,10,10,0.08)", borderRadius: 10, overflow: "hidden" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(130px,1fr) 88px 88px", borderBottom: "1px solid rgba(10,10,10,0.08)", background: "rgba(10,10,10,0.04)" }}>
-          <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)" }}>维度</p>
-          <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)", textAlign: "center" }}>评分</p>
-          <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)", textAlign: "center" }}>排名</p>
-        </div>
-        {props.rows.map((row, index) => (
-          <div
-            key={`${row.dimensionName}-${index}`}
-            style={{
-              display: "grid",
-              gridTemplateColumns: "minmax(130px,1fr) 88px 88px",
-              borderBottom: index === props.rows.length - 1 ? "none" : "1px solid rgba(10,10,10,0.08)"
-            }}
-          >
-            <p style={{ margin: 0, padding: "12px 8px", fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.72)" }}>{row.dimensionName}</p>
-            <p style={{ margin: 0, padding: "12px 8px", fontSize: 14, lineHeight: "20px", color: accentColor, textAlign: "center", fontWeight: 700 }}>
-              {row.scoreValue}/{row.scoreTotal}
-            </p>
-            <p style={{ margin: 0, padding: "12px 8px", fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.62)", textAlign: "center" }}>
-              {row.rankValue}/{row.rankTotalAssets}
-            </p>
-          </div>
-        ))}
+      <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+        <p style={{ margin: "0 8px 2px 8px", fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.62)" }}>Theme</p>
+        {props.rows.map((row, index) => {
+          const isHighlighted = index === 0;
+          return (
+            <div key={`${row.dimensionName}-${index}`} style={{ padding: "0 8px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "12px 8px",
+                  background: isHighlighted ? "rgba(10,10,10,0.04)" : "transparent",
+                  borderRadius: isHighlighted ? 8 : 0,
+                  borderBottom: isHighlighted || index === props.rows.length - 1 ? "none" : "1px solid rgba(10,10,10,0.08)"
+                }}
+              >
+                <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.62)" }}>{row.dimensionName}</p>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                  <p style={{ margin: 0, fontSize: 16, lineHeight: "24px", color: accentColor, fontWeight: 700 }}>{row.scoreValue}</p>
+                  <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.4)", fontWeight: 500 }}>
+                    {row.rankValue}/{row.rankTotalAssets}
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     ),
 
-    MultiAssetDimensionScoreComparisonTable: ({ props }) => (
-      <div style={{ border: "1px solid rgba(10,10,10,0.08)", borderRadius: 10, overflowX: "auto" }}>
-        <div style={{ minWidth: 460 }}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: `minmax(170px,1.6fr) repeat(${props.dimensions.length}, minmax(96px, 1fr))`,
-              background: "rgba(10,10,10,0.04)",
-              borderBottom: "1px solid rgba(10,10,10,0.08)"
-            }}
-          >
-            <p style={{ margin: 0, padding: "8px 10px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)" }}>资产</p>
+    MultiAssetDimensionScoreComparisonTable: ({ props }) => {
+      const gridTemplateColumns = `minmax(110px, 1.25fr) repeat(${props.dimensions.length}, minmax(0, 1fr))`;
+
+      return (
+        <div style={{ border: "none", borderRadius: 0, overflow: "hidden" }}>
+          <div style={{ minWidth: "auto" }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns,
+                background: "transparent",
+                borderBottom: "1px solid rgba(10,10,10,0.08)"
+              }}
+            >
+            <p style={{ margin: 0, padding: "8px 10px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)" }}>Asset</p>
             {props.dimensions.map((dimension) => (
               <p key={dimension.dimensionKey} style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)", textAlign: "center" }}>
                 {dimension.dimensionName}
@@ -405,11 +438,11 @@ const { registry } = defineRegistry(catalog, {
                 key={`${asset.assetSymbol}-${index}`}
                 style={{
                   display: "grid",
-                  gridTemplateColumns: `minmax(170px,1.6fr) repeat(${props.dimensions.length}, minmax(96px, 1fr))`,
+                  gridTemplateColumns,
                   borderBottom: index === props.assets.length - 1 ? "none" : "1px solid rgba(10,10,10,0.08)"
                 }}
               >
-                <div style={{ padding: "10px", display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ padding: "12px 10px", display: "flex", alignItems: "center", gap: 8 }}>
                   {renderAssetLogo(asset.assetLogo, asset.assetSymbol)}
                   <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
                     <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{asset.assetSymbol}</p>
@@ -421,7 +454,7 @@ const { registry } = defineRegistry(catalog, {
                 {props.dimensions.map((dimension) => {
                   const score = scoreMap.get(dimension.dimensionKey);
                   return (
-                    <div key={`${asset.assetSymbol}-${dimension.dimensionKey}`} style={{ padding: "10px 8px", textAlign: "center" }}>
+                    <div key={`${asset.assetSymbol}-${dimension.dimensionKey}`} style={{ padding: "12px 8px", textAlign: "center" }}>
                       {score ? (
                         <>
                           <p style={{ margin: 0, fontSize: 16, lineHeight: "24px", color: accentColor, fontWeight: 700 }}>{score.scoreValue}</p>
@@ -440,11 +473,14 @@ const { registry } = defineRegistry(catalog, {
           })}
         </div>
       </div>
-    ),
+      );
+    },
 
     EarningsSnapshotCard: ({ props }) => {
+      const tableGridTemplateColumns = `minmax(110px,1.25fr) repeat(${props.tableColumns.length}, minmax(0, 1fr))`;
+
       const headerCells = props.tableColumns.map((column) => (
-        <p key={column.columnKey} style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)", textAlign: "center" }}>
+        <p key={column.columnKey} style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.38)", textAlign: "center" }}>
           {column.columnTitle}
         </p>
       ));
@@ -456,26 +492,25 @@ const { registry } = defineRegistry(catalog, {
             <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{props.assetSymbol}</p>
             <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.62)" }}>{props.eventTitle}</p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: `repeat(${Math.max(1, props.summaryMetrics.length)}, minmax(0, 1fr))`, gap: 8 }}>
+          <div style={{ display: "grid", gridTemplateColumns: `repeat(${Math.max(1, props.summaryMetrics.length)}, minmax(0, 1fr))`, gap: 12, borderRadius: 10, background: "rgba(10,10,10,0.04)", padding: "10px 12px" }}>
             {props.summaryMetrics.map((metric) => (
-              <div key={metric.metricKey} style={{ borderRadius: 8, background: "rgba(10,10,10,0.04)", padding: 8 }}>
+              <div key={metric.metricKey} style={{ padding: 0 }}>
                 <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)" }}>{metric.metricName}</p>
                 <p style={{ margin: "2px 0 0 0", fontSize: 16, lineHeight: "24px", fontWeight: 700 }}>{metric.metricValue}</p>
                 <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: getPriceChangeColor(metric.metricChange), fontWeight: 600 }}>{metric.metricChange}</p>
               </div>
             ))}
           </div>
-          <div style={{ border: "1px solid rgba(10,10,10,0.08)", borderRadius: 8, overflowX: "auto" }}>
-            <div style={{ minWidth: 540 }}>
+          <div style={{ border: "none", borderRadius: 0, overflow: "hidden" }}>
+            <div style={{ minWidth: "auto" }}>
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: `minmax(120px,1.3fr) repeat(${props.tableColumns.length}, minmax(88px, 1fr))`,
-                  borderBottom: "1px solid rgba(10,10,10,0.08)",
-                  background: "rgba(10,10,10,0.04)"
+                  gridTemplateColumns: tableGridTemplateColumns,
+                  borderBottom: "1px solid rgba(10,10,10,0.08)"
                 }}
               >
-                <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)" }}>指标</p>
+                <p style={{ margin: 0, padding: "8px" }} />
                 {headerCells}
               </div>
               {props.tableRows.map((row, index) => {
@@ -485,16 +520,40 @@ const { registry } = defineRegistry(catalog, {
                     key={row.rowKey}
                     style={{
                       display: "grid",
-                      gridTemplateColumns: `minmax(120px,1.3fr) repeat(${props.tableColumns.length}, minmax(88px, 1fr))`,
+                      gridTemplateColumns: tableGridTemplateColumns,
                       borderBottom: index === props.tableRows.length - 1 ? "none" : "1px solid rgba(10,10,10,0.08)"
                     }}
                   >
                     <p style={{ margin: 0, padding: "12px 8px", fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.72)" }}>{row.rowName}</p>
-                    {props.tableColumns.map((column) => (
-                      <p key={`${row.rowKey}-${column.columnKey}`} style={{ margin: 0, padding: "12px 8px", fontSize: 14, lineHeight: "20px", textAlign: "center" }}>
-                        {rowMap.get(column.columnKey) ?? "-"}
-                      </p>
-                    ))}
+                    {props.tableColumns.map((column) => {
+                      const value = rowMap.get(column.columnKey) ?? "-";
+                      if (column.columnKey === "result" && value !== "-") {
+                        return (
+                          <p key={`${row.rowKey}-${column.columnKey}`} style={{ margin: 0, padding: "12px 8px", fontSize: 14, lineHeight: "20px", textAlign: "center" }}>
+                            <span style={{ display: "inline-flex", padding: "1px 6px", borderRadius: 6, background: "rgba(45,107,79,0.2)", color: accentColor, fontSize: 12, lineHeight: "18px" }}>
+                              {value}
+                            </span>
+                          </p>
+                        );
+                      }
+
+                      return (
+                        <p
+                          key={`${row.rowKey}-${column.columnKey}`}
+                          style={{
+                            margin: 0,
+                            padding: "12px 8px",
+                            fontSize: 14,
+                            lineHeight: "20px",
+                            textAlign: "center",
+                            color: column.columnKey === "yoy" ? accentColor : "inherit",
+                            fontWeight: column.columnKey === "yoy" ? 700 : 600
+                          }}
+                        >
+                          {value}
+                        </p>
+                      );
+                    })}
                   </div>
                 );
               })}

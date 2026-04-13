@@ -226,7 +226,18 @@ export default function App() {
                 alignItems: "stretch"
               }}
             >
-              <div style={{ minHeight: 200, border: "1px solid rgba(10,10,10,0.08)", borderRadius: 12, padding: 12, background: "#fff" }}>
+              <div
+                style={{
+                  width: 390,
+                  maxWidth: "100%",
+                  minHeight: 200,
+                  margin: "0 auto",
+                  border: "1px solid rgba(10,10,10,0.08)",
+                  borderRadius: 12,
+                  padding: 12,
+                  background: "#F8F6F2"
+                }}
+              >
                 <RenderErrorBoundary>
                   <StateProvider>
                     <ActionProvider>
