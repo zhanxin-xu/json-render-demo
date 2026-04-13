@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "dev": "pnpm -r --parallel dev",
-    "build": "pnpm -r build"
+    "build": "pnpm -r build",
+    "now-build": "cd apps/web && pnpm build && cd ../server && pnpm build"
   }
 }

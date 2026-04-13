@@ -1,5 +1,5 @@
 import cors from "cors";
-import express from "express";
+import express, { Request, Response } from "express";
 
 const app = express();
 const port = Number(process.env.PORT ?? 3001);
@@ -259,7 +259,7 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
   };
 }
 
-app.get("/api/spec", (_req, res) => {
+app.get("/api/spec", (_req: Request, res: Response) => {
   const groups = [
     {
       id: "scene-81033-18324",
@@ -568,7 +568,7 @@ app.get("/api/spec", (_req, res) => {
     }
   ];
 
-  res.json({ groups });
+  (res as any).json({ groups });
 });
 
 app.listen(port, () => {
