@@ -1,7 +1,8 @@
-import { Component, useEffect, useState } from "react";
+import { Component, useState } from "react";
 import { ActionProvider, Renderer, StateProvider, ValidationProvider, VisibilityProvider } from "@json-render/react";
 import { registry } from "./catalog";
 import type { ReactNode } from "react";
+import { getSpecGroups } from "./local-spec";
 
 type RendererSpec = {
   root: string;
@@ -71,12 +72,24 @@ function toEditableGroups(input: DemoGroup[]): EditableGroup[] {
 }
 
 export default function App() {
-  const [groups, setGroups] = useState<EditableGroup[] | null>(null);
-  const [error, setError] = useState<string>("");
+  const initialLoad = (() => {
+    try {
+      const parsedGroups = getSpecGroups() as DemoGroup[];
+      const invalidGroup = parsedGroups.find((group) => !isRendererSpec(group.spec));
+      if (invalidGroup) {
+        throw new Error(`本地 group "${invalidGroup.name}" 的 spec 不是 renderer 结构（需要 root/elements）`);
+      }
+      return { groups: toEditableGroups(parsedGroups), error: "" };
+    } catch (err: unknown) {
+      return { groups: [] as EditableGroup[], error: err instanceof Error ? err.message : "读取本地 spec 失败" };
+    }
+  })();
+
+  const [groups, setGroups] = useState<EditableGroup[]>(initialLoad.groups);
+  const [error] = useState<string>(initialLoad.error);
 
   const updateDraft = (groupId: string, jsonDraft: string) => {
     setGroups((prev) => {
-      if (!prev) return prev;
       return prev.map((group) => {
         if (group.id !== groupId) return group;
         try {
@@ -107,7 +120,6 @@ export default function App() {
 
   const formatDraft = (groupId: string) => {
     setGroups((prev) => {
-      if (!prev) return prev;
       return prev.map((group) => {
         if (group.id !== groupId) return group;
         try {
@@ -136,7 +148,6 @@ export default function App() {
 
   const resetDraft = (groupId: string) => {
     setGroups((prev) => {
-      if (!prev) return prev;
       return prev.map((group) => {
         if (group.id !== groupId) return group;
         return {
@@ -149,50 +160,8 @@ export default function App() {
     });
   };
 
-  useEffect(() => {
-    fetch("/api/spec")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`请求失败: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data: unknown) => {
-        if (data && typeof data === "object" && "groups" in data && Array.isArray((data as { groups?: unknown[] }).groups)) {
-          const parsedGroups = (data as { groups: DemoGroup[] }).groups;
-          const invalidGroup = parsedGroups.find((group) => !isRendererSpec(group.spec));
-          if (invalidGroup) {
-            throw new Error(`服务端 group "${invalidGroup.name}" 返回的 spec 不是 renderer 结构（需要 root/elements）`);
-          }
-          setGroups(toEditableGroups(parsedGroups));
-          return;
-        }
-
-        if (!isRendererSpec(data)) {
-          throw new Error("服务端数据不符合 renderer 规范：需要 root/elements");
-        }
-
-        setGroups(
-          toEditableGroups([
-            {
-              id: "default",
-              name: "Default",
-              spec: data
-            }
-          ])
-        );
-      })
-      .catch((err: unknown) => {
-        setError(err instanceof Error ? err.message : "未知错误");
-      });
-  }, []);
-
   if (error) {
     return <main style={{ padding: 24 }}>加载失败：{error}</main>;
-  }
-
-  if (!groups) {
-    return <main style={{ padding: 24 }}>加载中...</main>;
   }
 
   return (

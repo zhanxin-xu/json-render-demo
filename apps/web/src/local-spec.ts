@@ -1,12 +1,4 @@
-import cors from "cors";
-import express, { Request, Response } from "express";
-
-const app = express();
-const port = Number(process.env.PORT ?? 3001);
-
-app.use(cors());
-app.use(express.json());
-
+export function getSpecGroups() {
 const assetLogos = {
   NVDA: "https://www.figma.com/api/mcp/asset/c25c9a9c-3737-42dd-a753-446c63e0d811",
   TSLA: "https://www.figma.com/api/mcp/asset/68bdbd5e-f85e-4b45-9a5e-7bddaf3075b2",
@@ -258,8 +250,6 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
     elements
   };
 }
-
-app.get("/api/spec", (_req: Request, res: Response) => {
   const groups = [
     {
       id: "scene-81033-18324",
@@ -567,10 +557,5 @@ app.get("/api/spec", (_req: Request, res: Response) => {
       )
     }
   ];
-
-  (res as any).json({ groups });
-});
-
-app.listen(port, () => {
-  console.log(`server running at http://localhost:${port}`);
-});
+  return groups;
+}

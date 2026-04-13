@@ -1,6 +1,6 @@
 # json-render-demo
 
-React + Express 的最小示例：服务端返回 JSON Render spec，前端页面渲染。
+React 最小示例：本地 TS 文件提供 JSON Render spec，前端页面渲染。
 
 ## 设计文档
 
@@ -17,4 +17,3 @@ pnpm dev
 ```
 
 - 前端：`http://localhost:5173`
-- 服务端：`http://localhost:3001/api/spec`
