@@ -108,6 +108,34 @@ https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E
 - `columnKey`
 - `cellValue`
 
+## 13. 要点列表（NarrativeHighlightsList）
+Figma：
+https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19297&m=dev
+
+字段：
+- `items[]`
+
+`items[]` 内字段：
+- `title`
+- `description`
+
+## 14. 维度排名变化表（DimensionRankChangeTable）
+Figma：
+https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81174-35977&m=dev
+
+字段：
+- `rows[]`
+- `dimensionLabel?`
+- `rankLabel?`
+- `changeLabel?`
+
+`rows[]` 内字段：
+- `dimensionKey`
+- `dimensionName`
+- `rankValue`
+- `rankTotalAssets`
+- `rankChange`
+
 ## 7. 管理层电话会要点卡
 Figma：
 https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19289&m=dev
@@ -151,3 +179,51 @@ https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E
 - `assetSymbol`
 - `fromRating`
 - `toRating`
+
+## 10. 资产头（AssetContextHeader）
+Figma：
+https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19293&m=dev
+
+字段：
+- `assetLogo`
+- `assetSymbol`
+- `title`
+
+## 11. 关键指标条（KeyStatsStrip）
+Figma：
+https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19200&m=dev
+
+字段：
+- `items[]`
+
+`items[]` 内字段：
+- `metricKey`
+- `metricName`
+- `metricValue`
+- `metricChange`
+
+## 12. 数据表格（DataGridTable）
+Figma：
+https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19219&m=dev
+
+字段：
+- `tableColumns[]`
+- `tableRows[]`
+- `firstColumnHeader?`
+- `badgeColumnKeys[]?`
+- `accentColumnKeys[]?`
+
+`tableColumns[]` 内字段：
+- `columnKey`
+- `columnTitle`
+
+`tableRows[]` 内字段：
+- `rowKey`
+- `rowName`
+- `cells[]`
+- `resultTag?`
+- `rowChange?`
+
+`cells[]` 内字段：
+- `columnKey`
+- `cellValue`

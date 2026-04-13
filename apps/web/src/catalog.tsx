@@ -218,23 +218,23 @@ const catalog = defineCatalog(schema, {
       })
     },
     AssetContextHeader: {
-      description: "Reusable asset + context title header",
+      description: "Reusable asset + context title header mapped from Figma node 81033:19293",
       props: assetContextHeaderSchema
     },
     KeyStatsStrip: {
-      description: "Reusable key stats strip",
+      description: "Reusable key stats strip mapped from Figma node 81033:19200",
       props: keyStatsStripSchema
     },
     DataGridTable: {
-      description: "Reusable tabular data block",
+      description: "Reusable tabular data block mapped from Figma node 81033:19219",
       props: dataGridTableSchema
     },
     NarrativeHighlightsList: {
-      description: "Reusable narrative highlights list",
+      description: "Reusable narrative highlights list mapped from Figma node 81033:19297",
       props: narrativeHighlightsListSchema
     },
     DimensionRankChangeTable: {
-      description: "Reusable dimension rank change table",
+      description: "Reusable dimension rank change table mapped from Figma node 81174:35977",
       props: dimensionRankChangeTableSchema
     },
     RatingChangeComparisonList: {
