@@ -14,6 +14,15 @@
           "columnTitle": {
             "type": "string",
             "description": "Header title for the table column."
+          },
+          "columnStyle": {
+            "description": "Optional display style for values in this column: default = standard centered text, badge = rendered as a rounded status chip, accent = rendered with accent color and stronger emphasis.",
+            "type": "string",
+            "enum": [
+              "default",
+              "badge",
+              "accent"
+            ]
           }
         },
         "required": [
@@ -60,14 +69,6 @@
               "description": "One cell value keyed by column."
             },
             "description": "Cell values mapped by column keys."
-          },
-          "resultTag": {
-            "description": "Optional badge text shown for row status.",
-            "type": "string"
-          },
-          "rowChange": {
-            "description": "Optional change text associated with the row.",
-            "type": "string"
           }
         },
         "required": [
@@ -83,20 +84,6 @@
     "firstColumnHeader": {
       "description": "Optional header for the first fixed column.",
       "type": "string"
-    },
-    "badgeColumnKeys": {
-      "description": "Column keys rendered as badge chips.",
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "accentColumnKeys": {
-      "description": "Column keys rendered with accent color emphasis.",
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
     }
   },
   "required": [

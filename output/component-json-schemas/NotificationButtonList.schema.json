@@ -14,7 +14,7 @@
               "detail",
               "askEd"
             ],
-            "description": "Action type used to decide behavior and default label."
+            "description": "Action type used to decide behavior and default label: dislike = feedback action, detail = navigate to href, askEd = dispatch ask-ed with question."
           },
           "label": {
             "description": "Optional custom button label.",
@@ -29,7 +29,7 @@
             "type": "string"
           },
           "variant": {
-            "description": "Optional visual style variant of the action button.",
+            "description": "Optional visual style variant: primary = filled accent button, secondary = outlined neutral button. Defaults to primary for askEd and secondary for other action types.",
             "type": "string",
             "enum": [
               "primary",

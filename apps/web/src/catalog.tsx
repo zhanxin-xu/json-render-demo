@@ -67,7 +67,11 @@ const summaryMetricSchema = z
 const tableColumnSchema = z
   .object({
     columnKey: z.string().describe("Unique key for the table column."),
-    columnTitle: z.string().describe("Header title for the table column.")
+    columnTitle: z.string().describe("Header title for the table column."),
+    columnStyle: z
+      .enum(["default", "badge", "accent"])
+      .optional()
+      .describe("Optional display style for values in this column: default = standard centered text, badge = rendered as a rounded status chip, accent = rendered with accent color and stronger emphasis.")
   })
   .describe("Definition of one data table column.");
 
@@ -82,9 +86,7 @@ const tableRowSchema = z
   .object({
     rowKey: z.string().describe("Stable key for the row."),
     rowName: z.string().describe("Display name shown in the first column."),
-    cells: z.array(tableCellSchema).describe("Cell values mapped by column keys."),
-    resultTag: z.string().optional().describe("Optional badge text shown for row status."),
-    rowChange: z.string().optional().describe("Optional change text associated with the row.")
+    cells: z.array(tableCellSchema).describe("Cell values mapped by column keys.")
   })
   .describe("One row in the generic data grid table.");
 
@@ -116,11 +118,16 @@ const ratingChangeSchema = z
 
 const notificationButtonActionSchema = z
   .object({
-    actionType: z.enum(["dislike", "detail", "askEd"]).describe("Action type used to decide behavior and default label."),
+    actionType: z
+      .enum(["dislike", "detail", "askEd"])
+      .describe("Action type used to decide behavior and default label: dislike = feedback action, detail = navigate to href, askEd = dispatch ask-ed with question."),
     label: z.string().optional().describe("Optional custom button label."),
     href: z.string().optional().describe("Optional target URL used by the detail action."),
     question: z.string().optional().describe("Optional preset question used by the askEd action."),
-    variant: z.enum(["primary", "secondary"]).optional().describe("Optional visual style variant of the action button.")
+    variant: z
+      .enum(["primary", "secondary"])
+      .optional()
+      .describe("Optional visual style variant: primary = filled accent button, secondary = outlined neutral button. Defaults to primary for askEd and secondary for other action types.")
   })
   .describe("One action button configuration in the notification footer.");
 
@@ -153,9 +160,7 @@ const dataGridTableSchema = z
   .object({
     tableColumns: z.array(tableColumnSchema).describe("Column definitions for the data table."),
     tableRows: z.array(tableRowSchema).describe("Row entries for the data table."),
-    firstColumnHeader: z.string().optional().describe("Optional header for the first fixed column."),
-    badgeColumnKeys: z.array(z.string()).optional().describe("Column keys rendered as badge chips."),
-    accentColumnKeys: z.array(z.string()).optional().describe("Column keys rendered with accent color emphasis.")
+    firstColumnHeader: z.string().optional().describe("Optional header for the first fixed column.")
   })
   .describe("Props for the reusable data grid table.");
 
@@ -246,6 +251,7 @@ type DataGridTableProps = {
   tableColumns: Array<{
     columnKey: string;
     columnTitle: string;
+    columnStyle?: "default" | "badge" | "accent";
   }>;
   tableRows: Array<{
     rowKey: string;
@@ -256,8 +262,6 @@ type DataGridTableProps = {
     }>;
   }>;
   firstColumnHeader?: string;
-  badgeColumnKeys?: string[];
-  accentColumnKeys?: string[];
 };
 
 type NarrativeHighlightsListProps = {
@@ -592,8 +596,16 @@ function renderKeyStatsStrip(props: KeyStatsStripProps) {
 
 function renderDataGridTable(props: DataGridTableProps) {
   const tableGridTemplateColumns = `minmax(110px,1.25fr) repeat(${props.tableColumns.length}, minmax(0, 1fr))`;
-  const badgeKeys = new Set(props.badgeColumnKeys ?? []);
-  const accentKeys = new Set(props.accentColumnKeys ?? []);
+  const badgeKeys = new Set<string>();
+  const accentKeys = new Set<string>();
+
+  for (const column of props.tableColumns) {
+    if (column.columnStyle === "badge") {
+      badgeKeys.add(column.columnKey);
+    } else if (column.columnStyle === "accent") {
+      accentKeys.add(column.columnKey);
+    }
+  }
 
   return (
     <div style={{ border: "none", borderRadius: 0, overflow: "hidden" }}>

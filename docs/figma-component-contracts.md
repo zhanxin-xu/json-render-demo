@@ -109,8 +109,6 @@ https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E
 - `rowKey`
 - `rowName`
 - `cells[]`
-- `resultTag?`
-- `rowChange?`
 
 `cells[]` 内字段：
 - `columnKey`
@@ -204,10 +202,16 @@ Figma：
 
 `actions[]` 内字段：
 - `actionType`（`dislike` / `detail` / `askEd`）
+  - `dislike`：反馈不感兴趣
+  - `detail`：跳转到 `href`
+  - `askEd`：触发提问事件，使用 `question` 作为预置问题
 - `label?`
 - `href?`（`detail` 按钮可选）
 - `question?`（`askEd` 按钮可选）
 - `variant?`（`primary` / `secondary`）
+  - `primary`：强调色实心按钮
+  - `secondary`：中性描边按钮
+  - 默认值：`askEd` 默认 `primary`，其它类型默认 `secondary`
 
 ## 11. 关键指标条（AssetKeyStatsStrip）
 Figma：
@@ -230,19 +234,19 @@ https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E
 - `tableColumns[]`
 - `tableRows[]`
 - `firstColumnHeader?`
-- `badgeColumnKeys[]?`
-- `accentColumnKeys[]?`
 
 `tableColumns[]` 内字段：
 - `columnKey`
 - `columnTitle`
+- `columnStyle?`（`default` / `badge` / `accent`）
+  - `default`：普通文本样式（居中、常规强调）
+  - `badge`：以圆角标签样式展示（适合状态词，如 Beat/Miss）
+  - `accent`：使用强调色与更高字重（适合变化值，如 +8.2%）
 
 `tableRows[]` 内字段：
 - `rowKey`
 - `rowName`
 - `cells[]`
-- `resultTag?`
-- `rowChange?`
 
 `cells[]` 内字段：
 - `columnKey`

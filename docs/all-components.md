@@ -71,6 +71,16 @@ Figma：无独立映射节点，作为 `NotificationCardContainer` 的底部交�
 }
 ```
 
+`actionType` 语义：
+- `dislike`：反馈不感兴趣。
+- `detail`：跳转到 `href`。
+- `askEd`：触发提问事件，使用 `question` 作为预置问题。
+
+`variant` 语义：
+- `primary`：强调色实心按钮。
+- `secondary`：中性描边按钮。
+- 默认值：`askEd` 默认 `primary`，其它类型默认 `secondary`。
+
 ### 4) AssetRecommendationList
 
 说明：资产推荐列表，展示多个资产的价格、涨跌、推荐理由和评分。
@@ -212,8 +222,6 @@ Figma：[`81033:19219`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
   tableColumns: TableColumn[];
   tableRows: TableRow[];
   firstColumnHeader?: string;
-  badgeColumnKeys?: string[];
-  accentColumnKeys?: string[];
 }
 ```
 
@@ -223,8 +231,14 @@ Figma：[`81033:19219`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 {
   columnKey: string;
   columnTitle: string;
+  columnStyle?: "default" | "badge" | "accent";
 }
 ```
+
+`columnStyle` 语义：
+- `default`：普通文本样式（居中、常规强调）。
+- `badge`：以圆角标签样式渲染，适合 `Beat/Miss` 这类状态值。
+- `accent`：使用强调色与更高字重渲染，适合 `+8.2%` 这类需要突出关注的值。
 
 `TableRow`:
 
@@ -233,8 +247,6 @@ Figma：[`81033:19219`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
   rowKey: string;
   rowName: string;
   cells: TableCell[];
-  resultTag?: string;
-  rowChange?: string;
 }
 ```
 

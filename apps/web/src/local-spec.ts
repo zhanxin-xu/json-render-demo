@@ -501,11 +501,13 @@ const groups = [
               },
               {
                 "columnKey": "result",
-                "columnTitle": "Result"
+                "columnTitle": "Result",
+                "columnStyle": "badge"
               },
               {
                 "columnKey": "yoy",
-                "columnTitle": "YoY"
+                "columnTitle": "YoY",
+                "columnStyle": "accent"
               }
             ],
             "tableRows": [
@@ -575,12 +577,6 @@ const groups = [
                   }
                 ]
               }
-            ],
-            "badgeColumnKeys": [
-              "result"
-            ],
-            "accentColumnKeys": [
-              "yoy"
             ]
           },
           "children": []
