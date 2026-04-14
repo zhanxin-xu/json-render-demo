@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "Body text content displayed inside the notification card."
+    }
+  },
+  "required": [
+    "text"
+  ],
+  "additionalProperties": false,
+  "description": "Props for the notification text component."
+}

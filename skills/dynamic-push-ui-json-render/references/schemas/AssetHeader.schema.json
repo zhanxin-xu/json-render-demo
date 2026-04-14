@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "assetLogo": {
+      "description": "Optional logo URL of the asset.",
+      "type": "string"
+    },
+    "assetSymbol": {
+      "type": "string",
+      "description": "Ticker symbol of the asset."
+    },
+    "title": {
+      "type": "string",
+      "description": "Asset display title or company name."
+    },
+    "assetScoreValue": {
+      "description": "Optional score numerator for score mode.",
+      "type": "number"
+    },
+    "assetScoreTotal": {
+      "description": "Optional score denominator for score mode.",
+      "type": "number"
+    }
+  },
+  "required": [
+    "assetSymbol",
+    "title"
+  ],
+  "additionalProperties": false,
+  "description": "Header props supporting both score and non-score layouts."
+}

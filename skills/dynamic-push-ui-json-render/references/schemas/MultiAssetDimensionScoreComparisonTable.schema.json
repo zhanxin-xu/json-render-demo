@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "dimensions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "dimensionKey": {
+            "type": "string",
+            "description": "Unique key used to match dimension scores."
+          },
+          "dimensionName": {
+            "type": "string",
+            "description": "Human-readable label for the dimension."
+          }
+        },
+        "required": [
+          "dimensionKey",
+          "dimensionName"
+        ],
+        "additionalProperties": false,
+        "description": "Definition of one dimension column."
+      },
+      "description": "Dimension definitions used as table columns."
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "assetLogo": {
+            "description": "Optional logo URL for the asset.",
+            "type": "string"
+          },
+          "assetSymbol": {
+            "type": "string",
+            "description": "Ticker symbol of the compared asset."
+          },
+          "assetName": {
+            "type": "string",
+            "description": "Full display name of the compared asset."
+          },
+          "dimensionScores": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "dimensionKey": {
+                  "type": "string",
+                  "description": "Dimension key that matches the dimension definition."
+                },
+                "scoreValue": {
+                  "type": "number",
+                  "description": "Score value under this dimension."
+                },
+                "scoreTotal": {
+                  "type": "number",
+                  "description": "Score denominator under this dimension."
+                },
+                "rankValue": {
+                  "type": "number",
+                  "description": "Rank position under this dimension."
+                },
+                "rankTotalAssets": {
+                  "type": "number",
+                  "description": "Total assets considered for ranking."
+                }
+              },
+              "required": [
+                "dimensionKey",
+                "scoreValue",
+                "scoreTotal",
+                "rankValue",
+                "rankTotalAssets"
+              ],
+              "additionalProperties": false,
+              "description": "Score and rank data for one dimension."
+            },
+            "description": "Dimension score values keyed by dimensionKey."
+          }
+        },
+        "required": [
+          "assetSymbol",
+          "assetName",
+          "dimensionScores"
+        ],
+        "additionalProperties": false,
+        "description": "One asset entry in the multi-asset comparison table."
+      },
+      "description": "Assets and their per-dimension scores."
+    }
+  },
+  "required": [
+    "dimensions",
+    "assets"
+  ],
+  "additionalProperties": false,
+  "description": "Props for the multi-asset dimension comparison table."
+}

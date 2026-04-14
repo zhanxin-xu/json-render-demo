@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "actionType": {
+            "type": "string",
+            "enum": [
+              "dislike",
+              "detail",
+              "askEd"
+            ],
+            "description": "Action type used to decide behavior and default label."
+          },
+          "label": {
+            "description": "Optional custom button label.",
+            "type": "string"
+          },
+          "href": {
+            "description": "Optional target URL used by the detail action.",
+            "type": "string"
+          },
+          "question": {
+            "description": "Optional preset question used by the askEd action.",
+            "type": "string"
+          },
+          "variant": {
+            "description": "Optional visual style variant of the action button.",
+            "type": "string",
+            "enum": [
+              "primary",
+              "secondary"
+            ]
+          }
+        },
+        "required": [
+          "actionType"
+        ],
+        "additionalProperties": false,
+        "description": "One action button configuration in the notification footer."
+      },
+      "description": "Ordered button actions rendered in the footer."
+    }
+  },
+  "required": [
+    "actions"
+  ],
+  "additionalProperties": false,
+  "description": "Props for the notification button list component."
+}

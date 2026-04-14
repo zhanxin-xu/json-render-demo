@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "dimensionName": {
+            "type": "string",
+            "description": "Display name of the scoring dimension."
+          },
+          "scoreValue": {
+            "type": "number",
+            "description": "Score value for the dimension."
+          },
+          "scoreTotal": {
+            "type": "number",
+            "description": "Score denominator for the dimension."
+          },
+          "rankValue": {
+            "type": "number",
+            "description": "Current rank position."
+          },
+          "rankTotalAssets": {
+            "type": "number",
+            "description": "Total number of ranked assets."
+          }
+        },
+        "required": [
+          "dimensionName",
+          "scoreValue",
+          "scoreTotal",
+          "rankValue",
+          "rankTotalAssets"
+        ],
+        "additionalProperties": false,
+        "description": "One row in the single-asset dimension score table."
+      },
+      "description": "Dimension rows for a single asset."
+    }
+  },
+  "required": [
+    "rows"
+  ],
+  "additionalProperties": false,
+  "description": "Props for the single asset dimension score table."
+}

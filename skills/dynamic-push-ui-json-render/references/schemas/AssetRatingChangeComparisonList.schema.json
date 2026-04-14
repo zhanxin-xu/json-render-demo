@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "assetLogo": {
+            "description": "Optional logo URL for the asset.",
+            "type": "string"
+          },
+          "assetSymbol": {
+            "type": "string",
+            "description": "Ticker symbol of the rated asset."
+          },
+          "fromRating": {
+            "type": "string",
+            "description": "Previous rating label."
+          },
+          "toRating": {
+            "type": "string",
+            "description": "Updated rating label."
+          }
+        },
+        "required": [
+          "assetSymbol",
+          "fromRating",
+          "toRating"
+        ],
+        "additionalProperties": false,
+        "description": "One item in the rating change comparison list."
+      },
+      "description": "Rating change entries to compare old and new ratings."
+    }
+  },
+  "required": [
+    "changes"
+  ],
+  "additionalProperties": false,
+  "description": "Props for the rating change comparison list."
+}
