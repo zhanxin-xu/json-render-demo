@@ -90,10 +90,18 @@ const ratingChangeSchema = z.object({
   toRating: z.string()
 });
 
+const notificationButtonListSchema = z.object({
+  dislikeLabel: z.string().optional(),
+  detailLabel: z.string().optional(),
+  detailUrl: z.string().optional(),
+  askEdLabel: z.string().optional(),
+  askEdQuestion: z.string().optional()
+});
+
 const assetHeaderSchema = z
   .object({
-  assetLogo: z.string().optional(),
-  assetSymbol: z.string(),
+    assetLogo: z.string().optional(),
+    assetSymbol: z.string(),
     title: z.string(),
     assetScoreValue: z.number().optional(),
     assetScoreTotal: z.number().optional()
@@ -131,6 +139,14 @@ type AssetHeaderProps = {
   title: string;
   assetScoreValue?: number;
   assetScoreTotal?: number;
+};
+
+type NotificationButtonListProps = {
+  dislikeLabel?: string;
+  detailLabel?: string;
+  detailUrl?: string;
+  askEdLabel?: string;
+  askEdQuestion?: string;
 };
 
 type KeyStatsStripProps = {
@@ -185,8 +201,7 @@ const catalog = defineCatalog(schema, {
     NotificationCardContainer: {
       description: "Notification card container mapped from Figma node 81033:18324",
       props: z.object({
-        noticeTitle: z.string(),
-        detailUrl: z.string()
+        noticeTitle: z.string()
       })
     },
     NotificationText: {
@@ -194,6 +209,10 @@ const catalog = defineCatalog(schema, {
       props: z.object({
         text: z.string()
       })
+    },
+    NotificationButtonList: {
+      description: "Notification button list (dislike/detail/ask ED) rendered inside NotificationCardContainer",
+      props: notificationButtonListSchema
     },
     AssetRecommendationList: {
       description: "Asset recommendation list mapped from Figma node 81033:18334",
@@ -319,7 +338,11 @@ function renderScoreBadge(score: number, total: number, label = "Score") {
   );
 }
 
-function renderFooterButton(label: string, variant: "primary" | "secondary", href?: string) {
+function renderFooterButton(
+  label: string,
+  variant: "primary" | "secondary",
+  options?: { href?: string; onClick?: () => void; title?: string }
+) {
   const style = {
     minHeight: 28,
     minWidth: 80,
@@ -344,18 +367,51 @@ function renderFooterButton(label: string, variant: "primary" | "secondary", hre
     opacity: 1
   };
 
-  if (href) {
-    return (
-      <button type="button" onClick={() => window.location.assign(href)} style={{ ...style, cursor: "pointer" }}>
-        {label + " \u2192"}
-      </button>
-    );
-  }
+  const handleClick = () => {
+    if (options?.href) {
+      window.location.assign(options.href);
+      return;
+    }
+
+    options?.onClick?.();
+  };
 
   return (
-    <button type="button" style={{ ...style, cursor: "pointer" }}>
+    <button type="button" onClick={handleClick} title={options?.title} style={{ ...style, cursor: "pointer" }}>
       {label + " \u2192"}
     </button>
+  );
+}
+
+function renderNotificationButtonList(props: NotificationButtonListProps) {
+  const dislikeLabel = props.dislikeLabel ?? "Dislike";
+  const detailLabel = props.detailLabel ?? "View Details";
+  const askEdLabel = props.askEdLabel ?? "Ask Edgen";
+
+  const handleAskEd = () => {
+    if (!props.askEdQuestion) return;
+    window.dispatchEvent(
+      new CustomEvent("ask-ed", {
+        detail: {
+          question: props.askEdQuestion
+        }
+      })
+    );
+  };
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        flexWrap: "wrap",
+        gap: 12
+      }}
+    >
+      {renderFooterButton(dislikeLabel, "secondary")}
+      {renderFooterButton(detailLabel, "secondary", { href: props.detailUrl })}
+      {renderFooterButton(askEdLabel, "primary", { onClick: handleAskEd, title: props.askEdQuestion })}
+    </div>
   );
 }
 
@@ -489,9 +545,9 @@ function renderDimensionRankChangeTable(props: DimensionRankChangeTableProps) {
   return (
     <div style={{ border: "1px solid rgba(10,10,10,0.08)", borderRadius: 8, overflow: "hidden" }}>
       <div style={{ display: "grid", gridTemplateColumns: "minmax(120px,1.2fr) 1fr 1fr", borderBottom: "1px solid rgba(10,10,10,0.08)", background: "rgba(10,10,10,0.04)" }}>
-        <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)" }}>{props.dimensionLabel ?? "维度"}</p>
-        <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)", textAlign: "center" }}>{props.rankLabel ?? "排行"}</p>
-        <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)", textAlign: "center" }}>{props.changeLabel ?? "变化"}</p>
+        <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)" }}>{props.dimensionLabel ?? "Dimension"}</p>
+        <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)", textAlign: "center" }}>{props.rankLabel ?? "Rank"}</p>
+        <p style={{ margin: 0, padding: "8px", fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.52)", textAlign: "center" }}>{props.changeLabel ?? "Change"}</p>
       </div>
       {props.rows.map((row, index) => (
         <div
@@ -547,20 +603,10 @@ const { registry } = defineRegistry(catalog, {
       >
         <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{props.noticeTitle}</p>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>{children}</div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: 12
-          }}
-        >
-          {renderFooterButton("Dislike", "secondary")}
-          {renderFooterButton("View Details", "secondary", props.detailUrl)}
-          {renderFooterButton("Ask Ed", "primary")}
-        </div>
       </section>
     ),
+
+    NotificationButtonList: ({ props }) => renderNotificationButtonList(props),
 
     AssetRecommendationList: ({ props }) => (
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>

@@ -218,6 +218,19 @@ const ratingChangeProps = {
 function containerElements(containerProps: Record<string, unknown>, children: Array<{ id: string; type: string; props: Record<string, unknown> }>) {
   const normalizedProps = { ...containerProps };
   const normalizedChildren = [...children];
+
+  const detailUrl = typeof normalizedProps.detailUrl === "string" ? normalizedProps.detailUrl : undefined;
+  const dislikeLabel = typeof normalizedProps.dislikeLabel === "string" ? normalizedProps.dislikeLabel : undefined;
+  const detailLabel = typeof normalizedProps.detailLabel === "string" ? normalizedProps.detailLabel : undefined;
+  const askEdLabel = typeof normalizedProps.askEdLabel === "string" ? normalizedProps.askEdLabel : undefined;
+  const askEdQuestion = typeof normalizedProps.askEdQuestion === "string" ? normalizedProps.askEdQuestion : undefined;
+
+  delete normalizedProps.detailUrl;
+  delete normalizedProps.dislikeLabel;
+  delete normalizedProps.detailLabel;
+  delete normalizedProps.askEdLabel;
+  delete normalizedProps.askEdQuestion;
+
   const insight = typeof normalizedProps.insightText === "string" ? normalizedProps.insightText.trim() : "";
   delete normalizedProps.insightText;
 
@@ -228,6 +241,18 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       props: { text: insight }
     });
   }
+
+  normalizedChildren.push({
+    id: "notice-actions",
+    type: "NotificationButtonList",
+    props: {
+      dislikeLabel,
+      detailLabel,
+      detailUrl,
+      askEdLabel,
+      askEdQuestion
+    }
+  });
 
   const elements: Record<string, { type: string; props: Record<string, unknown>; children: string[] }> = {
     container: {
@@ -258,6 +283,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         {
           noticeTitle: "Trending Stocks",
           detailUrl: "https://example.com/asset/NVDA",
+          dislikeLabel: "Not Interested",
+          detailLabel: "Open NVDA",
+          askEdLabel: "Ask Edgen",
+          askEdQuestion: "Which stock in this trending list should I review first, and why?",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
         },
         [{ id: "list", type: "AssetRecommendationList", props: { sectionLabel: "Theme", assets: trendingAssets } }]
@@ -270,6 +299,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         {
           noticeTitle: "My Pick This Week: TSM",
           detailUrl: "https://example.com/asset/TSM",
+          dislikeLabel: "Skip for Now",
+          detailLabel: "View TSM Thesis",
+          askEdLabel: "Ask Edgen",
+          askEdQuestion: "What is the core thesis for TSM this week, and what are the main risks?",
           insightText:
             "Revenue Growth +33% YoY — near the top of sector, driven by AI chip demand. Advanced Node revenue now 68% of total, strengthening pricing power in leading-edge process. Valuation 28/103, Growth 8/103 — growth far outpacing valuation, offering strong value.",
         },
@@ -300,6 +333,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         {
           noticeTitle: "Semiconductor Watchlist Comparison",
           detailUrl: "https://example.com/watchlist/semiconductors",
+          dislikeLabel: "No Comparison",
+          detailLabel: "Open Watchlist",
+          askEdLabel: "Ask Edgen",
+          askEdQuestion: "In this semiconductor comparison, which two names are most worth tracking now?",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text"
         },
         [
@@ -318,6 +355,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         {
           noticeTitle: "My Pick This Week: TSM",
           detailUrl: "https://example.com/asset/TSM",
+          dislikeLabel: "Skip This",
+          detailLabel: "View Score Breakdown",
+          askEdLabel: "Ask Edgen",
+          askEdQuestion: "Based on the scores, what are this asset's strongest and weakest dimensions right now?",
           insightText:
             "Revenue Growth +33% YoY — near the top of sector, driven by AI chip demand. Advanced Node revenue now 68% of total, strengthening pricing power in leading-edge process. Valuation 28/103, Growth 8/103 — growth far outpacing valuation, offering strong value.",
         },
@@ -340,8 +381,12 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
       name: "81033:18901",
       spec: containerElements(
         {
-          noticeTitle: "单资产健康检查",
+          noticeTitle: "Single Asset Health Check",
           detailUrl: "https://example.com/asset/health/nvda",
+          dislikeLabel: "Skip Health Check",
+          detailLabel: "View Health Report",
+          askEdLabel: "Ask Edgen",
+          askEdQuestion: "In this health check, which metric should I prioritize first?",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
         },
         [
@@ -361,6 +406,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         {
           noticeTitle: "Semiconductor Watchlist Comparison",
           detailUrl: "https://example.com/watchlist/semiconductors",
+          dislikeLabel: "Skip for Now",
+          detailLabel: "View Multi-Factor Comparison",
+          askEdLabel: "Ask Edgen",
+          askEdQuestion: "From the multi-factor scores, which asset has the best risk-reward profile?",
           insightText: "Ed's Insight (placeholder bodyEd's Insight placeholder body text",
         },
         [
@@ -379,6 +428,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         {
           noticeTitle: "Earnings Update",
           detailUrl: "https://example.com/earnings/nvda",
+          dislikeLabel: "Skip Earnings",
+          detailLabel: "View Earnings Details",
+          askEdLabel: "Ask Edgen",
+          askEdQuestion: "What were the most important beats and misses in this earnings report?",
           insightText: "Ed's Insight (placeholder bodyEd's Insight placeholder body text",
         },
         [
@@ -412,6 +465,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         {
           noticeTitle: "Earnings Update",
           detailUrl: "https://example.com/management-call/nvda",
+          dislikeLabel: "Skip Highlights",
+          detailLabel: "View Call Notes",
+          askEdLabel: "Ask Edgen",
+          askEdQuestion: "From the management call, what guidance matters most for next quarter?",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
         },
         [
@@ -435,6 +492,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         {
           noticeTitle: "Rating Rank Movement",
           detailUrl: "https://example.com/rank-movement/nvda",
+          dislikeLabel: "Skip Ranking",
+          detailLabel: "View Rank Changes",
+          askEdLabel: "Ask Edgen",
+          askEdQuestion: "Are these ranking changes driven by short-term noise or fundamental shifts?",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
         },
         [
@@ -458,6 +519,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         {
           noticeTitle: "Rating Rank Movement",
           detailUrl: "https://example.com/rank-movement/btc",
+          dislikeLabel: "Not Tracking",
+          detailLabel: "View BTC Changes",
+          askEdLabel: "Ask Edgen",
+          askEdQuestion: "How should this BTC rank move affect my short- to mid-term plan?",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
         },
         [
@@ -485,6 +550,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         {
           noticeTitle: "Technical Signal Update",
           detailUrl: "https://example.com/technical-signal/btc",
+          dislikeLabel: "Skip Signal",
+          detailLabel: "View Technical Details",
+          askEdLabel: "Ask Edgen",
+          askEdQuestion: "Does this technical signal suggest holding, adding, or trimming?",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
         },
         [{ id: "rating", type: "RatingChangeComparisonList", props: ratingChangeProps }]
@@ -497,6 +566,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         {
           noticeTitle: "Trending Stocks",
           detailUrl: "https://example.com/asset/NVDA",
+          dislikeLabel: "Skip Picks",
+          detailLabel: "View Trending List",
+          askEdLabel: "Ask Edgen",
+          askEdQuestion: "Which name in this trending set is best suited for a conservative portfolio?",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
         },
         [{ id: "list", type: "AssetRecommendationList", props: { sectionLabel: "Theme", assets: trendingAssets } }]
@@ -509,6 +582,10 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         {
           noticeTitle: "My Pick This Week: TSM",
           detailUrl: "https://example.com/asset/TSM",
+          dislikeLabel: "No Action Yet",
+          detailLabel: "View Full Report",
+          askEdLabel: "Ask Edgen",
+          askEdQuestion: "Given the current score and valuation, suggest a step-by-step action plan.",
           insightText:
             "Revenue Growth +33% YoY — near the top of sector, driven by AI chip demand. Advanced Node revenue now 68% of total, strengthening pricing power in leading-edge process. Valuation 28/103, Growth 8/103 — growth far outpacing valuation, offering strong value.",
         },

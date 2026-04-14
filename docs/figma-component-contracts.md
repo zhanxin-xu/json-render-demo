@@ -6,8 +6,10 @@ https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E
 
 字段：
 - `noticeTitle`
-- `detailUrl`
 - `children`
+
+说明：
+- 底部按钮区已拆分为独立组件 `NotificationButtonList`（通知按钮列表）。
 
 ## 2. 资产推荐列表
 Figma：
@@ -191,6 +193,17 @@ https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E
 
 说明：
 - 该定义已合并到 `## 3. 资产头（AssetHeader）`，保留此节仅用于历史兼容说明。
+
+## 15. 通知按钮列表（NotificationButtonList）
+Figma：
+无独立映射节点（代码拆分组件）
+
+字段：
+- `dislikeLabel?`
+- `detailLabel?`
+- `detailUrl?`
+- `askEdLabel?`
+- `askEdQuestion?`
 
 ## 11. 关键指标条（KeyStatsStrip）
 Figma：
