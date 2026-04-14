@@ -54,11 +54,19 @@ Figma：无独立映射节点，作为 `NotificationCardContainer` 的底部交�
 
 ```ts
 {
-  dislikeLabel?: string;
-  detailLabel?: string;
-  detailUrl?: string;
-  askEdLabel?: string;
-  askEdQuestion?: string;
+  actions: NotificationAction[];
+}
+```
+
+`NotificationAction`:
+
+```ts
+{
+  actionType: "dislike" | "detail" | "askEd";
+  label?: string;
+  href?: string;
+  question?: string;
+  variant?: "primary" | "secondary";
 }
 ```
 

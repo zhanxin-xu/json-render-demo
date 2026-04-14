@@ -199,11 +199,14 @@ Figma：
 无独立映射节点（代码拆分组件）
 
 字段：
-- `dislikeLabel?`
-- `detailLabel?`
-- `detailUrl?`
-- `askEdLabel?`
-- `askEdQuestion?`
+- `actions[]`
+
+`actions[]` 内字段：
+- `actionType`（`dislike` / `detail` / `askEd`）
+- `label?`
+- `href?`（`detail` 按钮可选）
+- `question?`（`askEd` 按钮可选）
+- `variant?`（`primary` / `secondary`）
 
 ## 11. 关键指标条（AssetKeyStatsStrip）
 Figma：

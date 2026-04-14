@@ -90,12 +90,16 @@ const ratingChangeSchema = z.object({
   toRating: z.string()
 });
 
+const notificationButtonActionSchema = z.object({
+  actionType: z.enum(["dislike", "detail", "askEd"]),
+  label: z.string().optional(),
+  href: z.string().optional(),
+  question: z.string().optional(),
+  variant: z.enum(["primary", "secondary"]).optional()
+});
+
 const notificationButtonListSchema = z.object({
-  dislikeLabel: z.string().optional(),
-  detailLabel: z.string().optional(),
-  detailUrl: z.string().optional(),
-  askEdLabel: z.string().optional(),
-  askEdQuestion: z.string().optional()
+  actions: z.array(notificationButtonActionSchema)
 });
 
 const assetHeaderSchema = z
@@ -142,11 +146,13 @@ type AssetHeaderProps = {
 };
 
 type NotificationButtonListProps = {
-  dislikeLabel?: string;
-  detailLabel?: string;
-  detailUrl?: string;
-  askEdLabel?: string;
-  askEdQuestion?: string;
+  actions: Array<{
+    actionType: "dislike" | "detail" | "askEd";
+    label?: string;
+    href?: string;
+    question?: string;
+    variant?: "primary" | "secondary";
+  }>;
 };
 
 type KeyStatsStripProps = {
@@ -384,16 +390,31 @@ function renderFooterButton(
 }
 
 function renderNotificationButtonList(props: NotificationButtonListProps) {
-  const dislikeLabel = props.dislikeLabel ?? "Dislike";
-  const detailLabel = props.detailLabel ?? "View Details";
-  const askEdLabel = props.askEdLabel ?? "Ask Edgen";
+  const actions = props.actions.length
+    ? props.actions
+    : [
+        { actionType: "dislike" as const },
+        { actionType: "detail" as const },
+        { actionType: "askEd" as const }
+      ];
 
-  const handleAskEd = () => {
-    if (!props.askEdQuestion) return;
+  const getDefaultLabel = (actionType: "dislike" | "detail" | "askEd") => {
+    if (actionType === "detail") return "View Details";
+    if (actionType === "askEd") return "Ask Edgen";
+    return "Dislike";
+  };
+
+  const getDefaultVariant = (actionType: "dislike" | "detail" | "askEd"): "primary" | "secondary" => {
+    if (actionType === "askEd") return "primary";
+    return "secondary";
+  };
+
+  const handleAskEd = (question: string | undefined) => {
+    if (!question) return;
     window.dispatchEvent(
       new CustomEvent("ask-ed", {
         detail: {
-          question: props.askEdQuestion
+          question
         }
       })
     );
@@ -408,9 +429,27 @@ function renderNotificationButtonList(props: NotificationButtonListProps) {
         gap: 12
       }}
     >
-      {renderFooterButton(dislikeLabel, "secondary")}
-      {renderFooterButton(detailLabel, "secondary", { href: props.detailUrl })}
-      {renderFooterButton(askEdLabel, "primary", { onClick: handleAskEd, title: props.askEdQuestion })}
+      {actions.map((action, index) => {
+        const actionType = action.actionType;
+        const label = action.label ?? getDefaultLabel(actionType);
+        const variant = action.variant ?? getDefaultVariant(actionType);
+        const options: { href?: string; onClick?: () => void; title?: string } = {};
+
+        if (actionType === "detail") {
+          options.href = action.href;
+        }
+
+        if (actionType === "askEd") {
+          options.onClick = () => handleAskEd(action.question);
+          options.title = action.question;
+        }
+
+        return (
+          <span key={`${actionType}-${index}`} style={{ display: "inline-flex" }}>
+            {renderFooterButton(label, variant, options)}
+          </span>
+        );
+      })}
     </div>
   );
 }
