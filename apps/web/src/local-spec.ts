@@ -442,12 +442,12 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
           },
           {
             id: "key-stats-strip",
-            type: "KeyStatsStrip",
+            type: "AssetKeyStatsStrip",
             props: { items: earningsProps.summaryMetrics }
           },
           {
             id: "data-grid-table",
-            type: "DataGridTable",
+            type: "AssetDataGridTable",
             props: {
               tableColumns: earningsProps.tableColumns,
               tableRows: earningsProps.tableRows,
@@ -479,7 +479,7 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
           },
           {
             id: "narrative-highlights-list",
-            type: "NarrativeHighlightsList",
+            type: "AssetNarrativeHighlightsList",
             props: { items: managementCallProps.highlights }
           }
         ]
@@ -506,7 +506,7 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
           },
           {
             id: "dimension-rank-change-table",
-            type: "DimensionRankChangeTable",
+            type: "AssetDimensionRankChangeTable",
             props: { rows: rankChangeProps.dimensionRankChanges }
           }
         ]
@@ -537,7 +537,7 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
           },
           {
             id: "dimension-rank-change-table",
-            type: "DimensionRankChangeTable",
+            type: "AssetDimensionRankChangeTable",
             props: { rows: rankChangeProps.dimensionRankChanges }
           }
         ]
@@ -556,7 +556,7 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
           askEdQuestion: "Does this technical signal suggest holding, adding, or trimming?",
           insightText: "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text",
         },
-        [{ id: "rating", type: "RatingChangeComparisonList", props: ratingChangeProps }]
+        [{ id: "rating", type: "AssetRatingChangeComparisonList", props: ratingChangeProps }]
       )
     },
     {

@@ -115,7 +115,7 @@ https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E
 - `columnKey`
 - `cellValue`
 
-## 13. 要点列表（NarrativeHighlightsList）
+## 13. 要点列表（AssetNarrativeHighlightsList）
 Figma：
 https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19297&m=dev
 
@@ -126,7 +126,7 @@ https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E
 - `title`
 - `description`
 
-## 14. 维度排名变化表（DimensionRankChangeTable）
+## 14. 维度排名变化表（AssetDimensionRankChangeTable）
 Figma：
 https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81174-35977&m=dev
 
@@ -205,7 +205,7 @@ Figma：
 - `askEdLabel?`
 - `askEdQuestion?`
 
-## 11. 关键指标条（KeyStatsStrip）
+## 11. 关键指标条（AssetKeyStatsStrip）
 Figma：
 https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19200&m=dev
 
@@ -218,7 +218,7 @@ https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E
 - `metricValue`
 - `metricChange`
 
-## 12. 数据表格（DataGridTable）
+## 12. 数据表格（AssetDataGridTable）
 Figma：
 https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19219&m=dev
 

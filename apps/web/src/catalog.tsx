@@ -238,23 +238,23 @@ const catalog = defineCatalog(schema, {
         assets: z.array(multiAssetDimensionItemSchema)
       })
     },
-    KeyStatsStrip: {
+    AssetKeyStatsStrip: {
       description: "Reusable key stats strip mapped from Figma node 81033:19200",
       props: keyStatsStripSchema
     },
-    DataGridTable: {
+    AssetDataGridTable: {
       description: "Reusable tabular data block mapped from Figma node 81033:19219",
       props: dataGridTableSchema
     },
-    NarrativeHighlightsList: {
+    AssetNarrativeHighlightsList: {
       description: "Reusable narrative highlights list mapped from Figma node 81033:19297",
       props: narrativeHighlightsListSchema
     },
-    DimensionRankChangeTable: {
+    AssetDimensionRankChangeTable: {
       description: "Reusable dimension rank change table mapped from Figma node 81174:35977",
       props: dimensionRankChangeTableSchema
     },
-    RatingChangeComparisonList: {
+    AssetRatingChangeComparisonList: {
       description: "Rating change comparison list mapped from Figma node 81033:19165",
       props: z.object({
         changes: z.array(ratingChangeSchema)
@@ -728,15 +728,15 @@ const { registry } = defineRegistry(catalog, {
       );
     },
 
-    KeyStatsStrip: ({ props }) => renderKeyStatsStrip(props),
+    AssetKeyStatsStrip: ({ props }) => renderKeyStatsStrip(props),
 
-    DataGridTable: ({ props }) => renderDataGridTable(props),
+    AssetDataGridTable: ({ props }) => renderDataGridTable(props),
 
-    NarrativeHighlightsList: ({ props }) => renderNarrativeHighlightsList(props),
+    AssetNarrativeHighlightsList: ({ props }) => renderNarrativeHighlightsList(props),
 
-    DimensionRankChangeTable: ({ props }) => renderDimensionRankChangeTable(props),
+    AssetDimensionRankChangeTable: ({ props }) => renderDimensionRankChangeTable(props),
 
-    RatingChangeComparisonList: ({ props }) => (
+    AssetRatingChangeComparisonList: ({ props }) => (
       <div style={{ border: "1px solid rgba(10,10,10,0.08)", borderRadius: 8, overflow: "hidden" }}>
         {props.changes.map((change, index) => (
           <div

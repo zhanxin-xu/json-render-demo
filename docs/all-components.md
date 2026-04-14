@@ -17,11 +17,11 @@ Figma 组件契约补充说明见：[docs/figma-component-contracts.md](/Users/u
 5. `AssetHeader`
 6. `AssetDimensionScoreTable`
 7. `MultiAssetDimensionScoreComparisonTable`
-8. `KeyStatsStrip`
-9. `DataGridTable`
-10. `NarrativeHighlightsList`
-11. `DimensionRankChangeTable`
-12. `RatingChangeComparisonList`
+8. `AssetKeyStatsStrip`
+9. `AssetDataGridTable`
+10. `AssetNarrativeHighlightsList`
+11. `AssetDimensionRankChangeTable`
+12. `AssetRatingChangeComparisonList`
 
 ## 各组件 Props Schema
 
@@ -171,7 +171,7 @@ Figma：[`81033:18607`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 }
 ```
 
-### 8) KeyStatsStrip
+### 8) AssetKeyStatsStrip
 
 说明：可复用的关键指标条，用于展示简要核心数据。
 Figma：[`81033:19200`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19200&m=dev)。
@@ -193,7 +193,7 @@ Figma：[`81033:19200`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 }
 ```
 
-### 9) DataGridTable
+### 9) AssetDataGridTable
 
 说明：可复用数据表格组件，支持徽标列与强调列配置。
 Figma：[`81033:19219`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19219&m=dev)。
@@ -238,7 +238,7 @@ Figma：[`81033:19219`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 }
 ```
 
-### 10) NarrativeHighlightsList
+### 10) AssetNarrativeHighlightsList
 
 说明：可复用叙述型要点列表，展示标题和描述。
 Figma：[`81033:19297`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19297&m=dev)。
@@ -258,7 +258,7 @@ Figma：[`81033:19297`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 }
 ```
 
-### 11) DimensionRankChangeTable
+### 11) AssetDimensionRankChangeTable
 
 说明：可复用维度排名变化表，展示当前排名与变化值。
 Figma：[`81174:35977`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81174-35977&m=dev)。
@@ -284,7 +284,7 @@ Figma：[`81174:35977`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 }
 ```
 
-### 12) RatingChangeComparisonList
+### 12) AssetRatingChangeComparisonList
 
 说明：评级变动对比列表，展示资产从旧评级到新评级的变化。
 Figma：[`81033:19165`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19165&m=dev)。
