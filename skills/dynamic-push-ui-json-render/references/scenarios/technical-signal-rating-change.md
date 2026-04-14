@@ -1,9 +1,21 @@
 # Technical Signal Rating Change
 
-## 组件组合
-`NotificationCardContainer` + `NotificationText` + `AssetRatingChangeComparisonList` + `NotificationButtonList`
+## Scenario Description
+Show rating transitions driven by technical signals, such as upgrades and downgrades across tracked assets.
 
-## 元素骨架
+## Components
+- `NotificationCardContainer`
+- `NotificationText`
+- `AssetRatingChangeComparisonList`
+- `NotificationButtonList`
+
+## Schema Paths
+- `references/schemas/NotificationCardContainer.schema.json`
+- `references/schemas/NotificationText.schema.json`
+- `references/schemas/AssetRatingChangeComparisonList.schema.json`
+- `references/schemas/NotificationButtonList.schema.json`
+
+## Example Spec
 ```json
 {
   "root": "container",
@@ -28,6 +40,6 @@
 }
 ```
 
-## 规范
-- 每条 `changes` 必须包含 `assetSymbol/fromRating/toRating`。
-- 可选提供 `assetLogo`。
+## Rules
+- Each entry in `changes` must include `assetSymbol`, `fromRating`, and `toRating`.
+- `assetLogo` is optional.

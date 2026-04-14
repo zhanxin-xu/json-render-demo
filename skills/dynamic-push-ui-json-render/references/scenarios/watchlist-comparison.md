@@ -1,9 +1,21 @@
 # Watchlist Comparison
 
-## 组件组合
-`NotificationCardContainer` + `NotificationText` + `MultiAssetDimensionScoreComparisonTable` + `NotificationButtonList`
+## Scenario Description
+Compare multiple assets side by side across shared scoring dimensions for fast watchlist ranking.
 
-## 元素骨架
+## Components
+- `NotificationCardContainer`
+- `NotificationText`
+- `MultiAssetDimensionScoreComparisonTable`
+- `NotificationButtonList`
+
+## Schema Paths
+- `references/schemas/NotificationCardContainer.schema.json`
+- `references/schemas/NotificationText.schema.json`
+- `references/schemas/MultiAssetDimensionScoreComparisonTable.schema.json`
+- `references/schemas/NotificationButtonList.schema.json`
+
+## Example Spec
 ```json
 {
   "root": "container",
@@ -39,6 +51,6 @@
 }
 ```
 
-## 规范
-- 每个资产都要覆盖全部 `dimensions`。
-- 推荐资产数量 2-5；维度数量 3-5。
+## Rules
+- Each asset must provide scores for every key declared in `dimensions`.
+- Recommend 2-5 assets and 3-5 dimensions.

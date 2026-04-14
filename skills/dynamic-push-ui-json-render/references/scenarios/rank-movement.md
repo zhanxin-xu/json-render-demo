@@ -1,9 +1,23 @@
 # Rank Movement
 
-## 组件组合
-`NotificationCardContainer` + `NotificationText` + `AssetHeader` + `AssetDimensionRankChangeTable` + `NotificationButtonList`
+## Scenario Description
+Track how an asset's rank changed by dimension over time, with signed deltas for each factor.
 
-## 元素骨架
+## Components
+- `NotificationCardContainer`
+- `NotificationText`
+- `AssetHeader`
+- `AssetDimensionRankChangeTable`
+- `NotificationButtonList`
+
+## Schema Paths
+- `references/schemas/NotificationCardContainer.schema.json`
+- `references/schemas/NotificationText.schema.json`
+- `references/schemas/AssetHeader.schema.json`
+- `references/schemas/AssetDimensionRankChangeTable.schema.json`
+- `references/schemas/NotificationButtonList.schema.json`
+
+## Example Spec
 ```json
 {
   "root": "container",
@@ -39,6 +53,6 @@
 }
 ```
 
-## 规范
-- `rankChange > 0` 表示名次改善，`rankChange < 0` 表示下滑。
-- 可选填 `dimensionLabel/rankLabel/changeLabel` 自定义表头。
+## Rules
+- `rankChange > 0` means ranking improvement; `rankChange < 0` means decline.
+- `dimensionLabel`, `rankLabel`, and `changeLabel` are optional custom headers.

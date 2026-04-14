@@ -1,9 +1,23 @@
 # Weekly Pick Score
 
-## 组件组合
-`NotificationCardContainer` + `NotificationText` + `AssetHeader(含评分)` + `AssetDimensionScoreTable` + `NotificationButtonList`
+## Scenario Description
+Highlight one featured asset of the week with a headline score and a per-dimension score breakdown.
 
-## 元素骨架
+## Components
+- `NotificationCardContainer`
+- `NotificationText`
+- `AssetHeader`
+- `AssetDimensionScoreTable`
+- `NotificationButtonList`
+
+## Schema Paths
+- `references/schemas/NotificationCardContainer.schema.json`
+- `references/schemas/NotificationText.schema.json`
+- `references/schemas/AssetHeader.schema.json`
+- `references/schemas/AssetDimensionScoreTable.schema.json`
+- `references/schemas/NotificationButtonList.schema.json`
+
+## Example Spec
 ```json
 {
   "root": "container",
@@ -38,6 +52,6 @@
 }
 ```
 
-## 规范
-- `AssetHeader` 中评分字段必须成对出现。
-- `rows` 推荐至少 3 条维度（如 Growth/Profitability/Valuation）。
+## Rules
+- Keep `AssetHeader` score fields paired (`assetScoreValue` + `assetScoreTotal`).
+- Recommend at least 3 scoring rows (for example Growth, Profitability, Valuation).

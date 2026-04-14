@@ -1,4 +1,4 @@
 interface:
   display_name: "Dynamic Push UI JSON Render"
   short_description: "Generate scene-based JSON Render push-card specs"
-  default_prompt: "根据场景和数据生成符合 schema 的动态推送 UI spec JSON"
+  default_prompt: "Generate a schema-valid dynamic push-card UI spec JSON from scenario intent and data"

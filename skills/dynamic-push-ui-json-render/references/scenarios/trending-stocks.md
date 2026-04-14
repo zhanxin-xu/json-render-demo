@@ -1,9 +1,21 @@
 # Trending Stocks
 
-## 组件组合
-`NotificationCardContainer` + `NotificationText` + `AssetRecommendationList` + `NotificationButtonList`
+## Scenario Description
+Show a ranked list of currently hot assets with quick pricing context and a short reason for each pick.
 
-## 元素骨架
+## Components
+- `NotificationCardContainer`
+- `NotificationText`
+- `AssetRecommendationList`
+- `NotificationButtonList`
+
+## Schema Paths
+- `references/schemas/NotificationCardContainer.schema.json`
+- `references/schemas/NotificationText.schema.json`
+- `references/schemas/AssetRecommendationList.schema.json`
+- `references/schemas/NotificationButtonList.schema.json`
+
+## Example Spec
 ```json
 {
   "root": "container",
@@ -36,7 +48,7 @@
 }
 ```
 
-## 规范
-- 推荐 `assets` 数量为 3-5。
-- 每个资产都要提供价格、24h 涨跌和推荐理由。
-- 若有 `assetLogo`，保持为可访问 URL。
+## Rules
+- Recommend `assets` length between 3 and 5.
+- Provide price, 24h change, and reason for each asset.
+- If `assetLogo` is included, keep it as a reachable URL.

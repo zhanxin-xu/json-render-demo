@@ -1,9 +1,25 @@
 # Earnings Grid
 
-## 组件组合
-`NotificationCardContainer` + `NotificationText` + `AssetHeader(无评分)` + `AssetKeyStatsStrip` + `AssetDataGridTable` + `NotificationButtonList`
+## Scenario Description
+Summarize an earnings event with key metrics and a compact estimate-vs-actual style data table.
 
-## 元素骨架
+## Components
+- `NotificationCardContainer`
+- `NotificationText`
+- `AssetHeader`
+- `AssetKeyStatsStrip`
+- `AssetDataGridTable`
+- `NotificationButtonList`
+
+## Schema Paths
+- `references/schemas/NotificationCardContainer.schema.json`
+- `references/schemas/NotificationText.schema.json`
+- `references/schemas/AssetHeader.schema.json`
+- `references/schemas/AssetKeyStatsStrip.schema.json`
+- `references/schemas/AssetDataGridTable.schema.json`
+- `references/schemas/NotificationButtonList.schema.json`
+
+## Example Spec
 ```json
 {
   "root": "container",
@@ -43,6 +59,6 @@
 }
 ```
 
-## 规范
-- 使用无评分 `AssetHeader`（不填 `assetScoreValue/assetScoreTotal`）。
-- `cells[].columnKey` 必须来自 `tableColumns`。
+## Rules
+- Use `AssetHeader` without score fields (`assetScoreValue` / `assetScoreTotal`).
+- Every `cells[].columnKey` must exist in `tableColumns`.

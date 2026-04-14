@@ -1,9 +1,25 @@
 # Pick Hybrid
 
-## 组件组合
-`NotificationCardContainer` + `NotificationText` + `AssetHeader(含评分)` + `MultiAssetDimensionScoreComparisonTable` + `AssetDimensionScoreTable` + `NotificationButtonList`
+## Scenario Description
+Build a deep-dive card that combines a headline score, cross-asset comparison, and a target-asset drilldown table.
 
-## 元素骨架
+## Components
+- `NotificationCardContainer`
+- `NotificationText`
+- `AssetHeader`
+- `MultiAssetDimensionScoreComparisonTable`
+- `AssetDimensionScoreTable`
+- `NotificationButtonList`
+
+## Schema Paths
+- `references/schemas/NotificationCardContainer.schema.json`
+- `references/schemas/NotificationText.schema.json`
+- `references/schemas/AssetHeader.schema.json`
+- `references/schemas/MultiAssetDimensionScoreComparisonTable.schema.json`
+- `references/schemas/AssetDimensionScoreTable.schema.json`
+- `references/schemas/NotificationButtonList.schema.json`
+
+## Example Spec
 ```json
 {
   "root": "container",
@@ -39,6 +55,6 @@
 }
 ```
 
-## 规范
-- 先用 `comparison` 展示横向对比，再用 `table` 展示目标资产纵向细分。
-- `title.assetSymbol` 应与 `table` 的目标资产一致。
+## Rules
+- Use `comparison` for horizontal cross-asset context first, then `table` for target-asset vertical detail.
+- Keep `title.assetSymbol` aligned with the target asset represented by `table`.

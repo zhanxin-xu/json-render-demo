@@ -1,9 +1,23 @@
 # Earnings Highlights
 
-## 组件组合
-`NotificationCardContainer` + `NotificationText` + `AssetHeader(无评分)` + `AssetNarrativeHighlightsList` + `NotificationButtonList`
+## Scenario Description
+Summarize earnings insights as concise narrative bullet points instead of a numeric grid.
 
-## 元素骨架
+## Components
+- `NotificationCardContainer`
+- `NotificationText`
+- `AssetHeader`
+- `AssetNarrativeHighlightsList`
+- `NotificationButtonList`
+
+## Schema Paths
+- `references/schemas/NotificationCardContainer.schema.json`
+- `references/schemas/NotificationText.schema.json`
+- `references/schemas/AssetHeader.schema.json`
+- `references/schemas/AssetNarrativeHighlightsList.schema.json`
+- `references/schemas/NotificationButtonList.schema.json`
+
+## Example Spec
 ```json
 {
   "root": "container",
@@ -33,6 +47,6 @@
 }
 ```
 
-## 规范
-- `items` 推荐 2-5 条。
-- `title` 保持短句，`description` 提供可读解释。
+## Rules
+- Recommend 2-5 items in `items`.
+- Keep `title` concise and keep `description` explanatory.
