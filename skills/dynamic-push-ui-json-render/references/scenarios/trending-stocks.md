@@ -29,7 +29,7 @@ Show a ranked list of currently hot assets with quick pricing context and a shor
     "list": {
       "type": "AssetRecommendationList",
       "props": {
-        "sectionLabel": "Theme",
+        "sectionLabel": "AI Ecosystem",
         "assets": [
           {
             "assetSymbol": "NVDA",
@@ -51,4 +51,5 @@ Show a ranked list of currently hot assets with quick pricing context and a shor
 ## Rules
 - Recommend `assets` length between 3 and 5.
 - Provide price, 24h change, and reason for each asset.
+- Use a concrete thematic category name in `sectionLabel` (for example `AI Ecosystem`), not the literal string `Theme`.
 - If `assetLogo` is included, keep it as a reachable URL.

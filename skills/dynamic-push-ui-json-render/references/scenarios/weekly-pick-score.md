@@ -41,6 +41,7 @@ Highlight one featured asset of the week with a headline score and a per-dimensi
     "table": {
       "type": "AssetDimensionScoreTable",
       "props": {
+        "sectionLabel": "AI Ecosystem Theme Score",
         "rows": [
           { "dimensionName": "Growth", "scoreValue": 92, "scoreTotal": 100, "rankValue": 2, "rankTotalAssets": 100 }
         ]
@@ -54,4 +55,5 @@ Highlight one featured asset of the week with a headline score and a per-dimensi
 
 ## Rules
 - Keep `AssetHeader` score fields paired (`assetScoreValue` + `assetScoreTotal`).
+- Prefer a concrete scoped label in `AssetDimensionScoreTable.sectionLabel` (for example `AI Ecosystem Theme Score`).
 - Recommend at least 3 scoring rows (for example Growth, Profitability, Valuation).

@@ -29,6 +29,7 @@ Compare multiple assets side by side across shared scoring dimensions for fast w
     "comparison": {
       "type": "MultiAssetDimensionScoreComparisonTable",
       "props": {
+        "sectionLabel": "Semiconductor Theme Comparison",
         "dimensions": [
           { "dimensionKey": "growth", "dimensionName": "Growth" },
           { "dimensionKey": "valuation", "dimensionName": "Valuation" }
@@ -53,4 +54,5 @@ Compare multiple assets side by side across shared scoring dimensions for fast w
 
 ## Rules
 - Each asset must provide scores for every key declared in `dimensions`.
+- Prefer a concrete scoped label in `MultiAssetDimensionScoreComparisonTable.sectionLabel` (for example `Semiconductor Theme Comparison`).
 - Recommend 2-5 assets and 3-5 dimensions.
