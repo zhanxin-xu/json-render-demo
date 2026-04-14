@@ -176,7 +176,8 @@ const dimensionRankChangeTableSchema = z
 
 const notificationCardContainerPropsSchema = z
   .object({
-    noticeTitle: z.string().describe("Headline text displayed at the top of the notification card.")
+    label: z.string().describe("Small category label displayed above the card title."),
+    title: z.string().describe("Main headline title displayed at the top of the notification card.")
   })
   .describe("Props for the notification card container.");
 
@@ -494,7 +495,7 @@ function renderNotificationButtonList(props: NotificationButtonListProps) {
 
   const getDefaultLabel = (actionType: "dislike" | "detail" | "askEd") => {
     if (actionType === "detail") return "View Details";
-    if (actionType === "askEd") return "Ask Edgen";
+    if (actionType === "askEd") return "Ask Ed";
     return "Dislike";
   };
 
@@ -720,24 +721,42 @@ const { registry } = defineRegistry(catalog, {
       <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 400, color: "rgba(10,10,10,0.8)" }}>{props.text}</p>
     ),
 
-    NotificationCardContainer: ({ props, children }) => (
-      <section
-        style={{
-          borderRadius: 12,
-          border: "1px solid rgba(10,10,10,0.1)",
-          background: "#FEFDFC",
-          color: "#0a0a0a",
-          padding: 12,
-          display: "flex",
-          flexDirection: "column",
-          gap: 8,
-          fontFamily: baseFontFamily
-        }}
-      >
-        <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{props.noticeTitle}</p>
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>{children}</div>
-      </section>
-    ),
+    NotificationCardContainer: ({ props, children }) => {
+      const allChildren = Array.isArray(children) ? children : children ? [children] : [];
+      const hasFooter = allChildren.length >= 2;
+      const footerNode = hasFooter ? allChildren[allChildren.length - 1] : null;
+      const contentNodes = hasFooter ? allChildren.slice(0, -1) : allChildren;
+      const noticeTextNode = contentNodes.length ? contentNodes[0] : null;
+      const coreNodes = contentNodes.length > 1 ? contentNodes.slice(1) : [];
+
+      return (
+        <section
+          style={{
+            borderRadius: 12,
+            border: "1px solid rgba(10,10,10,0.1)",
+            background: "#FEFDFC",
+            color: "#0a0a0a",
+            padding: 12,
+            display: "flex",
+            flexDirection: "column",
+            gap: 8,
+            fontFamily: baseFontFamily
+          }}
+        >
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", fontWeight: 500, letterSpacing: "0.1px", color: "rgba(10,10,10,0.62)" }}>{props.label}</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{props.title}</p>
+                {noticeTextNode}
+              </div>
+              {coreNodes.length ? <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>{coreNodes}</div> : null}
+            </div>
+          </div>
+          {footerNode}
+        </section>
+      );
+    },
 
     NotificationButtonList: ({ props }) => renderNotificationButtonList(props),
 

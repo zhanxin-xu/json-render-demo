@@ -26,7 +26,7 @@ Build a deep-dive card that combines a headline score, cross-asset comparison, a
   "elements": {
     "container": {
       "type": "NotificationCardContainer",
-      "props": { "noticeTitle": "My Pick This Week: TSM" },
+      "props": { "label": "Ed's Picks for You", "title": "My Pick This Week: TSM" },
       "children": ["notice-text", "title", "comparison", "table", "notice-actions"]
     },
     "notice-text": { "type": "NotificationText", "props": { "text": "..." }, "children": [] },

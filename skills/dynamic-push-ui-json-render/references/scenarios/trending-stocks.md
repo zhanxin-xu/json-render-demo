@@ -22,7 +22,7 @@ Show a ranked list of currently hot assets with quick pricing context and a shor
   "elements": {
     "container": {
       "type": "NotificationCardContainer",
-      "props": { "noticeTitle": "Trending Stocks" },
+      "props": { "label": "Ed's Picks for You", "title": "Trending Stocks" },
       "children": ["notice-text", "list", "notice-actions"]
     },
     "notice-text": { "type": "NotificationText", "props": { "text": "..." }, "children": [] },

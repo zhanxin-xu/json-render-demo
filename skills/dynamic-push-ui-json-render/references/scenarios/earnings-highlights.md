@@ -24,7 +24,7 @@ Summarize earnings insights as concise narrative bullet points instead of a nume
   "elements": {
     "container": {
       "type": "NotificationCardContainer",
-      "props": { "noticeTitle": "Earnings Update" },
+      "props": { "label": "Ed's Picks for You", "title": "Earnings Update" },
       "children": ["notice-text", "asset-context-header", "highlights", "notice-actions"]
     },
     "notice-text": { "type": "NotificationText", "props": { "text": "..." }, "children": [] },

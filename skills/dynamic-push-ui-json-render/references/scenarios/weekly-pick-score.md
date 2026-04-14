@@ -24,7 +24,7 @@ Highlight one featured asset of the week with a headline score and a per-dimensi
   "elements": {
     "container": {
       "type": "NotificationCardContainer",
-      "props": { "noticeTitle": "My Pick This Week: TSM" },
+      "props": { "label": "Ed's Picks for You", "title": "My Pick This Week: TSM" },
       "children": ["notice-text", "title", "table", "notice-actions"]
     },
     "notice-text": { "type": "NotificationText", "props": { "text": "..." }, "children": [] },

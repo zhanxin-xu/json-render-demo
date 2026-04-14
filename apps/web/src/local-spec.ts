@@ -8,7 +8,8 @@ const groups = [
         "container": {
           "type": "NotificationCardContainer",
           "props": {
-            "noticeTitle": "Trending Stocks"
+            "label": "Ed's Picks for You",
+            "title": "Trending Stocks"
           },
           "children": [
             "notice-text",
@@ -74,7 +75,7 @@ const groups = [
               },
               {
                 "actionType": "askEd",
-                "label": "Ask Edgen",
+                "label": "Ask Ed",
                 "question": "Which stock in this trending list should I review first, and why?"
               }
             ]
@@ -93,7 +94,8 @@ const groups = [
         "container": {
           "type": "NotificationCardContainer",
           "props": {
-            "noticeTitle": "My Pick This Week: TSM"
+            "label": "Alpha Picks",
+            "title": "My Pick This Week: TSM"
           },
           "children": [
             "notice-text",
@@ -165,7 +167,7 @@ const groups = [
               },
               {
                 "actionType": "askEd",
-                "label": "Ask Edgen",
+                "label": "Ask Ed",
                 "question": "What is the core thesis for TSM this week, and what are the main risks?"
               }
             ]
@@ -184,7 +186,8 @@ const groups = [
         "container": {
           "type": "NotificationCardContainer",
           "props": {
-            "noticeTitle": "Semiconductor Watchlist Comparison"
+            "label": "Ratings & Discovery",
+            "title": "Semiconductor Watchlist Comparison"
           },
           "children": [
             "notice-text",
@@ -202,7 +205,6 @@ const groups = [
         "comparison": {
           "type": "MultiAssetDimensionScoreComparisonTable",
           "props": {
-            "sectionLabel": "Semiconductor Theme Comparison",
             "dimensions": [
               {
                 "dimensionKey": "growth",
@@ -321,7 +323,7 @@ const groups = [
               },
               {
                 "actionType": "askEd",
-                "label": "Ask Edgen",
+                "label": "Ask Ed",
                 "question": "In this semiconductor comparison, which two names are most worth tracking now?"
               }
             ]
@@ -340,7 +342,8 @@ const groups = [
         "container": {
           "type": "NotificationCardContainer",
           "props": {
-            "noticeTitle": "My Pick This Week: TSM"
+            "label": "Alpha Picks",
+            "title": "My Pick This Week: TSM"
           },
           "children": [
             "notice-text",
@@ -412,280 +415,8 @@ const groups = [
               },
               {
                 "actionType": "askEd",
-                "label": "Ask Edgen",
+                "label": "Ask Ed",
                 "question": "Based on the scores, what are this asset's strongest and weakest dimensions right now?"
-              }
-            ]
-          },
-          "children": []
-        }
-      }
-    }
-  },
-  {
-    "id": "scene-81033-18901",
-    "name": "81033:18901",
-    "spec": {
-      "root": "container",
-      "elements": {
-        "container": {
-          "type": "NotificationCardContainer",
-          "props": {
-            "noticeTitle": "Single Asset Health Check"
-          },
-          "children": [
-            "notice-text",
-            "title",
-            "table",
-            "notice-actions"
-          ]
-        },
-        "notice-text": {
-          "type": "NotificationText",
-          "props": {
-            "text": "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text"
-          },
-          "children": []
-        },
-        "title": {
-          "type": "AssetHeader",
-          "props": {
-            "assetLogo": "https://www.figma.com/api/mcp/asset/c25c9a9c-3737-42dd-a753-446c63e0d811",
-            "assetSymbol": "NVDA",
-            "title": "NVIDIA Corporation",
-            "assetScoreValue": 88,
-            "assetScoreTotal": 100
-          },
-          "children": []
-        },
-        "table": {
-          "type": "AssetDimensionScoreTable",
-          "props": {
-            "sectionLabel": "AI Ecosystem Theme Score",
-            "rows": [
-              {
-                "dimensionName": "Growth",
-                "scoreValue": 92,
-                "scoreTotal": 100,
-                "rankValue": 2,
-                "rankTotalAssets": 100
-              },
-              {
-                "dimensionName": "Profitability",
-                "scoreValue": 92,
-                "scoreTotal": 100,
-                "rankValue": 2,
-                "rankTotalAssets": 100
-              },
-              {
-                "dimensionName": "Valuation",
-                "scoreValue": 92,
-                "scoreTotal": 100,
-                "rankValue": 2,
-                "rankTotalAssets": 100
-              }
-            ]
-          },
-          "children": []
-        },
-        "notice-actions": {
-          "type": "NotificationButtonList",
-          "props": {
-            "actions": [
-              {
-                "actionType": "dislike",
-                "label": "Skip Health Check"
-              },
-              {
-                "actionType": "detail",
-                "label": "View Health Report",
-                "href": "https://example.com/asset/health/nvda"
-              },
-              {
-                "actionType": "askEd",
-                "label": "Ask Edgen",
-                "question": "In this health check, which metric should I prioritize first?"
-              }
-            ]
-          },
-          "children": []
-        }
-      }
-    }
-  },
-  {
-    "id": "scene-81033-18948",
-    "name": "81033:18948",
-    "spec": {
-      "root": "container",
-      "elements": {
-        "container": {
-          "type": "NotificationCardContainer",
-          "props": {
-            "noticeTitle": "Semiconductor Watchlist Comparison"
-          },
-          "children": [
-            "notice-text",
-            "comparison",
-            "notice-actions"
-          ]
-        },
-        "notice-text": {
-          "type": "NotificationText",
-          "props": {
-            "text": "Ed's Insight (placeholder bodyEd's Insight placeholder body text"
-          },
-          "children": []
-        },
-        "comparison": {
-          "type": "MultiAssetDimensionScoreComparisonTable",
-          "props": {
-            "sectionLabel": "Semiconductor Theme Comparison",
-            "dimensions": [
-              {
-                "dimensionKey": "growth",
-                "dimensionName": "Growth"
-              },
-              {
-                "dimensionKey": "valuation",
-                "dimensionName": "Valuation"
-              },
-              {
-                "dimensionKey": "profitability",
-                "dimensionName": "Profitability"
-              },
-              {
-                "dimensionKey": "quality",
-                "dimensionName": "Quality"
-              }
-            ],
-            "assets": [
-              {
-                "assetLogo": "https://www.figma.com/api/mcp/asset/68bdbd5e-f85e-4b45-9a5e-7bddaf3075b2",
-                "assetSymbol": "TSLA",
-                "assetName": "Tesla",
-                "dimensionScores": [
-                  {
-                    "dimensionKey": "growth",
-                    "scoreValue": 92,
-                    "scoreTotal": 100,
-                    "rankValue": 2,
-                    "rankTotalAssets": 100
-                  },
-                  {
-                    "dimensionKey": "valuation",
-                    "scoreValue": 92,
-                    "scoreTotal": 100,
-                    "rankValue": 2,
-                    "rankTotalAssets": 100
-                  },
-                  {
-                    "dimensionKey": "profitability",
-                    "scoreValue": 92,
-                    "scoreTotal": 100,
-                    "rankValue": 4,
-                    "rankTotalAssets": 100
-                  },
-                  {
-                    "dimensionKey": "quality",
-                    "scoreValue": 92,
-                    "scoreTotal": 100,
-                    "rankValue": 4,
-                    "rankTotalAssets": 100
-                  }
-                ]
-              },
-              {
-                "assetLogo": "https://www.figma.com/api/mcp/asset/68bdbd5e-f85e-4b45-9a5e-7bddaf3075b2",
-                "assetSymbol": "TSLA",
-                "assetName": "Tesla",
-                "dimensionScores": [
-                  {
-                    "dimensionKey": "growth",
-                    "scoreValue": 92,
-                    "scoreTotal": 100,
-                    "rankValue": 2,
-                    "rankTotalAssets": 100
-                  },
-                  {
-                    "dimensionKey": "valuation",
-                    "scoreValue": 92,
-                    "scoreTotal": 100,
-                    "rankValue": 2,
-                    "rankTotalAssets": 100
-                  },
-                  {
-                    "dimensionKey": "profitability",
-                    "scoreValue": 92,
-                    "scoreTotal": 100,
-                    "rankValue": 4,
-                    "rankTotalAssets": 100
-                  },
-                  {
-                    "dimensionKey": "quality",
-                    "scoreValue": 92,
-                    "scoreTotal": 100,
-                    "rankValue": 4,
-                    "rankTotalAssets": 100
-                  }
-                ]
-              },
-              {
-                "assetLogo": "https://www.figma.com/api/mcp/asset/68bdbd5e-f85e-4b45-9a5e-7bddaf3075b2",
-                "assetSymbol": "TSLA",
-                "assetName": "Tesla",
-                "dimensionScores": [
-                  {
-                    "dimensionKey": "growth",
-                    "scoreValue": 92,
-                    "scoreTotal": 100,
-                    "rankValue": 2,
-                    "rankTotalAssets": 100
-                  },
-                  {
-                    "dimensionKey": "valuation",
-                    "scoreValue": 92,
-                    "scoreTotal": 100,
-                    "rankValue": 2,
-                    "rankTotalAssets": 100
-                  },
-                  {
-                    "dimensionKey": "profitability",
-                    "scoreValue": 92,
-                    "scoreTotal": 100,
-                    "rankValue": 4,
-                    "rankTotalAssets": 100
-                  },
-                  {
-                    "dimensionKey": "quality",
-                    "scoreValue": 92,
-                    "scoreTotal": 100,
-                    "rankValue": 4,
-                    "rankTotalAssets": 100
-                  }
-                ]
-              }
-            ]
-          },
-          "children": []
-        },
-        "notice-actions": {
-          "type": "NotificationButtonList",
-          "props": {
-            "actions": [
-              {
-                "actionType": "dislike",
-                "label": "Skip for Now"
-              },
-              {
-                "actionType": "detail",
-                "label": "View Multi-Factor Comparison",
-                "href": "https://example.com/watchlist/semiconductors"
-              },
-              {
-                "actionType": "askEd",
-                "label": "Ask Edgen",
-                "question": "From the multi-factor scores, which asset has the best risk-reward profile?"
               }
             ]
           },
@@ -703,7 +434,8 @@ const groups = [
         "container": {
           "type": "NotificationCardContainer",
           "props": {
-            "noticeTitle": "Earnings Update"
+            "label": "Earnings Call",
+            "title": "Earnings Update"
           },
           "children": [
             "notice-text",
@@ -868,7 +600,7 @@ const groups = [
               },
               {
                 "actionType": "askEd",
-                "label": "Ask Edgen",
+                "label": "Ask Ed",
                 "question": "What were the most important beats and misses in this earnings report?"
               }
             ]
@@ -887,7 +619,8 @@ const groups = [
         "container": {
           "type": "NotificationCardContainer",
           "props": {
-            "noticeTitle": "Earnings Update"
+            "label": "Earnings Call",
+            "title": "Earnings Update"
           },
           "children": [
             "notice-text",
@@ -947,7 +680,7 @@ const groups = [
               },
               {
                 "actionType": "askEd",
-                "label": "Ask Edgen",
+                "label": "Ask Ed",
                 "question": "From the management call, what guidance matters most for next quarter?"
               }
             ]
@@ -966,7 +699,8 @@ const groups = [
         "container": {
           "type": "NotificationCardContainer",
           "props": {
-            "noticeTitle": "Rating Rank Movement"
+            "label": "Ed's Daily Discovery",
+            "title": "Rating Rank Movement"
           },
           "children": [
             "notice-text",
@@ -1042,7 +776,7 @@ const groups = [
               },
               {
                 "actionType": "askEd",
-                "label": "Ask Edgen",
+                "label": "Ask Ed",
                 "question": "Are these ranking changes driven by short-term noise or fundamental shifts?"
               }
             ]
@@ -1061,12 +795,12 @@ const groups = [
         "container": {
           "type": "NotificationCardContainer",
           "props": {
-            "noticeTitle": "Rating Rank Movement"
+            "label": "Ed's Daily Discovery",
+            "title": "Rating Rank Movement"
           },
           "children": [
             "notice-text",
-            "asset-context-header",
-            "dimension-rank-change-table",
+            "theme-comparison-table",
             "notice-actions"
           ]
         },
@@ -1077,47 +811,134 @@ const groups = [
           },
           "children": []
         },
-        "asset-context-header": {
-          "type": "AssetHeader",
+        "theme-comparison-table": {
+          "type": "MultiAssetDimensionScoreComparisonTable",
           "props": {
-            "assetLogo": "https://cdn.simpleicons.org/bitcoin/f7931a",
-            "assetSymbol": "BTC",
-            "title": "Bitcoin"
-          },
-          "children": []
-        },
-        "dimension-rank-change-table": {
-          "type": "AssetDimensionRankChangeTable",
-          "props": {
-            "rows": [
+            "sectionLabel": "AI Ecosystem",
+            "dimensions": [
+              {
+                "dimensionKey": "overall",
+                "dimensionName": "总评分"
+              },
               {
                 "dimensionKey": "growth",
-                "dimensionName": "Growth",
-                "rankValue": 2,
-                "rankTotalAssets": 100,
-                "rankChange": -2
+                "dimensionName": "Growth"
               },
               {
                 "dimensionKey": "profitability",
-                "dimensionName": "Profitability",
-                "rankValue": 2,
-                "rankTotalAssets": 100,
-                "rankChange": -2
+                "dimensionName": "Profitability"
               },
               {
                 "dimensionKey": "valuation",
-                "dimensionName": "Valuation",
-                "rankValue": 2,
-                "rankTotalAssets": 100,
-                "rankChange": -2
+                "dimensionName": "Valuation"
+              }
+            ],
+            "assets": [
+              {
+                "assetLogo": "https://www.figma.com/api/mcp/asset/11190ea1-32c3-4b65-8746-71105e0076c8",
+                "assetSymbol": "TSLA",
+                "assetName": "Tesla",
+                "dimensionScores": [
+                  {
+                    "dimensionKey": "overall",
+                    "scoreValue": 92,
+                    "scoreTotal": 100,
+                    "rankValue": 2,
+                    "rankTotalAssets": 100
+                  },
+                  {
+                    "dimensionKey": "growth",
+                    "scoreValue": 92,
+                    "scoreTotal": 100,
+                    "rankValue": 2,
+                    "rankTotalAssets": 100
+                  },
+                  {
+                    "dimensionKey": "profitability",
+                    "scoreValue": 92,
+                    "scoreTotal": 100,
+                    "rankValue": 4,
+                    "rankTotalAssets": 100
+                  },
+                  {
+                    "dimensionKey": "valuation",
+                    "scoreValue": 92,
+                    "scoreTotal": 100,
+                    "rankValue": 4,
+                    "rankTotalAssets": 100
+                  }
+                ]
               },
               {
-                "dimensionKey": "quality",
-                "dimensionName": "Quality",
-                "rankValue": 2,
-                "rankTotalAssets": 100,
-                "rankChange": -2
-              }
+                "assetLogo": "https://www.figma.com/api/mcp/asset/c25c9a9c-3737-42dd-a753-446c63e0d811",
+                "assetSymbol": "NVDA",
+                "assetName": "NVIDIA",
+                "dimensionScores": [
+                  {
+                    "dimensionKey": "overall",
+                    "scoreValue": 94,
+                    "scoreTotal": 100,
+                    "rankValue": 1,
+                    "rankTotalAssets": 100
+                  },
+                  {
+                    "dimensionKey": "growth",
+                    "scoreValue": 95,
+                    "scoreTotal": 100,
+                    "rankValue": 1,
+                    "rankTotalAssets": 100
+                  },
+                  {
+                    "dimensionKey": "profitability",
+                    "scoreValue": 93,
+                    "scoreTotal": 100,
+                    "rankValue": 2,
+                    "rankTotalAssets": 100
+                  },
+                  {
+                    "dimensionKey": "valuation",
+                    "scoreValue": 90,
+                    "scoreTotal": 100,
+                    "rankValue": 8,
+                    "rankTotalAssets": 100
+                  }
+                ]
+              },
+              {
+                "assetLogo": "https://cdn.simpleicons.org/apple/000000",
+                "assetSymbol": "AAPL",
+                "assetName": "Apple",
+                "dimensionScores": [
+                  {
+                    "dimensionKey": "overall",
+                    "scoreValue": 88,
+                    "scoreTotal": 100,
+                    "rankValue": 8,
+                    "rankTotalAssets": 100
+                  },
+                  {
+                    "dimensionKey": "growth",
+                    "scoreValue": 86,
+                    "scoreTotal": 100,
+                    "rankValue": 10,
+                    "rankTotalAssets": 100
+                  },
+                  {
+                    "dimensionKey": "profitability",
+                    "scoreValue": 90,
+                    "scoreTotal": 100,
+                    "rankValue": 5,
+                    "rankTotalAssets": 100
+                  },
+                  {
+                    "dimensionKey": "valuation",
+                    "scoreValue": 89,
+                    "scoreTotal": 100,
+                    "rankValue": 6,
+                    "rankTotalAssets": 100
+                  }
+                ]
+              },
             ]
           },
           "children": []
@@ -1132,13 +953,13 @@ const groups = [
               },
               {
                 "actionType": "detail",
-                "label": "View BTC Changes",
-                "href": "https://example.com/rank-movement/btc"
+                "label": "View Theme Changes",
+                "href": "https://example.com/rank-movement/theme"
               },
               {
                 "actionType": "askEd",
-                "label": "Ask Edgen",
-                "question": "How should this BTC rank move affect my short- to mid-term plan?"
+                "label": "Ask Ed",
+                "question": "Which asset in this theme has the best risk-reward balance now?"
               }
             ]
           },
@@ -1156,7 +977,8 @@ const groups = [
         "container": {
           "type": "NotificationCardContainer",
           "props": {
-            "noticeTitle": "Technical Signal Update"
+            "label": "Ed's Daily Discovery",
+            "title": "Technical Signal Update"
           },
           "children": [
             "notice-text",
@@ -1206,7 +1028,7 @@ const groups = [
               },
               {
                 "actionType": "askEd",
-                "label": "Ask Edgen",
+                "label": "Ask Ed",
                 "question": "Does this technical signal suggest holding, adding, or trimming?"
               }
             ]
@@ -1225,7 +1047,8 @@ const groups = [
         "container": {
           "type": "NotificationCardContainer",
           "props": {
-            "noticeTitle": "Trending Stocks"
+            "label": "Ed's Picks for You",
+            "title": "Trending Stocks"
           },
           "children": [
             "notice-text",
@@ -1291,7 +1114,7 @@ const groups = [
               },
               {
                 "actionType": "askEd",
-                "label": "Ask Edgen",
+                "label": "Ask Ed",
                 "question": "Which name in this trending set is best suited for a conservative portfolio?"
               }
             ]
@@ -1310,7 +1133,8 @@ const groups = [
         "container": {
           "type": "NotificationCardContainer",
           "props": {
-            "noticeTitle": "My Pick This Week: TSM"
+            "label": "Alpha Picks",
+            "title": "My Pick This Week: TSM"
           },
           "children": [
             "notice-text",
@@ -1434,7 +1258,7 @@ const groups = [
               },
               {
                 "actionType": "askEd",
-                "label": "Ask Edgen",
+                "label": "Ask Ed",
                 "question": "Given the current score and valuation, suggest a step-by-step action plan."
               }
             ]

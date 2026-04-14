@@ -24,7 +24,7 @@ Always use this top-level shape:
   "elements": {
     "container": {
       "type": "NotificationCardContainer",
-      "props": { "noticeTitle": "..." },
+      "props": { "label": "Ed's Picks for You", "title": "..." },
       "children": ["notice-text", "core-module", "notice-actions"]
     },
     "notice-text": {
@@ -58,6 +58,7 @@ Always use this top-level shape:
 - Use `NotificationButtonList` for `notice-actions`.
 - Provide `AssetHeader.assetScoreValue` and `assetScoreTotal` together, or omit both.
 - Keep `MultiAssetDimensionScoreComparisonTable.dimensions[].dimensionKey` aligned with every asset's `dimensionScores[].dimensionKey`.
+- For `Rating Rank Movement`, prefer `MultiAssetDimensionScoreComparisonTable` with a concrete `sectionLabel` (for example `AI Ecosystem`) and distinct asset rows.
 - Restrict `AssetDataGridTable.tableRows[].cells[].columnKey` to keys declared in `tableColumns[].columnKey`.
 - Keep `AssetDimensionRankChangeTable.rows[].rankChange` as an integer: positive means improvement, negative means decline.
 - If using `sectionLabel` (`AssetRecommendationList`, `AssetDimensionScoreTable`, `MultiAssetDimensionScoreComparisonTable`), use concrete category names (for example `AI Ecosystem`, `AI Ecosystem Theme Score`, `Semiconductor Theme Comparison`) instead of generic `Theme`.

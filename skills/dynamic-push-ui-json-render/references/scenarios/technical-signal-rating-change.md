@@ -22,7 +22,7 @@ Show rating transitions driven by technical signals, such as upgrades and downgr
   "elements": {
     "container": {
       "type": "NotificationCardContainer",
-      "props": { "noticeTitle": "Technical Signal Update" },
+      "props": { "label": "Ed's Picks for You", "title": "Technical Signal Update" },
       "children": ["notice-text", "rating-change-list", "notice-actions"]
     },
     "notice-text": { "type": "NotificationText", "props": { "text": "..." }, "children": [] },

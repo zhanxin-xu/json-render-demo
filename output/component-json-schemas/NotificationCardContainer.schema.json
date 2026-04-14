@@ -2,13 +2,18 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
-    "noticeTitle": {
+    "label": {
       "type": "string",
-      "description": "Headline text displayed at the top of the notification card."
+      "description": "Small category label displayed above the card title."
+    },
+    "title": {
+      "type": "string",
+      "description": "Main headline title displayed at the top of the notification card."
     }
   },
   "required": [
-    "noticeTitle"
+    "label",
+    "title"
   ],
   "additionalProperties": false,
   "description": "Props for the notification card container."

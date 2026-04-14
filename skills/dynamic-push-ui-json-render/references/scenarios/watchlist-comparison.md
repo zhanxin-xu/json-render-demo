@@ -22,7 +22,7 @@ Compare multiple assets side by side across shared scoring dimensions for fast w
   "elements": {
     "container": {
       "type": "NotificationCardContainer",
-      "props": { "noticeTitle": "Semiconductor Watchlist Comparison" },
+      "props": { "label": "Ed's Picks for You", "title": "Semiconductor Watchlist Comparison" },
       "children": ["notice-text", "comparison", "notice-actions"]
     },
     "notice-text": { "type": "NotificationText", "props": { "text": "..." }, "children": [] },

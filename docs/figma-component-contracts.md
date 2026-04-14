@@ -5,7 +5,8 @@ Figma：
 https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-18324&m=dev
 
 字段：
-- `noticeTitle`
+- `label`
+- `title`
 - `children`
 
 说明：

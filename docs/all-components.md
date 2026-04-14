@@ -32,7 +32,8 @@ Figma：[`81033:18324`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 
 ```ts
 {
-  noticeTitle: string;
+  label: string;
+  title: string;
 }
 ```
 
@@ -49,7 +50,7 @@ Figma：无独立映射节点，复用在通知卡场景中，参考 [`81033:183
 
 ### 3) NotificationButtonList（通知按钮列表）
 
-说明：通知卡底部按钮组，包含 `Dislike / View Details / Ask Edgen` 三个操作按钮。
+说明：通知卡底部按钮组，包含 `Dislike / View Details / Ask Ed` 三个操作按钮。
 Figma：无独立映射节点，作为 `NotificationCardContainer` 的底部交互区在代码中复用。
 
 ```ts

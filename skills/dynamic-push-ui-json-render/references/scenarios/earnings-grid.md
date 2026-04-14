@@ -26,7 +26,7 @@ Summarize an earnings event with key metrics and a compact estimate-vs-actual st
   "elements": {
     "container": {
       "type": "NotificationCardContainer",
-      "props": { "noticeTitle": "Earnings Update" },
+      "props": { "label": "Ed's Picks for You", "title": "Earnings Update" },
       "children": ["notice-text", "asset-context-header", "key-stats-strip", "data-grid-table", "notice-actions"]
     },
     "notice-text": { "type": "NotificationText", "props": { "text": "..." }, "children": [] },
