@@ -90,11 +90,17 @@ const ratingChangeSchema = z.object({
   toRating: z.string()
 });
 
-const assetContextHeaderSchema = z.object({
+const assetHeaderSchema = z
+  .object({
   assetLogo: z.string().optional(),
   assetSymbol: z.string(),
-  title: z.string()
-});
+    title: z.string(),
+    assetScoreValue: z.number().optional(),
+    assetScoreTotal: z.number().optional()
+  })
+  .refine((props) => (props.assetScoreValue === undefined) === (props.assetScoreTotal === undefined), {
+    message: "assetScoreValue and assetScoreTotal must both exist or both be omitted"
+  });
 
 const keyStatsStripSchema = z.object({
   items: z.array(summaryMetricSchema)
@@ -119,10 +125,12 @@ const dimensionRankChangeTableSchema = z.object({
   changeLabel: z.string().optional()
 });
 
-type AssetContextHeaderProps = {
+type AssetHeaderProps = {
   assetLogo?: string;
   assetSymbol: string;
   title: string;
+  assetScoreValue?: number;
+  assetScoreTotal?: number;
 };
 
 type KeyStatsStripProps = {
@@ -194,15 +202,9 @@ const catalog = defineCatalog(schema, {
         assets: z.array(assetRecommendationListItemSchema)
       })
     },
-    AssetTitle: {
-      description: "Asset title mapped from Figma node 81148:35902",
-      props: z.object({
-        assetLogo: z.string().optional(),
-        assetSymbol: z.string(),
-        assetName: z.string(),
-        assetScoreValue: z.number(),
-        assetScoreTotal: z.number()
-      })
+    AssetHeader: {
+      description: "Unified asset header mapped from Figma nodes 81148:35902 (with score) and 81033:19293 (without score)",
+      props: assetHeaderSchema
     },
     AssetDimensionScoreTable: {
       description: "Single asset score table mapped from Figma node 81148:35915",
@@ -216,10 +218,6 @@ const catalog = defineCatalog(schema, {
         dimensions: z.array(dimensionDefinitionSchema),
         assets: z.array(multiAssetDimensionItemSchema)
       })
-    },
-    AssetContextHeader: {
-      description: "Reusable asset + context title header mapped from Figma node 81033:19293",
-      props: assetContextHeaderSchema
     },
     KeyStatsStrip: {
       description: "Reusable key stats strip mapped from Figma node 81033:19200",
@@ -361,7 +359,24 @@ function renderFooterButton(label: string, variant: "primary" | "secondary", hre
   );
 }
 
-function renderAssetContextHeader(props: AssetContextHeaderProps) {
+function renderAssetHeader(props: AssetHeaderProps) {
+  if (props.assetScoreValue !== undefined && props.assetScoreTotal !== undefined) {
+    const scoreValue = props.assetScoreValue;
+    const scoreTotal = props.assetScoreTotal;
+    return (
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
+          {renderAssetLogo(props.assetLogo, props.assetSymbol, 32)}
+          <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{props.assetSymbol}</p>
+            <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.42)" }}>{props.title}</p>
+          </div>
+        </div>
+        {renderScoreBadge(scoreValue, scoreTotal)}
+      </div>
+    );
+  }
+
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
       {renderAssetLogo(props.assetLogo, props.assetSymbol, 20)}
@@ -567,18 +582,7 @@ const { registry } = defineRegistry(catalog, {
       </div>
     ),
 
-    AssetTitle: ({ props }) => (
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
-          {renderAssetLogo(props.assetLogo, props.assetSymbol, 32)}
-          <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600 }}>{props.assetSymbol}</p>
-            <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.42)" }}>{props.assetName}</p>
-          </div>
-        </div>
-        {renderScoreBadge(props.assetScoreValue, props.assetScoreTotal)}
-      </div>
-    ),
+    AssetHeader: ({ props }) => renderAssetHeader(props),
 
     AssetDimensionScoreTable: ({ props }) => (
       <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
@@ -677,8 +681,6 @@ const { registry } = defineRegistry(catalog, {
       </div>
       );
     },
-
-    AssetContextHeader: ({ props }) => renderAssetContextHeader(props),
 
     KeyStatsStrip: ({ props }) => renderKeyStatsStrip(props),
 

@@ -6,22 +6,21 @@ Figma 组件契约补充说明见：[docs/figma-component-contracts.md](/Users/u
 
 ## 组件总数
 
-当前共 **12** 个组件。
+当前共 **11** 个组件。
 
 ## 组件列表
 
 1. `NotificationCardContainer`
 2. `NotificationText`
 3. `AssetRecommendationList`
-4. `AssetTitle`
+4. `AssetHeader`
 5. `AssetDimensionScoreTable`
 6. `MultiAssetDimensionScoreComparisonTable`
-7. `AssetContextHeader`
-8. `KeyStatsStrip`
-9. `DataGridTable`
-10. `NarrativeHighlightsList`
-11. `DimensionRankChangeTable`
-12. `RatingChangeComparisonList`
+7. `KeyStatsStrip`
+8. `DataGridTable`
+9. `NarrativeHighlightsList`
+10. `DimensionRankChangeTable`
+11. `RatingChangeComparisonList`
 
 ## 各组件 Props Schema
 
@@ -74,18 +73,19 @@ Figma：[`81033:18334`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 }
 ```
 
-### 4) AssetTitle
+### 4) AssetHeader
 
-说明：资产标题区，展示 Logo、代码、名称和总评分。
-Figma：[`81148:35902`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81148-35902&m=dev)。
+说明：统一资产头组件。若同时提供 `assetScoreValue` 与 `assetScoreTotal`，按评分头样式渲染；否则按上下文标题样式渲染。
+Figma（有评分样式）：[`81148:35902`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81148-35902&m=dev)。
+Figma（无评分样式）：[`81033:19293`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19293&m=dev)。
 
 ```ts
 {
   assetLogo?: string;
   assetSymbol: string;
-  assetName: string;
-  assetScoreValue: number;
-  assetScoreTotal: number;
+  title: string;
+  assetScoreValue?: number;
+  assetScoreTotal?: number;
 }
 ```
 
@@ -156,20 +156,7 @@ Figma：[`81033:18607`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 }
 ```
 
-### 7) AssetContextHeader
-
-说明：可复用的“资产 + 场景标题”头部区块。
-Figma：[`81033:19293`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19293&m=dev)。
-
-```ts
-{
-  assetLogo?: string;
-  assetSymbol: string;
-  title: string;
-}
-```
-
-### 8) KeyStatsStrip
+### 7) KeyStatsStrip
 
 说明：可复用的关键指标条，用于展示简要核心数据。
 Figma：[`81033:19200`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19200&m=dev)。
@@ -191,7 +178,7 @@ Figma：[`81033:19200`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 }
 ```
 
-### 9) DataGridTable
+### 8) DataGridTable
 
 说明：可复用数据表格组件，支持徽标列与强调列配置。
 Figma：[`81033:19219`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19219&m=dev)。
@@ -236,7 +223,7 @@ Figma：[`81033:19219`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 }
 ```
 
-### 10) NarrativeHighlightsList
+### 9) NarrativeHighlightsList
 
 说明：可复用叙述型要点列表，展示标题和描述。
 Figma：[`81033:19297`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19297&m=dev)。
@@ -256,7 +243,7 @@ Figma：[`81033:19297`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 }
 ```
 
-### 11) DimensionRankChangeTable
+### 10) DimensionRankChangeTable
 
 说明：可复用维度排名变化表，展示当前排名与变化值。
 Figma：[`81174:35977`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81174-35977&m=dev)。
@@ -282,7 +269,7 @@ Figma：[`81174:35977`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 }
 ```
 
-### 12) RatingChangeComparisonList
+### 11) RatingChangeComparisonList
 
 说明：评级变动对比列表，展示资产从旧评级到新评级的变化。
 Figma：[`81033:19165`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19165&m=dev)。
@@ -320,7 +307,7 @@ Figma：[`81033:19165`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 - `highlightSchema`
 - `dimensionRankChangeSchema`
 - `ratingChangeSchema`
-- `assetContextHeaderSchema`
+- `assetHeaderSchema`
 - `keyStatsStripSchema`
 - `dataGridTableSchema`
 - `narrativeHighlightsListSchema`

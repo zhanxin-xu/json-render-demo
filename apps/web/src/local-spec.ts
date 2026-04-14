@@ -276,8 +276,8 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         [
           {
             id: "title",
-            type: "AssetTitle",
-            props: { assetLogo: assetLogos.NVDA, assetSymbol: "NVDA", assetName: "NVIDIA Corporation", assetScoreValue: 88, assetScoreTotal: 100 }
+            type: "AssetHeader",
+            props: { assetLogo: assetLogos.NVDA, assetSymbol: "NVDA", title: "NVIDIA Corporation", assetScoreValue: 88, assetScoreTotal: 100 }
           },
           {
             id: "table",
@@ -324,8 +324,8 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         [
           {
             id: "title",
-            type: "AssetTitle",
-            props: { assetLogo: assetLogos.NVDA, assetSymbol: "NVDA", assetName: "NVIDIA Corporation", assetScoreValue: 88, assetScoreTotal: 100 }
+            type: "AssetHeader",
+            props: { assetLogo: assetLogos.NVDA, assetSymbol: "NVDA", title: "NVIDIA Corporation", assetScoreValue: 88, assetScoreTotal: 100 }
           },
           {
             id: "table",
@@ -347,8 +347,8 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         [
           {
             id: "title",
-            type: "AssetTitle",
-            props: { assetLogo: assetLogos.NVDA, assetSymbol: "NVDA", assetName: "NVIDIA Corporation", assetScoreValue: 88, assetScoreTotal: 100 }
+            type: "AssetHeader",
+            props: { assetLogo: assetLogos.NVDA, assetSymbol: "NVDA", title: "NVIDIA Corporation", assetScoreValue: 88, assetScoreTotal: 100 }
           },
           { id: "table", type: "AssetDimensionScoreTable", props: { rows: dimensionRows } }
         ]
@@ -384,7 +384,7 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         [
           {
             id: "asset-context-header",
-            type: "AssetContextHeader",
+            type: "AssetHeader",
             props: { assetLogo: earningsProps.assetLogo, assetSymbol: earningsProps.assetSymbol, title: earningsProps.eventTitle }
           },
           {
@@ -417,7 +417,7 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         [
           {
             id: "asset-context-header",
-            type: "AssetContextHeader",
+            type: "AssetHeader",
             props: { assetLogo: managementCallProps.assetLogo, assetSymbol: managementCallProps.assetSymbol, title: managementCallProps.eventTitle }
           },
           {
@@ -440,7 +440,7 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         [
           {
             id: "asset-context-header",
-            type: "AssetContextHeader",
+            type: "AssetHeader",
             props: { assetLogo: rankChangeProps.assetLogo, assetSymbol: rankChangeProps.assetSymbol, title: rankChangeProps.assetName }
           },
           {
@@ -463,7 +463,7 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         [
           {
             id: "asset-context-header",
-            type: "AssetContextHeader",
+            type: "AssetHeader",
             props: {
               assetLogo: assetLogos.BTC,
               assetSymbol: "BTC",
@@ -515,8 +515,8 @@ function containerElements(containerProps: Record<string, unknown>, children: Ar
         [
           {
             id: "title",
-            type: "AssetTitle",
-            props: { assetLogo: assetLogos.NVDA, assetSymbol: "NVDA", assetName: "NVIDIA Corporation", assetScoreValue: 2, assetScoreTotal: 100 }
+            type: "AssetHeader",
+            props: { assetLogo: assetLogos.NVDA, assetSymbol: "NVDA", title: "NVIDIA Corporation", assetScoreValue: 2, assetScoreTotal: 100 }
           },
           {
             id: "comparison",

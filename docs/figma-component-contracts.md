@@ -25,16 +25,21 @@ https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E
 - `assetScoreValue`（得分）
 - `assetScoreTotal`（满分）
 
-## 3. 资产标题
+## 3. 资产头（AssetHeader）
 Figma：
 https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81148-35902&m=dev
+https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19293&m=dev
 
 字段：
 - `assetLogo`
 - `assetSymbol`
-- `assetName`
-- `assetScoreValue`（得分）
-- `assetScoreTotal`（满分）
+- `title`
+- `assetScoreValue?`（得分）
+- `assetScoreTotal?`（满分）
+
+说明：
+- 当 `assetScoreValue` 与 `assetScoreTotal` 同时存在时，按“评分头”样式展示（对应 `81148:35902`）。
+- 当两者都不存在时，按“上下文头”样式展示（对应 `81033:19293`）。
 
 ## 4. 单一资产不同维度评分展示表格
 Figma：
@@ -180,14 +185,12 @@ https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E
 - `fromRating`
 - `toRating`
 
-## 10. 资产头（AssetContextHeader）
+## 10. 资产头（AssetContextHeader，已并入 AssetHeader）
 Figma：
 https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edgen---%E9%96%8B%E7%99%BC%E6%96%87%E6%AA%94?node-id=81033-19293&m=dev
 
-字段：
-- `assetLogo`
-- `assetSymbol`
-- `title`
+说明：
+- 该定义已合并到 `## 3. 资产头（AssetHeader）`，保留此节仅用于历史兼容说明。
 
 ## 11. 关键指标条（KeyStatsStrip）
 Figma：
