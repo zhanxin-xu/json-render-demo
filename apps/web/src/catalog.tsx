@@ -7,135 +7,210 @@ const baseFontFamily = '"General Sans", "SF Pro Text", "PingFang SC", "Helvetica
 const buttonFontFamily = '"Bricolage Grotesque", "General Sans", "SF Pro Text", "PingFang SC", "Helvetica Neue", Arial, sans-serif';
 const accentColor = "#2d6b4f";
 
-const assetRecommendationListItemSchema = z.object({
-  assetLogo: z.string().optional(),
-  assetSymbol: z.string(),
-  assetPriceUsd: z.string(),
-  priceChange24h: z.string(),
-  reason: z.string(),
-  assetScoreValue: z.number(),
-  assetScoreTotal: z.number()
-});
+const assetRecommendationListItemSchema = z
+  .object({
+    assetLogo: z.string().optional().describe("Optional logo URL for the asset."),
+    assetSymbol: z.string().describe("Ticker symbol of the asset."),
+    assetPriceUsd: z.string().describe("Current asset price in USD as formatted text."),
+    priceChange24h: z.string().describe("24-hour price change as formatted text."),
+    reason: z.string().describe("Short recommendation reason shown below the symbol row."),
+    assetScoreValue: z.number().describe("Current asset score value."),
+    assetScoreTotal: z.number().describe("Maximum score denominator.")
+  })
+  .describe("One asset item rendered in the recommendation list.");
 
-const assetDimensionTableRowSchema = z.object({
-  dimensionName: z.string(),
-  scoreValue: z.number(),
-  scoreTotal: z.number(),
-  rankValue: z.number(),
-  rankTotalAssets: z.number()
-});
+const assetDimensionTableRowSchema = z
+  .object({
+    dimensionName: z.string().describe("Display name of the scoring dimension."),
+    scoreValue: z.number().describe("Score value for the dimension."),
+    scoreTotal: z.number().describe("Score denominator for the dimension."),
+    rankValue: z.number().describe("Current rank position."),
+    rankTotalAssets: z.number().describe("Total number of ranked assets.")
+  })
+  .describe("One row in the single-asset dimension score table.");
 
-const dimensionDefinitionSchema = z.object({
-  dimensionKey: z.string(),
-  dimensionName: z.string()
-});
+const dimensionDefinitionSchema = z
+  .object({
+    dimensionKey: z.string().describe("Unique key used to match dimension scores."),
+    dimensionName: z.string().describe("Human-readable label for the dimension.")
+  })
+  .describe("Definition of one dimension column.");
 
-const dimensionScoreSchema = z.object({
-  dimensionKey: z.string(),
-  scoreValue: z.number(),
-  scoreTotal: z.number(),
-  rankValue: z.number(),
-  rankTotalAssets: z.number()
-});
+const dimensionScoreSchema = z
+  .object({
+    dimensionKey: z.string().describe("Dimension key that matches the dimension definition."),
+    scoreValue: z.number().describe("Score value under this dimension."),
+    scoreTotal: z.number().describe("Score denominator under this dimension."),
+    rankValue: z.number().describe("Rank position under this dimension."),
+    rankTotalAssets: z.number().describe("Total assets considered for ranking.")
+  })
+  .describe("Score and rank data for one dimension.");
 
-const multiAssetDimensionItemSchema = z.object({
-  assetLogo: z.string().optional(),
-  assetSymbol: z.string(),
-  assetName: z.string(),
-  dimensionScores: z.array(dimensionScoreSchema)
-});
+const multiAssetDimensionItemSchema = z
+  .object({
+    assetLogo: z.string().optional().describe("Optional logo URL for the asset."),
+    assetSymbol: z.string().describe("Ticker symbol of the compared asset."),
+    assetName: z.string().describe("Full display name of the compared asset."),
+    dimensionScores: z.array(dimensionScoreSchema).describe("Dimension score values keyed by dimensionKey.")
+  })
+  .describe("One asset entry in the multi-asset comparison table.");
 
-const summaryMetricSchema = z.object({
-  metricKey: z.string(),
-  metricName: z.string(),
-  metricValue: z.string(),
-  metricChange: z.string()
-});
+const summaryMetricSchema = z
+  .object({
+    metricKey: z.string().describe("Stable key for the metric item."),
+    metricName: z.string().describe("Metric label shown to users."),
+    metricValue: z.string().describe("Main metric value text."),
+    metricChange: z.string().describe("Change value text, usually positive or negative.")
+  })
+  .describe("One metric card in the key stats strip.");
 
-const tableColumnSchema = z.object({
-  columnKey: z.string(),
-  columnTitle: z.string()
-});
+const tableColumnSchema = z
+  .object({
+    columnKey: z.string().describe("Unique key for the table column."),
+    columnTitle: z.string().describe("Header title for the table column.")
+  })
+  .describe("Definition of one data table column.");
 
-const tableCellSchema = z.object({
-  columnKey: z.string(),
-  cellValue: z.string()
-});
+const tableCellSchema = z
+  .object({
+    columnKey: z.string().describe("Column key that this cell belongs to."),
+    cellValue: z.string().describe("Display value of the table cell.")
+  })
+  .describe("One cell value keyed by column.");
 
-const tableRowSchema = z.object({
-  rowKey: z.string(),
-  rowName: z.string(),
-  cells: z.array(tableCellSchema),
-  resultTag: z.string().optional(),
-  rowChange: z.string().optional()
-});
+const tableRowSchema = z
+  .object({
+    rowKey: z.string().describe("Stable key for the row."),
+    rowName: z.string().describe("Display name shown in the first column."),
+    cells: z.array(tableCellSchema).describe("Cell values mapped by column keys."),
+    resultTag: z.string().optional().describe("Optional badge text shown for row status."),
+    rowChange: z.string().optional().describe("Optional change text associated with the row.")
+  })
+  .describe("One row in the generic data grid table.");
 
-const highlightSchema = z.object({
-  title: z.string(),
-  description: z.string()
-});
+const highlightSchema = z
+  .object({
+    title: z.string().describe("Title of the narrative highlight."),
+    description: z.string().describe("Supporting narrative text for the highlight.")
+  })
+  .describe("One narrative highlight item.");
 
-const dimensionRankChangeSchema = z.object({
-  dimensionKey: z.string(),
-  dimensionName: z.string(),
-  rankValue: z.number(),
-  rankTotalAssets: z.number(),
-  rankChange: z.number()
-});
+const dimensionRankChangeSchema = z
+  .object({
+    dimensionKey: z.string().describe("Dimension key for row identity."),
+    dimensionName: z.string().describe("Dimension name shown in the first column."),
+    rankValue: z.number().describe("Current rank value."),
+    rankTotalAssets: z.number().describe("Total assets used for ranking."),
+    rankChange: z.number().describe("Rank delta compared with previous period.")
+  })
+  .describe("One row in the dimension rank change table.");
 
-const ratingChangeSchema = z.object({
-  assetLogo: z.string().optional(),
-  assetSymbol: z.string(),
-  fromRating: z.string(),
-  toRating: z.string()
-});
+const ratingChangeSchema = z
+  .object({
+    assetLogo: z.string().optional().describe("Optional logo URL for the asset."),
+    assetSymbol: z.string().describe("Ticker symbol of the rated asset."),
+    fromRating: z.string().describe("Previous rating label."),
+    toRating: z.string().describe("Updated rating label.")
+  })
+  .describe("One item in the rating change comparison list.");
 
-const notificationButtonActionSchema = z.object({
-  actionType: z.enum(["dislike", "detail", "askEd"]),
-  label: z.string().optional(),
-  href: z.string().optional(),
-  question: z.string().optional(),
-  variant: z.enum(["primary", "secondary"]).optional()
-});
+const notificationButtonActionSchema = z
+  .object({
+    actionType: z.enum(["dislike", "detail", "askEd"]).describe("Action type used to decide behavior and default label."),
+    label: z.string().optional().describe("Optional custom button label."),
+    href: z.string().optional().describe("Optional target URL used by the detail action."),
+    question: z.string().optional().describe("Optional preset question used by the askEd action."),
+    variant: z.enum(["primary", "secondary"]).optional().describe("Optional visual style variant of the action button.")
+  })
+  .describe("One action button configuration in the notification footer.");
 
-const notificationButtonListSchema = z.object({
-  actions: z.array(notificationButtonActionSchema)
-});
+const notificationButtonListSchema = z
+  .object({
+    actions: z.array(notificationButtonActionSchema).describe("Ordered button actions rendered in the footer.")
+  })
+  .describe("Props for the notification button list component.");
 
 const assetHeaderSchema = z
   .object({
-    assetLogo: z.string().optional(),
-    assetSymbol: z.string(),
-    title: z.string(),
-    assetScoreValue: z.number().optional(),
-    assetScoreTotal: z.number().optional()
+    assetLogo: z.string().optional().describe("Optional logo URL of the asset."),
+    assetSymbol: z.string().describe("Ticker symbol of the asset."),
+    title: z.string().describe("Asset display title or company name."),
+    assetScoreValue: z.number().optional().describe("Optional score numerator for score mode."),
+    assetScoreTotal: z.number().optional().describe("Optional score denominator for score mode.")
   })
   .refine((props) => (props.assetScoreValue === undefined) === (props.assetScoreTotal === undefined), {
     message: "assetScoreValue and assetScoreTotal must both exist or both be omitted"
-  });
+  })
+  .describe("Header props supporting both score and non-score layouts.");
 
-const keyStatsStripSchema = z.object({
-  items: z.array(summaryMetricSchema)
-});
+const keyStatsStripSchema = z
+  .object({
+    items: z.array(summaryMetricSchema).describe("Metric items displayed in the key stats strip.")
+  })
+  .describe("Props for the key stats strip component.");
 
-const dataGridTableSchema = z.object({
-  tableColumns: z.array(tableColumnSchema),
-  tableRows: z.array(tableRowSchema),
-  firstColumnHeader: z.string().optional(),
-  badgeColumnKeys: z.array(z.string()).optional(),
-  accentColumnKeys: z.array(z.string()).optional()
-});
+const dataGridTableSchema = z
+  .object({
+    tableColumns: z.array(tableColumnSchema).describe("Column definitions for the data table."),
+    tableRows: z.array(tableRowSchema).describe("Row entries for the data table."),
+    firstColumnHeader: z.string().optional().describe("Optional header for the first fixed column."),
+    badgeColumnKeys: z.array(z.string()).optional().describe("Column keys rendered as badge chips."),
+    accentColumnKeys: z.array(z.string()).optional().describe("Column keys rendered with accent color emphasis.")
+  })
+  .describe("Props for the reusable data grid table.");
 
-const narrativeHighlightsListSchema = z.object({
-  items: z.array(highlightSchema)
-});
+const narrativeHighlightsListSchema = z
+  .object({
+    items: z.array(highlightSchema).describe("Narrative highlight items shown in the list.")
+  })
+  .describe("Props for the narrative highlights list.");
 
-const dimensionRankChangeTableSchema = z.object({
-  rows: z.array(dimensionRankChangeSchema),
-  dimensionLabel: z.string().optional(),
-  rankLabel: z.string().optional(),
-  changeLabel: z.string().optional()
-});
+const dimensionRankChangeTableSchema = z
+  .object({
+    rows: z.array(dimensionRankChangeSchema).describe("Rank change rows by dimension."),
+    dimensionLabel: z.string().optional().describe("Optional header label for the dimension column."),
+    rankLabel: z.string().optional().describe("Optional header label for the rank column."),
+    changeLabel: z.string().optional().describe("Optional header label for the change column.")
+  })
+  .describe("Props for the dimension rank change table.");
+
+const notificationCardContainerPropsSchema = z
+  .object({
+    noticeTitle: z.string().describe("Headline text displayed at the top of the notification card.")
+  })
+  .describe("Props for the notification card container.");
+
+const notificationTextPropsSchema = z
+  .object({
+    text: z.string().describe("Body text content displayed inside the notification card.")
+  })
+  .describe("Props for the notification text component.");
+
+const assetRecommendationListPropsSchema = z
+  .object({
+    sectionLabel: z.string().optional().describe("Optional section heading shown above the asset list."),
+    assets: z.array(assetRecommendationListItemSchema).describe("Asset recommendation entries.")
+  })
+  .describe("Props for the asset recommendation list component.");
+
+const assetDimensionScoreTablePropsSchema = z
+  .object({
+    rows: z.array(assetDimensionTableRowSchema).describe("Dimension rows for a single asset.")
+  })
+  .describe("Props for the single asset dimension score table.");
+
+const multiAssetDimensionScoreComparisonTablePropsSchema = z
+  .object({
+    dimensions: z.array(dimensionDefinitionSchema).describe("Dimension definitions used as table columns."),
+    assets: z.array(multiAssetDimensionItemSchema).describe("Assets and their per-dimension scores.")
+  })
+  .describe("Props for the multi-asset dimension comparison table.");
+
+const assetRatingChangeComparisonListPropsSchema = z
+  .object({
+    changes: z.array(ratingChangeSchema).describe("Rating change entries to compare old and new ratings.")
+  })
+  .describe("Props for the rating change comparison list.");
 
 type AssetHeaderProps = {
   assetLogo?: string;
@@ -206,15 +281,11 @@ const catalog = defineCatalog(schema, {
   components: {
     NotificationCardContainer: {
       description: "Notification card container mapped from Figma node 81033:18324",
-      props: z.object({
-        noticeTitle: z.string()
-      })
+      props: notificationCardContainerPropsSchema
     },
     NotificationText: {
       description: "Notification body text block rendered inside NotificationCardContainer",
-      props: z.object({
-        text: z.string()
-      })
+      props: notificationTextPropsSchema
     },
     NotificationButtonList: {
       description: "Notification button list (dislike/detail/ask ED) rendered inside NotificationCardContainer",
@@ -222,10 +293,7 @@ const catalog = defineCatalog(schema, {
     },
     AssetRecommendationList: {
       description: "Asset recommendation list mapped from Figma node 81033:18334",
-      props: z.object({
-        sectionLabel: z.string().optional(),
-        assets: z.array(assetRecommendationListItemSchema)
-      })
+      props: assetRecommendationListPropsSchema
     },
     AssetHeader: {
       description: "Unified asset header mapped from Figma nodes 81148:35902 (with score) and 81033:19293 (without score)",
@@ -233,16 +301,11 @@ const catalog = defineCatalog(schema, {
     },
     AssetDimensionScoreTable: {
       description: "Single asset score table mapped from Figma node 81148:35915",
-      props: z.object({
-        rows: z.array(assetDimensionTableRowSchema)
-      })
+      props: assetDimensionScoreTablePropsSchema
     },
     MultiAssetDimensionScoreComparisonTable: {
       description: "Multi-asset dimension score comparison table mapped from Figma node 81033:18607",
-      props: z.object({
-        dimensions: z.array(dimensionDefinitionSchema),
-        assets: z.array(multiAssetDimensionItemSchema)
-      })
+      props: multiAssetDimensionScoreComparisonTablePropsSchema
     },
     AssetKeyStatsStrip: {
       description: "Reusable key stats strip mapped from Figma node 81033:19200",
@@ -262,9 +325,7 @@ const catalog = defineCatalog(schema, {
     },
     AssetRatingChangeComparisonList: {
       description: "Rating change comparison list mapped from Figma node 81033:19165",
-      props: z.object({
-        changes: z.array(ratingChangeSchema)
-      })
+      props: assetRatingChangeComparisonListPropsSchema
     }
   },
   actions: {}
