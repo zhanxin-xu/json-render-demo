@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "dimensionKey": {
+            "type": "string",
+            "description": "Dimension key for row identity."
+          },
+          "dimensionName": {
+            "type": "string",
+            "description": "Dimension name shown in the first column."
+          },
+          "rankValue": {
+            "type": "number",
+            "description": "Current rank value."
+          },
+          "rankTotalAssets": {
+            "type": "number",
+            "description": "Total assets used for ranking."
+          },
+          "rankChange": {
+            "type": "number",
+            "description": "Rank delta compared with previous period."
+          }
+        },
+        "required": [
+          "dimensionKey",
+          "dimensionName",
+          "rankValue",
+          "rankTotalAssets",
+          "rankChange"
+        ],
+        "additionalProperties": false,
+        "description": "One row in the dimension rank change table."
+      },
+      "description": "Rank change rows by dimension."
+    },
+    "dimensionLabel": {
+      "description": "Optional header label for the dimension column.",
+      "type": "string"
+    },
+    "rankLabel": {
+      "description": "Optional header label for the rank column.",
+      "type": "string"
+    },
+    "changeLabel": {
+      "description": "Optional header label for the change column.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "rows"
+  ],
+  "additionalProperties": false,
+  "description": "Props for the dimension rank change table."
+}

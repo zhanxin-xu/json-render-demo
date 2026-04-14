@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+
+pnpm export:component-schemas
+git add output/component-json-schemas

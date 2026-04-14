@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "metricKey": {
+            "type": "string",
+            "description": "Stable key for the metric item."
+          },
+          "metricName": {
+            "type": "string",
+            "description": "Metric label shown to users."
+          },
+          "metricValue": {
+            "type": "string",
+            "description": "Main metric value text."
+          },
+          "metricChange": {
+            "type": "string",
+            "description": "Change value text, usually positive or negative."
+          }
+        },
+        "required": [
+          "metricKey",
+          "metricName",
+          "metricValue",
+          "metricChange"
+        ],
+        "additionalProperties": false,
+        "description": "One metric card in the key stats strip."
+      },
+      "description": "Metric items displayed in the key stats strip."
+    }
+  },
+  "required": [
+    "items"
+  ],
+  "additionalProperties": false,
+  "description": "Props for the key stats strip component."
+}

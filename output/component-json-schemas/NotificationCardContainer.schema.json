@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "noticeTitle": {
+      "type": "string",
+      "description": "Headline text displayed at the top of the notification card."
+    }
+  },
+  "required": [
+    "noticeTitle"
+  ],
+  "additionalProperties": false,
+  "description": "Props for the notification card container."
+}

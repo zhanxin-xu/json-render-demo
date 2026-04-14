@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "sectionLabel": {
+      "description": "Optional section heading shown above the asset list.",
+      "type": "string"
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "assetLogo": {
+            "description": "Optional logo URL for the asset.",
+            "type": "string"
+          },
+          "assetSymbol": {
+            "type": "string",
+            "description": "Ticker symbol of the asset."
+          },
+          "assetPriceUsd": {
+            "type": "string",
+            "description": "Current asset price in USD as formatted text."
+          },
+          "priceChange24h": {
+            "type": "string",
+            "description": "24-hour price change as formatted text."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Short recommendation reason shown below the symbol row."
+          },
+          "assetScoreValue": {
+            "type": "number",
+            "description": "Current asset score value."
+          },
+          "assetScoreTotal": {
+            "type": "number",
+            "description": "Maximum score denominator."
+          }
+        },
+        "required": [
+          "assetSymbol",
+          "assetPriceUsd",
+          "priceChange24h",
+          "reason",
+          "assetScoreValue",
+          "assetScoreTotal"
+        ],
+        "additionalProperties": false,
+        "description": "One asset item rendered in the recommendation list."
+      },
+      "description": "Asset recommendation entries."
+    }
+  },
+  "required": [
+    "assets"
+  ],
+  "additionalProperties": false,
+  "description": "Props for the asset recommendation list component."
+}

@@ -8,6 +8,8 @@
   ],
   "scripts": {
     "dev": "pnpm -r --parallel dev",
-    "build": "pnpm -r build"
+    "build": "pnpm -r build",
+    "export:component-schemas": "node scripts/export-component-json-schemas.cjs",
+    "setup:githooks": "git config core.hooksPath .githooks"
   }
 }
