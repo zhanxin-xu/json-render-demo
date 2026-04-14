@@ -2,6 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
+    "sectionLabel": {
+      "description": "Optional section heading shown above the comparison table.",
+      "type": "string"
+    },
     "dimensions": {
       "type": "array",
       "items": {

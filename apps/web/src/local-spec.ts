@@ -26,7 +26,7 @@ const groups = [
         "list": {
           "type": "AssetRecommendationList",
           "props": {
-            "sectionLabel": "Theme",
+            "sectionLabel": "AI Ecosystem",
             "assets": [
               {
                 "assetLogo": "https://www.figma.com/api/mcp/asset/c25c9a9c-3737-42dd-a753-446c63e0d811",
@@ -123,6 +123,7 @@ const groups = [
         "table": {
           "type": "AssetDimensionScoreTable",
           "props": {
+            "sectionLabel": "AI Ecosystem Theme Score",
             "rows": [
               {
                 "dimensionName": "Growth",
@@ -201,6 +202,7 @@ const groups = [
         "comparison": {
           "type": "MultiAssetDimensionScoreComparisonTable",
           "props": {
+            "sectionLabel": "Semiconductor Theme Comparison",
             "dimensions": [
               {
                 "dimensionKey": "growth",
@@ -368,6 +370,7 @@ const groups = [
         "table": {
           "type": "AssetDimensionScoreTable",
           "props": {
+            "sectionLabel": "AI Ecosystem Theme Score",
             "rows": [
               {
                 "dimensionName": "Growth",
@@ -458,6 +461,7 @@ const groups = [
         "table": {
           "type": "AssetDimensionScoreTable",
           "props": {
+            "sectionLabel": "AI Ecosystem Theme Score",
             "rows": [
               {
                 "dimensionName": "Growth",
@@ -536,6 +540,7 @@ const groups = [
         "comparison": {
           "type": "MultiAssetDimensionScoreComparisonTable",
           "props": {
+            "sectionLabel": "Semiconductor Theme Comparison",
             "dimensions": [
               {
                 "dimensionKey": "growth",
@@ -1238,7 +1243,7 @@ const groups = [
         "list": {
           "type": "AssetRecommendationList",
           "props": {
-            "sectionLabel": "Theme",
+            "sectionLabel": "AI Ecosystem",
             "assets": [
               {
                 "assetLogo": "https://www.figma.com/api/mcp/asset/c25c9a9c-3737-42dd-a753-446c63e0d811",
@@ -1336,6 +1341,7 @@ const groups = [
         "comparison": {
           "type": "MultiAssetDimensionScoreComparisonTable",
           "props": {
+            "sectionLabel": "AI Ecosystem Peer Comparison",
             "dimensions": [
               {
                 "dimensionKey": "growth",
@@ -1386,6 +1392,7 @@ const groups = [
         "table": {
           "type": "AssetDimensionScoreTable",
           "props": {
+            "sectionLabel": "AI Ecosystem Theme Score",
             "rows": [
               {
                 "dimensionName": "Growth",

@@ -195,12 +195,14 @@ const assetRecommendationListPropsSchema = z
 
 const assetDimensionScoreTablePropsSchema = z
   .object({
+    sectionLabel: z.string().optional().describe("Optional section heading shown above the dimension rows."),
     rows: z.array(assetDimensionTableRowSchema).describe("Dimension rows for a single asset.")
   })
   .describe("Props for the single asset dimension score table.");
 
 const multiAssetDimensionScoreComparisonTablePropsSchema = z
   .object({
+    sectionLabel: z.string().optional().describe("Optional section heading shown above the comparison table."),
     dimensions: z.array(dimensionDefinitionSchema).describe("Dimension definitions used as table columns."),
     assets: z.array(multiAssetDimensionItemSchema).describe("Assets and their per-dimension scores.")
   })
@@ -275,6 +277,37 @@ type DimensionRankChangeTableProps = {
   dimensionLabel?: string;
   rankLabel?: string;
   changeLabel?: string;
+};
+
+type AssetDimensionScoreTableProps = {
+  sectionLabel?: string;
+  rows: Array<{
+    dimensionName: string;
+    scoreValue: number;
+    scoreTotal: number;
+    rankValue: number;
+    rankTotalAssets: number;
+  }>;
+};
+
+type MultiAssetDimensionScoreComparisonTableProps = {
+  sectionLabel?: string;
+  dimensions: Array<{
+    dimensionKey: string;
+    dimensionName: string;
+  }>;
+  assets: Array<{
+    assetLogo?: string;
+    assetSymbol: string;
+    assetName: string;
+    dimensionScores: Array<{
+      dimensionKey: string;
+      scoreValue: number;
+      scoreTotal: number;
+      rankValue: number;
+      rankTotalAssets: number;
+    }>;
+  }>;
 };
 
 const catalog = defineCatalog(schema, {
@@ -730,9 +763,9 @@ const { registry } = defineRegistry(catalog, {
 
     AssetHeader: ({ props }) => renderAssetHeader(props),
 
-    AssetDimensionScoreTable: ({ props }) => (
+    AssetDimensionScoreTable: ({ props }: { props: AssetDimensionScoreTableProps }) => (
       <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-        <p style={{ margin: "0 8px 2px 8px", fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.62)" }}>Theme</p>
+        {props.sectionLabel ? <p style={{ margin: "0 8px 2px 8px", fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.62)" }}>{props.sectionLabel}</p> : null}
         {props.rows.map((row, index) => {
           const isHighlighted = index === 0;
           return (
@@ -762,11 +795,13 @@ const { registry } = defineRegistry(catalog, {
       </div>
     ),
 
-    MultiAssetDimensionScoreComparisonTable: ({ props }) => {
+    MultiAssetDimensionScoreComparisonTable: ({ props }: { props: MultiAssetDimensionScoreComparisonTableProps }) => {
       const gridTemplateColumns = `minmax(110px, 1.25fr) repeat(${props.dimensions.length}, minmax(0, 1fr))`;
 
       return (
-        <div style={{ border: "none", borderRadius: 0, overflow: "hidden" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+          {props.sectionLabel ? <p style={{ margin: "0 8px 2px 8px", fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.62)" }}>{props.sectionLabel}</p> : null}
+          <div style={{ border: "none", borderRadius: 0, overflow: "hidden" }}>
           <div style={{ minWidth: "auto" }}>
             <div
               style={{
@@ -825,6 +860,7 @@ const { registry } = defineRegistry(catalog, {
           })}
         </div>
       </div>
+        </div>
       );
     },
 
