@@ -16,26 +16,72 @@ Show rating transitions driven by technical signals, such as upgrades and downgr
 - `references/schemas/NotificationButtonList.schema.json`
 
 ## Example Spec
+### Example: `technical-signal-update-v1`
 ```json
 {
   "root": "container",
   "elements": {
     "container": {
       "type": "NotificationCardContainer",
-      "props": { "label": "Ed's Picks for You", "title": "Technical Signal Update" },
-      "children": ["notice-text", "rating-change-list", "notice-actions"]
+      "props": {
+        "label": "Ed's Daily Discovery",
+        "title": "Technical Signal Update"
+      },
+      "children": [
+        "notice-text",
+        "rating",
+        "notice-actions"
+      ]
     },
-    "notice-text": { "type": "NotificationText", "props": { "text": "..." }, "children": [] },
-    "rating-change-list": {
+    "notice-text": {
+      "type": "NotificationText",
+      "props": {
+        "text": "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text"
+      },
+      "children": []
+    },
+    "rating": {
       "type": "AssetRatingChangeComparisonList",
       "props": {
         "changes": [
-          { "assetSymbol": "NVDA", "fromRating": "Hold", "toRating": "Buy" }
+          {
+            "assetLogo": "https://cdn.simpleicons.org/bitcoin/f7931a",
+            "assetSymbol": "BTC",
+            "fromRating": "Buy",
+            "toRating": "Strong Buy"
+          },
+          {
+            "assetLogo": "https://cdn.simpleicons.org/bitcoin/f7931a",
+            "assetSymbol": "BTC",
+            "fromRating": "Buy",
+            "toRating": "Strong Buy"
+          }
         ]
       },
       "children": []
     },
-    "notice-actions": { "type": "NotificationButtonList", "props": { "actions": [] }, "children": [] }
+    "notice-actions": {
+      "type": "NotificationButtonList",
+      "props": {
+        "actions": [
+          {
+            "actionType": "negative",
+            "label": "Skip Signal"
+          },
+          {
+            "actionType": "positive",
+            "label": "View Technical Details",
+            "link": "https://example.com/technical-signal/btc"
+          },
+          {
+            "actionType": "positive",
+            "label": "Ask Ed",
+            "link": "ask-ed:Does this technical signal suggest holding, adding, or trimming?"
+          }
+        ]
+      },
+      "children": []
+    }
   }
 }
 ```

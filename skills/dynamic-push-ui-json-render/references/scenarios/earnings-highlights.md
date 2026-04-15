@@ -18,31 +18,82 @@ Summarize earnings insights as concise narrative bullet points instead of a nume
 - `references/schemas/NotificationButtonList.schema.json`
 
 ## Example Spec
+### Example: `earnings-highlights-v1`
 ```json
 {
   "root": "container",
   "elements": {
     "container": {
       "type": "NotificationCardContainer",
-      "props": { "label": "Ed's Picks for You", "title": "Earnings Update" },
-      "children": ["notice-text", "asset-context-header", "highlights", "notice-actions"]
+      "props": {
+        "label": "Earnings Call",
+        "title": "Earnings Update"
+      },
+      "children": [
+        "notice-text",
+        "asset-context-header",
+        "narrative-highlights-list",
+        "notice-actions"
+      ]
     },
-    "notice-text": { "type": "NotificationText", "props": { "text": "..." }, "children": [] },
-    "asset-context-header": {
-      "type": "AssetHeader",
-      "props": { "assetSymbol": "NVDA", "title": "Q2 Earnings" },
+    "notice-text": {
+      "type": "NotificationText",
+      "props": {
+        "text": "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text"
+      },
       "children": []
     },
-    "highlights": {
+    "asset-context-header": {
+      "type": "AssetHeader",
+      "props": {
+        "assetLogo": "https://www.figma.com/api/mcp/asset/c25c9a9c-3737-42dd-a753-446c63e0d811",
+        "assetSymbol": "NVDA",
+        "title": "Management Call"
+      },
+      "children": []
+    },
+    "narrative-highlights-list": {
       "type": "AssetNarrativeHighlightsList",
       "props": {
         "items": [
-          { "title": "Guidance Raised", "description": "Management raised full-year guidance." }
+          {
+            "title": "Services revenue growth expected to sustain double-digit momentum",
+            "description": "Services carries the highest margins — growth here means improving profit mix"
+          },
+          {
+            "title": "Services revenue growth expected to sustain double-digit momentum",
+            "description": "For you: Stronger Services = more stable FCF backing your dividends"
+          },
+          {
+            "title": "Services revenue growth expected to sustain double-digit momentum",
+            "description": "Services carries the highest margins — growth here means improving profit mix"
+          }
         ]
       },
       "children": []
     },
-    "notice-actions": { "type": "NotificationButtonList", "props": { "actions": [] }, "children": [] }
+    "notice-actions": {
+      "type": "NotificationButtonList",
+      "props": {
+        "actions": [
+          {
+            "actionType": "negative",
+            "label": "Skip Highlights"
+          },
+          {
+            "actionType": "positive",
+            "label": "View Call Notes",
+            "link": "https://example.com/management-call/nvda"
+          },
+          {
+            "actionType": "positive",
+            "label": "Ask Ed",
+            "link": "ask-ed:From the management call, what guidance matters most for next quarter?"
+          }
+        ]
+      },
+      "children": []
+    }
   }
 }
 ```

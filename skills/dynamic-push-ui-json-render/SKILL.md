@@ -94,6 +94,10 @@ Read only the scenario file you need:
 - [technical-signal-rating-change.md](references/scenarios/technical-signal-rating-change.md)
 - [pick-hybrid.md](references/scenarios/pick-hybrid.md)
 
+## Demo Specs
+- Examples now live directly inside each scenario markdown under `## Example Spec`.
+- Use `references/scenarios/*.md` as the canonical complete payload references.
+
 ## Schema Resources
 Use these schemas as the final source of truth:
 

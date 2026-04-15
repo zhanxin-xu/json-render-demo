@@ -20,37 +20,146 @@ Build a deep-dive card that combines a headline score, cross-asset comparison, a
 - `references/schemas/NotificationButtonList.schema.json`
 
 ## Example Spec
+### Example: `pick-hybrid-v1`
 ```json
 {
   "root": "container",
   "elements": {
     "container": {
       "type": "NotificationCardContainer",
-      "props": { "label": "Ed's Picks for You", "title": "My Pick This Week: TSM" },
-      "children": ["notice-text", "title", "comparison", "table", "notice-actions"]
+      "props": {
+        "label": "Alpha Picks",
+        "title": "My Pick This Week: TSM"
+      },
+      "children": [
+        "notice-text",
+        "title",
+        "comparison",
+        "table",
+        "notice-actions"
+      ]
     },
-    "notice-text": { "type": "NotificationText", "props": { "text": "..." }, "children": [] },
+    "notice-text": {
+      "type": "NotificationText",
+      "props": {
+        "text": "Revenue Growth +33% YoY — near the top of sector, driven by AI chip demand. Advanced Node revenue now 68% of total, strengthening pricing power in leading-edge process. Valuation 28/103, Growth 8/103 — growth far outpacing valuation, offering strong value."
+      },
+      "children": []
+    },
     "title": {
       "type": "AssetHeader",
       "props": {
-        "assetSymbol": "TSM",
-        "title": "Taiwan Semiconductor",
-        "assetScoreValue": 82,
+        "assetLogo": "https://www.figma.com/api/mcp/asset/c25c9a9c-3737-42dd-a753-446c63e0d811",
+        "assetSymbol": "NVDA",
+        "title": "NVIDIA Corporation",
+        "assetScoreValue": 2,
         "assetScoreTotal": 100
       },
       "children": []
     },
     "comparison": {
       "type": "MultiAssetDimensionScoreComparisonTable",
-      "props": { "sectionLabel": "AI Ecosystem Peer Comparison", "dimensions": [], "assets": [] },
+      "props": {
+        "sectionLabel": "AI Ecosystem Peer Comparison",
+        "dimensions": [
+          {
+            "dimensionKey": "growth",
+            "dimensionName": "Growth"
+          },
+          {
+            "dimensionKey": "valuation",
+            "dimensionName": "Valuation"
+          },
+          {
+            "dimensionKey": "profitability",
+            "dimensionName": "Profitability"
+          }
+        ],
+        "assets": [
+          {
+            "assetLogo": "https://www.figma.com/api/mcp/asset/c25c9a9c-3737-42dd-a753-446c63e0d811",
+            "assetSymbol": "NVDA",
+            "assetName": "NVIDIA Corporation",
+            "dimensionScores": [
+              {
+                "dimensionKey": "growth",
+                "scoreValue": 2,
+                "scoreTotal": 100,
+                "rankValue": 2,
+                "rankTotalAssets": 100
+              },
+              {
+                "dimensionKey": "valuation",
+                "scoreValue": 2,
+                "scoreTotal": 100,
+                "rankValue": 2,
+                "rankTotalAssets": 100
+              },
+              {
+                "dimensionKey": "profitability",
+                "scoreValue": 2,
+                "scoreTotal": 100,
+                "rankValue": 2,
+                "rankTotalAssets": 100
+              }
+            ]
+          }
+        ]
+      },
       "children": []
     },
     "table": {
       "type": "AssetDimensionScoreTable",
-      "props": { "sectionLabel": "AI Ecosystem Theme Score", "rows": [] },
+      "props": {
+        "sectionLabel": "AI Ecosystem Theme Score",
+        "rows": [
+          {
+            "dimensionName": "Growth",
+            "scoreValue": 2,
+            "scoreTotal": 100,
+            "rankValue": 2,
+            "rankTotalAssets": 100
+          },
+          {
+            "dimensionName": "Profitability",
+            "scoreValue": 2,
+            "scoreTotal": 100,
+            "rankValue": 2,
+            "rankTotalAssets": 100
+          },
+          {
+            "dimensionName": "Valuation",
+            "scoreValue": 2,
+            "scoreTotal": 100,
+            "rankValue": 2,
+            "rankTotalAssets": 100
+          }
+        ]
+      },
       "children": []
     },
-    "notice-actions": { "type": "NotificationButtonList", "props": { "actions": [] }, "children": [] }
+    "notice-actions": {
+      "type": "NotificationButtonList",
+      "props": {
+        "actions": [
+          {
+            "actionType": "negative",
+            "label": "No Action Yet"
+          },
+          {
+            "actionType": "positive",
+            "label": "View Full Report",
+            "link": "https://example.com/asset/TSM"
+          },
+          {
+            "actionType": "positive",
+            "label": "Ask Ed",
+            "link": "ask-ed:Given the current score and valuation, suggest a step-by-step action plan."
+          }
+        ]
+      },
+      "children": []
+    }
   }
 }
 ```

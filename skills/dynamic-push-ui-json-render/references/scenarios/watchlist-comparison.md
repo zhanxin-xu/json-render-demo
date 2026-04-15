@@ -16,38 +16,158 @@ Compare multiple assets side by side across shared scoring dimensions for fast w
 - `references/schemas/NotificationButtonList.schema.json`
 
 ## Example Spec
+### Example: `watchlist-comparison-v1`
 ```json
 {
   "root": "container",
   "elements": {
     "container": {
       "type": "NotificationCardContainer",
-      "props": { "label": "Ed's Picks for You", "title": "Semiconductor Watchlist Comparison" },
-      "children": ["notice-text", "comparison", "notice-actions"]
+      "props": {
+        "label": "Ratings & Discovery",
+        "title": "Semiconductor Watchlist Comparison"
+      },
+      "children": [
+        "notice-text",
+        "comparison",
+        "notice-actions"
+      ]
     },
-    "notice-text": { "type": "NotificationText", "props": { "text": "..." }, "children": [] },
+    "notice-text": {
+      "type": "NotificationText",
+      "props": {
+        "text": "Ed's Insight placeholder body textEd's placeholder body text Ed's Insight placeholder body text"
+      },
+      "children": []
+    },
     "comparison": {
       "type": "MultiAssetDimensionScoreComparisonTable",
       "props": {
-        "sectionLabel": "Semiconductor Theme Comparison",
         "dimensions": [
-          { "dimensionKey": "growth", "dimensionName": "Growth" },
-          { "dimensionKey": "valuation", "dimensionName": "Valuation" }
+          {
+            "dimensionKey": "growth",
+            "dimensionName": "Growth"
+          },
+          {
+            "dimensionKey": "profitability",
+            "dimensionName": "Profitability"
+          },
+          {
+            "dimensionKey": "valuation",
+            "dimensionName": "Valuation"
+          }
         ],
         "assets": [
           {
-            "assetSymbol": "NVDA",
-            "assetName": "NVIDIA",
+            "assetLogo": "https://www.figma.com/api/mcp/asset/68bdbd5e-f85e-4b45-9a5e-7bddaf3075b2",
+            "assetSymbol": "TSLA",
+            "assetName": "Tesla",
             "dimensionScores": [
-              { "dimensionKey": "growth", "scoreValue": 92, "scoreTotal": 100, "rankValue": 2, "rankTotalAssets": 100 },
-              { "dimensionKey": "valuation", "scoreValue": 65, "scoreTotal": 100, "rankValue": 23, "rankTotalAssets": 100 }
+              {
+                "dimensionKey": "growth",
+                "scoreValue": 92,
+                "scoreTotal": 100,
+                "rankValue": 2,
+                "rankTotalAssets": 100
+              },
+              {
+                "dimensionKey": "profitability",
+                "scoreValue": 92,
+                "scoreTotal": 100,
+                "rankValue": 4,
+                "rankTotalAssets": 100
+              },
+              {
+                "dimensionKey": "valuation",
+                "scoreValue": 92,
+                "scoreTotal": 100,
+                "rankValue": 4,
+                "rankTotalAssets": 100
+              }
+            ]
+          },
+          {
+            "assetLogo": "https://www.figma.com/api/mcp/asset/68bdbd5e-f85e-4b45-9a5e-7bddaf3075b2",
+            "assetSymbol": "TSLA",
+            "assetName": "Tesla",
+            "dimensionScores": [
+              {
+                "dimensionKey": "growth",
+                "scoreValue": 92,
+                "scoreTotal": 100,
+                "rankValue": 2,
+                "rankTotalAssets": 100
+              },
+              {
+                "dimensionKey": "profitability",
+                "scoreValue": 92,
+                "scoreTotal": 100,
+                "rankValue": 4,
+                "rankTotalAssets": 100
+              },
+              {
+                "dimensionKey": "valuation",
+                "scoreValue": 92,
+                "scoreTotal": 100,
+                "rankValue": 4,
+                "rankTotalAssets": 100
+              }
+            ]
+          },
+          {
+            "assetLogo": "https://www.figma.com/api/mcp/asset/68bdbd5e-f85e-4b45-9a5e-7bddaf3075b2",
+            "assetSymbol": "TSLA",
+            "assetName": "Tesla",
+            "dimensionScores": [
+              {
+                "dimensionKey": "growth",
+                "scoreValue": 92,
+                "scoreTotal": 100,
+                "rankValue": 2,
+                "rankTotalAssets": 100
+              },
+              {
+                "dimensionKey": "profitability",
+                "scoreValue": 92,
+                "scoreTotal": 100,
+                "rankValue": 4,
+                "rankTotalAssets": 100
+              },
+              {
+                "dimensionKey": "valuation",
+                "scoreValue": 92,
+                "scoreTotal": 100,
+                "rankValue": 4,
+                "rankTotalAssets": 100
+              }
             ]
           }
         ]
       },
       "children": []
     },
-    "notice-actions": { "type": "NotificationButtonList", "props": { "actions": [] }, "children": [] }
+    "notice-actions": {
+      "type": "NotificationButtonList",
+      "props": {
+        "actions": [
+          {
+            "actionType": "negative",
+            "label": "No Comparison"
+          },
+          {
+            "actionType": "positive",
+            "label": "Open Watchlist",
+            "link": "https://example.com/watchlist/semiconductors"
+          },
+          {
+            "actionType": "positive",
+            "label": "Ask Ed",
+            "link": "ask-ed:In this semiconductor comparison, which two names are most worth tracking now?"
+          }
+        ]
+      },
+      "children": []
+    }
   }
 }
 ```
