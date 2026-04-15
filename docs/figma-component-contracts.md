@@ -201,17 +201,11 @@ Figma：
 - `actions[]`
 
 `actions[]` 内字段：
-- `actionType`（`dislike` / `detail` / `askEd`）
-  - `dislike`：反馈不感兴趣
-  - `detail`：跳转到 `href`
-  - `askEd`：触发提问事件，使用 `question` 作为预置问题
-- `label?`
-- `href?`（`detail` 按钮可选）
-- `question?`（`askEd` 按钮可选）
-- `variant?`（`primary` / `secondary`）
-  - `primary`：强调色实心按钮
-  - `secondary`：中性描边按钮
-  - 默认值：`askEd` 默认 `primary`，其它类型默认 `secondary`
+- `actionType`（`negative` / `positive`）
+  - `negative`：白色负反馈按钮
+  - `positive`：绿色正反馈按钮
+- `label`（按钮文案）
+- `link?`（`positive` 按钮动作链接，可用于详情跳转或 AskEd，如 `ask-ed:Question text`）
 
 ## 11. 关键指标条（AssetKeyStatsStrip）
 Figma：

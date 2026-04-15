@@ -75,9 +75,9 @@ Show a themed rank snapshot across multiple assets, using per-dimension score an
       "type": "NotificationButtonList",
       "props": {
         "actions": [
-          { "actionType": "dislike", "label": "Not Tracking" },
-          { "actionType": "detail", "label": "View Theme Changes", "href": "https://example.com/rank-movement/theme" },
-          { "actionType": "askEd", "label": "Ask Ed", "question": "Which asset in this theme has the best risk-reward balance now?" }
+          { "actionType": "negative", "label": "Not Tracking" },
+          { "actionType": "positive", "label": "View Theme Changes", "link": "https://example.com/rank-movement/theme" },
+          { "actionType": "positive", "label": "Ask Ed", "link": "ask-ed:Which asset in this theme has the best risk-reward balance now?" }
         ]
       },
       "children": []

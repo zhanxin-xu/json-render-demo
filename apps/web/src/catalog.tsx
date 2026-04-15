@@ -119,15 +119,19 @@ const ratingChangeSchema = z
 const notificationButtonActionSchema = z
   .object({
     actionType: z
-      .enum(["dislike", "detail", "askEd"])
-      .describe("Action type used to decide behavior and default label: dislike = feedback action, detail = navigate to href, askEd = dispatch ask-ed with question."),
-    label: z.string().optional().describe("Optional custom button label."),
-    href: z.string().optional().describe("Optional target URL used by the detail action."),
-    question: z.string().optional().describe("Optional preset question used by the askEd action."),
-    variant: z
-      .enum(["primary", "secondary"])
-      .optional()
-      .describe("Optional visual style variant: primary = filled accent button, secondary = outlined neutral button. Defaults to primary for askEd and secondary for other action types.")
+      .enum(["negative", "positive"])
+      .describe("Button type: negative = white negative feedback button, positive = green positive action button."),
+    label: z.string().describe("Button text content."),
+    link: z.string().optional().describe("Action link for positive. Supports normal URLs and ask-ed links like ask-ed:Question text.")
+  })
+  .superRefine((action, ctx) => {
+    if (action.actionType === "positive" && !action.link) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["link"],
+        message: "positive action requires a link."
+      });
+    }
   })
   .describe("One action button configuration in the notification footer.");
 
@@ -230,11 +234,9 @@ type AssetHeaderProps = {
 
 type NotificationButtonListProps = {
   actions: Array<{
-    actionType: "dislike" | "detail" | "askEd";
-    label?: string;
-    href?: string;
-    question?: string;
-    variant?: "primary" | "secondary";
+    actionType: "negative" | "positive";
+    label: string;
+    link?: string;
   }>;
 };
 
@@ -326,7 +328,7 @@ const catalog = defineCatalog(schema, {
       props: notificationTextPropsSchema
     },
     NotificationButtonList: {
-      description: "Notification button list (dislike/detail/ask ED) rendered inside NotificationCardContainer",
+      description: "Notification button list (negative/positive) rendered inside NotificationCardContainer",
       props: notificationButtonListSchema
     },
     AssetRecommendationList: {
@@ -445,23 +447,24 @@ function renderScoreBadge(score: number, total: number, label = "Score") {
 
 function renderFooterButton(
   label: string,
-  variant: "primary" | "secondary",
-  options?: { href?: string; onClick?: () => void; title?: string }
+  actionType: "negative" | "positive",
+  options?: { link?: string }
 ) {
+  const isPositive = actionType === "positive";
   const style = {
     minHeight: 28,
     minWidth: 80,
     boxSizing: "border-box" as const,
     borderRadius: 6,
-    border: variant === "primary" ? `1px solid ${accentColor}` : "1px solid rgba(10,10,10,0.2)",
-    background: variant === "primary" ? accentColor : "#fff",
+    border: isPositive ? `1px solid ${accentColor}` : "1px solid rgba(10,10,10,0.2)",
+    background: isPositive ? accentColor : "#fff",
     padding: "6px 8px",
     fontSize: 12,
     lineHeight: "16px",
     fontWeight: 700,
     letterSpacing: 0,
     fontFamily: buttonFontFamily,
-    color: variant === "primary" ? "#fff" : "#1f1f1f",
+    color: isPositive ? "#fff" : "#1f1f1f",
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
@@ -473,17 +476,36 @@ function renderFooterButton(
   };
 
   const handleClick = () => {
-    if (options?.href) {
-      window.location.assign(options.href);
+    const link = options?.link?.trim();
+    if (!link) {
       return;
     }
 
-    options?.onClick?.();
+    if (link.startsWith("ask-ed:")) {
+      const rawQuestion = link.slice("ask-ed:".length).trim();
+      let question = rawQuestion;
+      try {
+        question = decodeURIComponent(rawQuestion);
+      } catch {
+        question = rawQuestion;
+      }
+      if (!question) return;
+      window.dispatchEvent(
+        new CustomEvent("ask-ed", {
+          detail: {
+            question
+          }
+        })
+      );
+      return;
+    }
+
+    window.location.assign(link);
   };
 
   return (
-    <button type="button" onClick={handleClick} title={options?.title} style={{ ...style, cursor: "pointer" }}>
-      {label + " \u2192"}
+    <button type="button" onClick={handleClick} style={{ ...style, cursor: "pointer" }}>
+      {label}
     </button>
   );
 }
@@ -492,32 +514,9 @@ function renderNotificationButtonList(props: NotificationButtonListProps) {
   const actions = props.actions.length
     ? props.actions
     : [
-        { actionType: "dislike" as const },
-        { actionType: "detail" as const },
-        { actionType: "askEd" as const }
+        { actionType: "negative" as const, label: "Not Interested" },
+        { actionType: "positive" as const, label: "View Details", link: "https://example.com/detail" }
       ];
-
-  const getDefaultLabel = (actionType: "dislike" | "detail" | "askEd") => {
-    if (actionType === "detail") return "View Details";
-    if (actionType === "askEd") return "Ask Ed";
-    return "Dislike";
-  };
-
-  const getDefaultVariant = (actionType: "dislike" | "detail" | "askEd"): "primary" | "secondary" => {
-    if (actionType === "askEd") return "primary";
-    return "secondary";
-  };
-
-  const handleAskEd = (question: string | undefined) => {
-    if (!question) return;
-    window.dispatchEvent(
-      new CustomEvent("ask-ed", {
-        detail: {
-          question
-        }
-      })
-    );
-  };
 
   return (
     <div
@@ -529,23 +528,14 @@ function renderNotificationButtonList(props: NotificationButtonListProps) {
       }}
     >
       {actions.map((action, index) => {
-        const actionType = action.actionType;
-        const label = action.label ?? getDefaultLabel(actionType);
-        const variant = action.variant ?? getDefaultVariant(actionType);
-        const options: { href?: string; onClick?: () => void; title?: string } = {};
-
-        if (actionType === "detail") {
-          options.href = action.href;
-        }
-
-        if (actionType === "askEd") {
-          options.onClick = () => handleAskEd(action.question);
-          options.title = action.question;
+        const options: { link?: string } = {};
+        if (action.actionType === "positive") {
+          options.link = action.link;
         }
 
         return (
-          <span key={`${actionType}-${index}`} style={{ display: "inline-flex" }}>
-            {renderFooterButton(label, variant, options)}
+          <span key={`${action.actionType}-${index}`} style={{ display: "inline-flex" }}>
+            {renderFooterButton(action.label, action.actionType, options)}
           </span>
         );
       })}

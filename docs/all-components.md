@@ -50,7 +50,7 @@ Figma：无独立映射节点，复用在通知卡场景中，参考 [`81033:183
 
 ### 3) NotificationButtonList（通知按钮列表）
 
-说明：通知卡底部按钮组，包含 `Dislike / View Details / Ask Ed` 三个操作按钮。
+说明：通知卡底部按钮组，按钮类型简化为负反馈与正反馈两类。
 Figma：无独立映射节点，作为 `NotificationCardContainer` 的底部交互区在代码中复用。
 
 ```ts
@@ -63,23 +63,15 @@ Figma：无独立映射节点，作为 `NotificationCardContainer` 的底部交�
 
 ```ts
 {
-  actionType: "dislike" | "detail" | "askEd";
-  label?: string;
-  href?: string;
-  question?: string;
-  variant?: "primary" | "secondary";
+  actionType: "negative" | "positive";
+  label: string;
+  link?: string;
 }
 ```
 
 `actionType` 语义：
-- `dislike`：反馈不感兴趣。
-- `detail`：跳转到 `href`。
-- `askEd`：触发提问事件，使用 `question` 作为预置问题。
-
-`variant` 语义：
-- `primary`：强调色实心按钮。
-- `secondary`：中性描边按钮。
-- 默认值：`askEd` 默认 `primary`，其它类型默认 `secondary`。
+- `negative`：白色按钮，表示负反馈。
+- `positive`：绿色按钮，表示正反馈，点击按 `link` 执行动作（如详情跳转、AskEd）。
 
 ### 4) AssetRecommendationList
 

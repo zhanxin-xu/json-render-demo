@@ -65,18 +65,18 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "dislike",
+                "actionType": "negative",
                 "label": "Not Interested"
               },
               {
-                "actionType": "detail",
+                "actionType": "positive",
                 "label": "Open NVDA",
-                "href": "https://example.com/asset/NVDA"
+                "link": "https://example.com/asset/NVDA"
               },
               {
-                "actionType": "askEd",
+                "actionType": "positive",
                 "label": "Ask Ed",
-                "question": "Which stock in this trending list should I review first, and why?"
+                "link": "ask-ed:Which stock in this trending list should I review first, and why?"
               }
             ]
           },
@@ -157,18 +157,18 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "dislike",
+                "actionType": "negative",
                 "label": "Skip for Now"
               },
               {
-                "actionType": "detail",
+                "actionType": "positive",
                 "label": "View TSM Thesis",
-                "href": "https://example.com/asset/TSM"
+                "link": "https://example.com/asset/TSM"
               },
               {
-                "actionType": "askEd",
+                "actionType": "positive",
                 "label": "Ask Ed",
-                "question": "What is the core thesis for TSM this week, and what are the main risks?"
+                "link": "ask-ed:What is the core thesis for TSM this week, and what are the main risks?"
               }
             ]
           },
@@ -313,18 +313,18 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "dislike",
+                "actionType": "negative",
                 "label": "No Comparison"
               },
               {
-                "actionType": "detail",
+                "actionType": "positive",
                 "label": "Open Watchlist",
-                "href": "https://example.com/watchlist/semiconductors"
+                "link": "https://example.com/watchlist/semiconductors"
               },
               {
-                "actionType": "askEd",
+                "actionType": "positive",
                 "label": "Ask Ed",
-                "question": "In this semiconductor comparison, which two names are most worth tracking now?"
+                "link": "ask-ed:In this semiconductor comparison, which two names are most worth tracking now?"
               }
             ]
           },
@@ -405,18 +405,18 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "dislike",
+                "actionType": "negative",
                 "label": "Skip This"
               },
               {
-                "actionType": "detail",
+                "actionType": "positive",
                 "label": "View Score Breakdown",
-                "href": "https://example.com/asset/TSM"
+                "link": "https://example.com/asset/TSM"
               },
               {
-                "actionType": "askEd",
+                "actionType": "positive",
                 "label": "Ask Ed",
-                "question": "Based on the scores, what are this asset's strongest and weakest dimensions right now?"
+                "link": "ask-ed:Based on the scores, what are this asset's strongest and weakest dimensions right now?"
               }
             ]
           },
@@ -586,18 +586,18 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "dislike",
+                "actionType": "negative",
                 "label": "Skip Earnings"
               },
               {
-                "actionType": "detail",
+                "actionType": "positive",
                 "label": "View Earnings Details",
-                "href": "https://example.com/earnings/nvda"
+                "link": "https://example.com/earnings/nvda"
               },
               {
-                "actionType": "askEd",
+                "actionType": "positive",
                 "label": "Ask Ed",
-                "question": "What were the most important beats and misses in this earnings report?"
+                "link": "ask-ed:What were the most important beats and misses in this earnings report?"
               }
             ]
           },
@@ -666,18 +666,18 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "dislike",
+                "actionType": "negative",
                 "label": "Skip Highlights"
               },
               {
-                "actionType": "detail",
+                "actionType": "positive",
                 "label": "View Call Notes",
-                "href": "https://example.com/management-call/nvda"
+                "link": "https://example.com/management-call/nvda"
               },
               {
-                "actionType": "askEd",
+                "actionType": "positive",
                 "label": "Ask Ed",
-                "question": "From the management call, what guidance matters most for next quarter?"
+                "link": "ask-ed:From the management call, what guidance matters most for next quarter?"
               }
             ]
           },
@@ -762,18 +762,18 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "dislike",
+                "actionType": "negative",
                 "label": "Skip Ranking"
               },
               {
-                "actionType": "detail",
+                "actionType": "positive",
                 "label": "View Rank Changes",
-                "href": "https://example.com/rank-movement/nvda"
+                "link": "https://example.com/rank-movement/nvda"
               },
               {
-                "actionType": "askEd",
+                "actionType": "positive",
                 "label": "Ask Ed",
-                "question": "Are these ranking changes driven by short-term noise or fundamental shifts?"
+                "link": "ask-ed:Are these ranking changes driven by short-term noise or fundamental shifts?"
               }
             ]
           },
@@ -944,18 +944,18 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "dislike",
+                "actionType": "negative",
                 "label": "Not Tracking"
               },
               {
-                "actionType": "detail",
+                "actionType": "positive",
                 "label": "View Theme Changes",
-                "href": "https://example.com/rank-movement/theme"
+                "link": "https://example.com/rank-movement/theme"
               },
               {
-                "actionType": "askEd",
+                "actionType": "positive",
                 "label": "Ask Ed",
-                "question": "Which asset in this theme has the best risk-reward balance now?"
+                "link": "ask-ed:Which asset in this theme has the best risk-reward balance now?"
               }
             ]
           },
@@ -1014,18 +1014,18 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "dislike",
+                "actionType": "negative",
                 "label": "Skip Signal"
               },
               {
-                "actionType": "detail",
+                "actionType": "positive",
                 "label": "View Technical Details",
-                "href": "https://example.com/technical-signal/btc"
+                "link": "https://example.com/technical-signal/btc"
               },
               {
-                "actionType": "askEd",
+                "actionType": "positive",
                 "label": "Ask Ed",
-                "question": "Does this technical signal suggest holding, adding, or trimming?"
+                "link": "ask-ed:Does this technical signal suggest holding, adding, or trimming?"
               }
             ]
           },
@@ -1100,18 +1100,18 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "dislike",
+                "actionType": "negative",
                 "label": "Skip Picks"
               },
               {
-                "actionType": "detail",
+                "actionType": "positive",
                 "label": "View Trending List",
-                "href": "https://example.com/asset/NVDA"
+                "link": "https://example.com/asset/NVDA"
               },
               {
-                "actionType": "askEd",
+                "actionType": "positive",
                 "label": "Ask Ed",
-                "question": "Which name in this trending set is best suited for a conservative portfolio?"
+                "link": "ask-ed:Which name in this trending set is best suited for a conservative portfolio?"
               }
             ]
           },
@@ -1244,18 +1244,18 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "dislike",
+                "actionType": "negative",
                 "label": "No Action Yet"
               },
               {
-                "actionType": "detail",
+                "actionType": "positive",
                 "label": "View Full Report",
-                "href": "https://example.com/asset/TSM"
+                "link": "https://example.com/asset/TSM"
               },
               {
-                "actionType": "askEd",
+                "actionType": "positive",
                 "label": "Ask Ed",
-                "question": "Given the current score and valuation, suggest a step-by-step action plan."
+                "link": "ask-ed:Given the current score and valuation, suggest a step-by-step action plan."
               }
             ]
           },

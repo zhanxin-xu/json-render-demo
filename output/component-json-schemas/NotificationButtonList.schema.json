@@ -10,35 +10,23 @@
           "actionType": {
             "type": "string",
             "enum": [
-              "dislike",
-              "detail",
-              "askEd"
+              "negative",
+              "positive"
             ],
-            "description": "Action type used to decide behavior and default label: dislike = feedback action, detail = navigate to href, askEd = dispatch ask-ed with question."
+            "description": "Button type: negative = white negative feedback button, positive = green positive action button."
           },
           "label": {
-            "description": "Optional custom button label.",
-            "type": "string"
-          },
-          "href": {
-            "description": "Optional target URL used by the detail action.",
-            "type": "string"
-          },
-          "question": {
-            "description": "Optional preset question used by the askEd action.",
-            "type": "string"
-          },
-          "variant": {
-            "description": "Optional visual style variant: primary = filled accent button, secondary = outlined neutral button. Defaults to primary for askEd and secondary for other action types.",
             "type": "string",
-            "enum": [
-              "primary",
-              "secondary"
-            ]
+            "description": "Button text content."
+          },
+          "link": {
+            "description": "Action link for positive. Supports normal URLs and ask-ed links like ask-ed:Question text.",
+            "type": "string"
           }
         },
         "required": [
-          "actionType"
+          "actionType",
+          "label"
         ],
         "additionalProperties": false,
         "description": "One action button configuration in the notification footer."

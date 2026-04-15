@@ -62,9 +62,9 @@ Always use this top-level shape:
 - Restrict `AssetDataGridTable.tableRows[].cells[].columnKey` to keys declared in `tableColumns[].columnKey`.
 - Keep `AssetDimensionRankChangeTable.rows[].rankChange` as an integer: positive means improvement, negative means decline.
 - If using `sectionLabel` (`AssetRecommendationList`, `AssetDimensionScoreTable`, `MultiAssetDimensionScoreComparisonTable`), use concrete category names (for example `AI Ecosystem`, `AI Ecosystem Theme Score`, `Semiconductor Theme Comparison`) instead of generic `Theme`.
-- Provide at least 2 action types in `NotificationButtonList.actions` from `dislike`, `detail`, `askEd` (3 is recommended).
-- Restrict `NotificationButtonList.actions[].actionType` to `dislike`, `detail`, or `askEd`.
-- Prefer including `href` for `detail` actions and `question` for `askEd` actions.
+- Provide at least 2 buttons in `NotificationButtonList.actions`, usually one `negative` and one `positive`.
+- Restrict `NotificationButtonList.actions[].actionType` to `negative` or `positive`.
+- Keep `NotificationButtonList.actions[].label` required, and include `link` for `positive` actions.
 
 ## Validation Order
 1. Validate top-level `root/elements` structure.
