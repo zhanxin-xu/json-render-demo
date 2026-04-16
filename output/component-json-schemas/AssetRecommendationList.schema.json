@@ -20,12 +20,12 @@
             "description": "Ticker symbol of the asset."
           },
           "assetPriceUsd": {
-            "type": "string",
-            "description": "Current asset price in USD as formatted text."
+            "type": "number",
+            "description": "Current asset price in USD."
           },
           "priceChange24h": {
-            "type": "string",
-            "description": "24-hour price change as formatted text."
+            "type": "number",
+            "description": "24-hour price change percentage, for example 0.61 means +0.61%."
           },
           "reason": {
             "type": "string",

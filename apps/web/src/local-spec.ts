@@ -32,8 +32,8 @@ const groups = [
               {
                 "assetLogo": "https://www.figma.com/api/mcp/asset/c25c9a9c-3737-42dd-a753-446c63e0d811",
                 "assetSymbol": "NVDA",
-                "assetPriceUsd": "$171.23",
-                "priceChange24h": "+0.61%",
+                "assetPriceUsd": 171.23,
+                "priceChange24h": 0.61,
                 "reason": "Growth beats 95% of sector · 4 quarters",
                 "assetScoreValue": 88,
                 "assetScoreTotal": 100
@@ -41,8 +41,8 @@ const groups = [
               {
                 "assetLogo": "https://www.figma.com/api/mcp/asset/68bdbd5e-f85e-4b45-9a5e-7bddaf3075b2",
                 "assetSymbol": "TSLA",
-                "assetPriceUsd": "$171.23",
-                "priceChange24h": "+0.61%",
+                "assetPriceUsd": 171.23,
+                "priceChange24h": 0.61,
                 "reason": "Growth beats 95% of sector · 4 quarters",
                 "assetScoreValue": 86,
                 "assetScoreTotal": 100
@@ -50,8 +50,8 @@ const groups = [
               {
                 "assetLogo": "https://www.figma.com/api/mcp/asset/af2ee954-92ab-4c7b-8cc6-3ff9d15d944a",
                 "assetSymbol": "APPL",
-                "assetPriceUsd": "$171.23",
-                "priceChange24h": "+0.61%",
+                "assetPriceUsd": 171.23,
+                "priceChange24h": 0.61,
                 "reason": "Growth beats 95% of sector · 4 quarters",
                 "assetScoreValue": 83,
                 "assetScoreTotal": 100
@@ -1067,8 +1067,8 @@ const groups = [
               {
                 "assetLogo": "https://www.figma.com/api/mcp/asset/c25c9a9c-3737-42dd-a753-446c63e0d811",
                 "assetSymbol": "NVDA",
-                "assetPriceUsd": "$171.23",
-                "priceChange24h": "+0.61%",
+                "assetPriceUsd": 171.23,
+                "priceChange24h": 0.61,
                 "reason": "Growth beats 95% of sector · 4 quarters",
                 "assetScoreValue": 88,
                 "assetScoreTotal": 100
@@ -1076,8 +1076,8 @@ const groups = [
               {
                 "assetLogo": "https://www.figma.com/api/mcp/asset/68bdbd5e-f85e-4b45-9a5e-7bddaf3075b2",
                 "assetSymbol": "TSLA",
-                "assetPriceUsd": "$171.23",
-                "priceChange24h": "+0.61%",
+                "assetPriceUsd": 171.23,
+                "priceChange24h": 0.61,
                 "reason": "Growth beats 95% of sector · 4 quarters",
                 "assetScoreValue": 86,
                 "assetScoreTotal": 100
@@ -1085,8 +1085,8 @@ const groups = [
               {
                 "assetLogo": "https://www.figma.com/api/mcp/asset/af2ee954-92ab-4c7b-8cc6-3ff9d15d944a",
                 "assetSymbol": "APPL",
-                "assetPriceUsd": "$171.23",
-                "priceChange24h": "+0.61%",
+                "assetPriceUsd": 171.23,
+                "priceChange24h": 0.61,
                 "reason": "Growth beats 95% of sector · 4 quarters",
                 "assetScoreValue": 83,
                 "assetScoreTotal": 100

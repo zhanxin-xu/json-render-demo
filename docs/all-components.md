@@ -91,8 +91,8 @@ Figma：[`81033:18334`](https://www.figma.com/design/5u9TvHh6FzxydDBW6ncDja/Edge
 {
   assetLogo?: string;
   assetSymbol: string;
-  assetPriceUsd: string;
-  priceChange24h: string;
+  assetPriceUsd: number;
+  priceChange24h: number;
   reason: string;
   assetScoreValue: number;
   assetScoreTotal: number;

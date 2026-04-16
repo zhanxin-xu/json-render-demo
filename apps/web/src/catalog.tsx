@@ -11,8 +11,8 @@ const assetRecommendationListItemSchema = z
   .object({
     assetLogo: z.string().optional().describe("Optional logo URL for the asset."),
     assetSymbol: z.string().describe("Ticker symbol of the asset."),
-    assetPriceUsd: z.string().describe("Current asset price in USD as formatted text."),
-    priceChange24h: z.string().describe("24-hour price change as formatted text."),
+    assetPriceUsd: z.number().describe("Current asset price in USD."),
+    priceChange24h: z.number().describe("24-hour price change percentage, for example 0.61 means +0.61%."),
     reason: z.string().describe("Short recommendation reason shown below the symbol row."),
     assetScoreValue: z.number().describe("Current asset score value."),
     assetScoreTotal: z.number().describe("Maximum score denominator.")
@@ -396,9 +396,36 @@ function renderAssetLogo(logo: string | undefined, symbol: string, size = 24) {
   );
 }
 
-function getPriceChangeColor(value: string) {
-  const normalized = value.trim();
-  if (normalized.startsWith("-")) {
+const usdCurrencyFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+});
+
+const percentageFormatter = new Intl.NumberFormat("en-US", {
+  signDisplay: "always",
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+});
+
+function formatAssetPriceUsd(value: number) {
+  return usdCurrencyFormatter.format(value);
+}
+
+function formatPriceChangePercent(value: number) {
+  return `${percentageFormatter.format(value)}%`;
+}
+
+function getPriceChangeColor(value: number | string) {
+  if (typeof value === "number") {
+    if (value < 0) {
+      return "#e04f5f";
+    }
+    return "#15a46d";
+  }
+
+  if (value.trim().startsWith("-")) {
     return "#e04f5f";
   }
   return "#15a46d";
@@ -771,8 +798,8 @@ const { registry } = defineRegistry(catalog, {
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 {renderAssetLogo(asset.assetLogo, asset.assetSymbol)}
                 <p style={{ margin: 0, fontSize: 16, lineHeight: "24px", fontWeight: 600 }}>{asset.assetSymbol}</p>
-                <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.6)" }}>{asset.assetPriceUsd}</p>
-                <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: getPriceChangeColor(asset.priceChange24h), fontWeight: 600 }}>{asset.priceChange24h}</p>
+                <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: "rgba(10,10,10,0.6)" }}>{formatAssetPriceUsd(asset.assetPriceUsd)}</p>
+                <p style={{ margin: 0, fontSize: 12, lineHeight: "16px", color: getPriceChangeColor(asset.priceChange24h), fontWeight: 600 }}>{formatPriceChangePercent(asset.priceChange24h)}</p>
               </div>
               <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", color: "rgba(10,10,10,0.82)" }}>{asset.reason}</p>
             </div>
