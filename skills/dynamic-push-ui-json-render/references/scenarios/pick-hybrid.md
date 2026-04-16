@@ -143,18 +143,24 @@ Build a deep-dive card that combines a headline score, cross-asset comparison, a
       "props": {
         "actions": [
           {
-            "actionType": "negative",
-            "label": "No Action Yet"
+            "type": "negative",
+            "attributes": {
+              "label": "No Action Yet"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "View Full Report",
-            "link": "https://example.com/asset/TSM"
+            "type": "positive",
+            "attributes": {
+              "label": "View Full Report",
+              "link": "https://example.com/asset/TSM"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "Ask Ed",
-            "link": "ask-ed:Given the current score and valuation, suggest a step-by-step action plan."
+            "type": "positive",
+            "attributes": {
+              "label": "Ask Ed",
+              "link": "ask-ed:Given the current score and valuation, suggest a step-by-step action plan."
+            }
           }
         ]
       },

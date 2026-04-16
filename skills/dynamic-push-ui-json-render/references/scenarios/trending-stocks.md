@@ -81,18 +81,24 @@ Show a ranked list of currently hot assets with quick pricing context and a shor
       "props": {
         "actions": [
           {
-            "actionType": "negative",
-            "label": "Not Interested"
+            "type": "negative",
+            "attributes": {
+              "label": "Not Interested"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "Open NVDA",
-            "link": "https://example.com/asset/NVDA"
+            "type": "positive",
+            "attributes": {
+              "label": "Open NVDA",
+              "link": "https://example.com/asset/NVDA"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "Ask Ed",
-            "link": "ask-ed:Which stock in this trending list should I review first, and why?"
+            "type": "positive",
+            "attributes": {
+              "label": "Ask Ed",
+              "link": "ask-ed:Which stock in this trending list should I review first, and why?"
+            }
           }
         ]
       },
@@ -167,18 +173,24 @@ Show a ranked list of currently hot assets with quick pricing context and a shor
       "props": {
         "actions": [
           {
-            "actionType": "negative",
-            "label": "Skip Picks"
+            "type": "negative",
+            "attributes": {
+              "label": "Skip Picks"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "View Trending List",
-            "link": "https://example.com/asset/NVDA"
+            "type": "positive",
+            "attributes": {
+              "label": "View Trending List",
+              "link": "https://example.com/asset/NVDA"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "Ask Ed",
-            "link": "ask-ed:Which name in this trending set is best suited for a conservative portfolio?"
+            "type": "positive",
+            "attributes": {
+              "label": "Ask Ed",
+              "link": "ask-ed:Which name in this trending set is best suited for a conservative portfolio?"
+            }
           }
         ]
       },

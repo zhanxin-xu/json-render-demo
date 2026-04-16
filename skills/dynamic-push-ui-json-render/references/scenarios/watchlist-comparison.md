@@ -151,18 +151,24 @@ Compare multiple assets side by side across shared scoring dimensions for fast w
       "props": {
         "actions": [
           {
-            "actionType": "negative",
-            "label": "No Comparison"
+            "type": "negative",
+            "attributes": {
+              "label": "No Comparison"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "Open Watchlist",
-            "link": "https://example.com/watchlist/semiconductors"
+            "type": "positive",
+            "attributes": {
+              "label": "Open Watchlist",
+              "link": "https://example.com/watchlist/semiconductors"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "Ask Ed",
-            "link": "ask-ed:In this semiconductor comparison, which two names are most worth tracking now?"
+            "type": "positive",
+            "attributes": {
+              "label": "Ask Ed",
+              "link": "ask-ed:In this semiconductor comparison, which two names are most worth tracking now?"
+            }
           }
         ]
       },

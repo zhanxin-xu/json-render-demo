@@ -63,15 +63,16 @@ Figma：无独立映射节点，作为 `NotificationCardContainer` 的底部交�
 
 ```ts
 {
-  actionType: "negative" | "positive";
-  label: string;
-  link?: string;
+  type: "negative" | "positive";
+  attributes: Record<string, unknown>;
 }
 ```
 
-`actionType` 语义：
+`type` 语义：
 - `negative`：白色按钮，表示负反馈。
-- `positive`：绿色按钮，表示正反馈，点击按 `link` 执行动作（如详情跳转、AskEd）。
+- `positive`：绿色按钮，表示正反馈，点击按 `attributes.link` 执行动作（如详情跳转、AskEd）。
+
+`attributes` 为开放字段，不预设内部参数类型；可按场景约定 `label`、`link` 等键。
 
 ### 4) AssetRecommendationList
 

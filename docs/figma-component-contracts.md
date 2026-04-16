@@ -201,11 +201,11 @@ Figma：
 - `actions[]`
 
 `actions[]` 内字段：
-- `actionType`（`negative` / `positive`）
+- `type`（`negative` / `positive`）
   - `negative`：白色负反馈按钮
   - `positive`：绿色正反馈按钮
-- `label`（按钮文案）
-- `link?`（`positive` 按钮动作链接，可用于详情跳转或 AskEd，如 `ask-ed:Question text`）
+- `attributes`（`Record<string, unknown>`）
+  - 开放字段，不预设内部参数类型；可按业务约定使用 `label`、`link` 等键
 
 ## 11. 关键指标条（AssetKeyStatsStrip）
 Figma：

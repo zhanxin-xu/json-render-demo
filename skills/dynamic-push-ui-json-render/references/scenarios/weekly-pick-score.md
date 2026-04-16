@@ -89,18 +89,24 @@ Highlight one featured asset of the week with a headline score and a per-dimensi
       "props": {
         "actions": [
           {
-            "actionType": "negative",
-            "label": "Skip for Now"
+            "type": "negative",
+            "attributes": {
+              "label": "Skip for Now"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "View TSM Thesis",
-            "link": "https://example.com/asset/TSM"
+            "type": "positive",
+            "attributes": {
+              "label": "View TSM Thesis",
+              "link": "https://example.com/asset/TSM"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "Ask Ed",
-            "link": "ask-ed:What is the core thesis for TSM this week, and what are the main risks?"
+            "type": "positive",
+            "attributes": {
+              "label": "Ask Ed",
+              "link": "ask-ed:What is the core thesis for TSM this week, and what are the main risks?"
+            }
           }
         ]
       },
@@ -181,18 +187,24 @@ Highlight one featured asset of the week with a headline score and a per-dimensi
       "props": {
         "actions": [
           {
-            "actionType": "negative",
-            "label": "Skip This"
+            "type": "negative",
+            "attributes": {
+              "label": "Skip This"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "View Score Breakdown",
-            "link": "https://example.com/asset/TSM"
+            "type": "positive",
+            "attributes": {
+              "label": "View Score Breakdown",
+              "link": "https://example.com/asset/TSM"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "Ask Ed",
-            "link": "ask-ed:Based on the scores, what are this asset's strongest and weakest dimensions right now?"
+            "type": "positive",
+            "attributes": {
+              "label": "Ask Ed",
+              "link": "ask-ed:Based on the scores, what are this asset's strongest and weakest dimensions right now?"
+            }
           }
         ]
       },

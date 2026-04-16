@@ -7,7 +7,7 @@
       "items": {
         "type": "object",
         "properties": {
-          "actionType": {
+          "type": {
             "type": "string",
             "enum": [
               "negative",
@@ -15,18 +15,18 @@
             ],
             "description": "Button type: negative = white negative feedback button, positive = green positive action button."
           },
-          "label": {
-            "type": "string",
-            "description": "Button text content."
-          },
-          "link": {
-            "description": "Action link for positive. Supports normal URLs and ask-ed links like ask-ed:Question text.",
-            "type": "string"
+          "attributes": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {},
+            "description": "Button attributes map without strict value typing."
           }
         },
         "required": [
-          "actionType",
-          "label"
+          "type",
+          "attributes"
         ],
         "additionalProperties": false,
         "description": "One action button configuration in the notification footer."

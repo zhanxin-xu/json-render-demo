@@ -118,20 +118,12 @@ const ratingChangeSchema = z
 
 const notificationButtonActionSchema = z
   .object({
-    actionType: z
+    type: z
       .enum(["negative", "positive"])
       .describe("Button type: negative = white negative feedback button, positive = green positive action button."),
-    label: z.string().describe("Button text content."),
-    link: z.string().optional().describe("Action link for positive. Supports normal URLs and ask-ed links like ask-ed:Question text.")
-  })
-  .superRefine((action, ctx) => {
-    if (action.actionType === "positive" && !action.link) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["link"],
-        message: "positive action requires a link."
-      });
-    }
+    attributes: z
+      .record(z.string(), z.unknown())
+      .describe("Button attributes map without strict value typing.")
   })
   .describe("One action button configuration in the notification footer.");
 
@@ -235,9 +227,8 @@ type AssetHeaderProps = {
 
 type NotificationButtonListProps = {
   actions: Array<{
-    actionType: "negative" | "positive";
-    label: string;
-    link?: string;
+    type: "negative" | "positive";
+    attributes: Record<string, unknown>;
   }>;
 };
 
@@ -475,10 +466,10 @@ function renderScoreBadge(score: number, total: number, label = "Score") {
 
 function renderFooterButton(
   label: string,
-  actionType: "negative" | "positive",
+  type: "negative" | "positive",
   options?: { link?: string }
 ) {
-  const isPositive = actionType === "positive";
+  const isPositive = type === "positive";
   const style = {
     minHeight: 28,
     minWidth: 80,
@@ -542,8 +533,8 @@ function renderNotificationButtonList(props: NotificationButtonListProps) {
   const actions = props.actions.length
     ? props.actions
     : [
-        { actionType: "negative" as const, label: "Not Interested" },
-        { actionType: "positive" as const, label: "View Details", link: "https://example.com/detail" }
+        { type: "negative" as const, attributes: { label: "Not Interested" } },
+        { type: "positive" as const, attributes: { label: "View Details", link: "https://example.com/detail" } }
       ];
 
   return (
@@ -557,13 +548,21 @@ function renderNotificationButtonList(props: NotificationButtonListProps) {
     >
       {actions.map((action, index) => {
         const options: { link?: string } = {};
-        if (action.actionType === "positive") {
-          options.link = action.link;
+        const linkValue = action.attributes.link;
+        if (action.type === "positive") {
+          options.link = typeof linkValue === "string" ? linkValue : undefined;
         }
+        const labelValue = action.attributes.label;
+        const label =
+          typeof labelValue === "string" && labelValue.trim()
+            ? labelValue.trim()
+            : action.type === "positive"
+              ? "View Details"
+              : "Not Interested";
 
         return (
-          <span key={`${action.actionType}-${index}`} style={{ display: "inline-flex" }}>
-            {renderFooterButton(action.label, action.actionType, options)}
+          <span key={`${action.type}-${index}`} style={{ display: "inline-flex" }}>
+            {renderFooterButton(label, action.type, options)}
           </span>
         );
       })}

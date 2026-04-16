@@ -65,18 +65,24 @@ Show rating transitions driven by technical signals, such as upgrades and downgr
       "props": {
         "actions": [
           {
-            "actionType": "negative",
-            "label": "Skip Signal"
+            "type": "negative",
+            "attributes": {
+              "label": "Skip Signal"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "View Technical Details",
-            "link": "https://example.com/technical-signal/btc"
+            "type": "positive",
+            "attributes": {
+              "label": "View Technical Details",
+              "link": "https://example.com/technical-signal/btc"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "Ask Ed",
-            "link": "ask-ed:Does this technical signal suggest holding, adding, or trimming?"
+            "type": "positive",
+            "attributes": {
+              "label": "Ask Ed",
+              "link": "ask-ed:Does this technical signal suggest holding, adding, or trimming?"
+            }
           }
         ]
       },

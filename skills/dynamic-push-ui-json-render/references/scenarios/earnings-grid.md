@@ -180,18 +180,24 @@ Summarize an earnings event with key metrics and a compact estimate-vs-actual st
       "props": {
         "actions": [
           {
-            "actionType": "negative",
-            "label": "Skip Earnings"
+            "type": "negative",
+            "attributes": {
+              "label": "Skip Earnings"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "View Earnings Details",
-            "link": "https://example.com/earnings/nvda"
+            "type": "positive",
+            "attributes": {
+              "label": "View Earnings Details",
+              "link": "https://example.com/earnings/nvda"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "Ask Ed",
-            "link": "ask-ed:What were the most important beats and misses in this earnings report?"
+            "type": "positive",
+            "attributes": {
+              "label": "Ask Ed",
+              "link": "ask-ed:What were the most important beats and misses in this earnings report?"
+            }
           }
         ]
       },

@@ -63,8 +63,8 @@ Always use this top-level shape:
 - Keep `AssetDimensionRankChangeTable.rows[].rankChange` as an integer: positive means improvement, negative means decline.
 - If using `sectionLabel` (`AssetRecommendationList`, `AssetDimensionScoreTable`, `MultiAssetDimensionScoreComparisonTable`), use concrete category names (for example `AI Ecosystem`, `AI Ecosystem Theme Score`, `Semiconductor Theme Comparison`) instead of generic `Theme`.
 - Provide at least 2 buttons in `NotificationButtonList.actions`, usually one `negative` and one `positive`.
-- Restrict `NotificationButtonList.actions[].actionType` to `negative` or `positive`.
-- Keep `NotificationButtonList.actions[].label` required, and include `link` for `positive` actions.
+- Restrict `NotificationButtonList.actions[].type` to `negative` or `positive`.
+- Keep `NotificationButtonList.actions[].attributes` as an open map and decide concrete keys by scenario.
 
 ## Validation Order
 1. Validate top-level `root/elements` structure.

@@ -91,18 +91,24 @@ Show a themed rank snapshot across multiple assets, using per-dimension score an
       "props": {
         "actions": [
           {
-            "actionType": "negative",
-            "label": "Skip Ranking"
+            "type": "negative",
+            "attributes": {
+              "label": "Skip Ranking"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "View Rank Changes",
-            "link": "https://example.com/rank-movement/nvda"
+            "type": "positive",
+            "attributes": {
+              "label": "View Rank Changes",
+              "link": "https://example.com/rank-movement/nvda"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "Ask Ed",
-            "link": "ask-ed:Are these ranking changes driven by short-term noise or fundamental shifts?"
+            "type": "positive",
+            "attributes": {
+              "label": "Ask Ed",
+              "link": "ask-ed:Are these ranking changes driven by short-term noise or fundamental shifts?"
+            }
           }
         ]
       },
@@ -273,18 +279,24 @@ Show a themed rank snapshot across multiple assets, using per-dimension score an
       "props": {
         "actions": [
           {
-            "actionType": "negative",
-            "label": "Not Tracking"
+            "type": "negative",
+            "attributes": {
+              "label": "Not Tracking"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "View Theme Changes",
-            "link": "https://example.com/rank-movement/theme"
+            "type": "positive",
+            "attributes": {
+              "label": "View Theme Changes",
+              "link": "https://example.com/rank-movement/theme"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "Ask Ed",
-            "link": "ask-ed:Which asset in this theme has the best risk-reward balance now?"
+            "type": "positive",
+            "attributes": {
+              "label": "Ask Ed",
+              "link": "ask-ed:Which asset in this theme has the best risk-reward balance now?"
+            }
           }
         ]
       },

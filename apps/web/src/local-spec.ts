@@ -66,18 +66,24 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "negative",
-                "label": "Not Interested"
+                "type": "negative",
+                "attributes": {
+                  "label": "Not Interested"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "Open NVDA",
-                "link": "https://example.com/asset/NVDA"
+                "type": "positive",
+                "attributes": {
+                  "label": "Open NVDA",
+                  "link": "https://example.com/asset/NVDA"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "Ask Ed",
-                "link": "ask-ed:Which stock in this trending list should I review first, and why?"
+                "type": "positive",
+                "attributes": {
+                  "label": "Ask Ed",
+                  "link": "ask-ed:Which stock in this trending list should I review first, and why?"
+                }
               }
             ]
           },
@@ -159,18 +165,24 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "negative",
-                "label": "Skip for Now"
+                "type": "negative",
+                "attributes": {
+                  "label": "Skip for Now"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "View TSM Thesis",
-                "link": "https://example.com/asset/TSM"
+                "type": "positive",
+                "attributes": {
+                  "label": "View TSM Thesis",
+                  "link": "https://example.com/asset/TSM"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "Ask Ed",
-                "link": "ask-ed:What is the core thesis for TSM this week, and what are the main risks?"
+                "type": "positive",
+                "attributes": {
+                  "label": "Ask Ed",
+                  "link": "ask-ed:What is the core thesis for TSM this week, and what are the main risks?"
+                }
               }
             ]
           },
@@ -316,18 +328,24 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "negative",
-                "label": "No Comparison"
+                "type": "negative",
+                "attributes": {
+                  "label": "No Comparison"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "Open Watchlist",
-                "link": "https://example.com/watchlist/semiconductors"
+                "type": "positive",
+                "attributes": {
+                  "label": "Open Watchlist",
+                  "link": "https://example.com/watchlist/semiconductors"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "Ask Ed",
-                "link": "ask-ed:In this semiconductor comparison, which two names are most worth tracking now?"
+                "type": "positive",
+                "attributes": {
+                  "label": "Ask Ed",
+                  "link": "ask-ed:In this semiconductor comparison, which two names are most worth tracking now?"
+                }
               }
             ]
           },
@@ -409,18 +427,24 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "negative",
-                "label": "Skip This"
+                "type": "negative",
+                "attributes": {
+                  "label": "Skip This"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "View Score Breakdown",
-                "link": "https://example.com/asset/TSM"
+                "type": "positive",
+                "attributes": {
+                  "label": "View Score Breakdown",
+                  "link": "https://example.com/asset/TSM"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "Ask Ed",
-                "link": "ask-ed:Based on the scores, what are this asset's strongest and weakest dimensions right now?"
+                "type": "positive",
+                "attributes": {
+                  "label": "Ask Ed",
+                  "link": "ask-ed:Based on the scores, what are this asset's strongest and weakest dimensions right now?"
+                }
               }
             ]
           },
@@ -591,18 +615,24 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "negative",
-                "label": "Skip Earnings"
+                "type": "negative",
+                "attributes": {
+                  "label": "Skip Earnings"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "View Earnings Details",
-                "link": "https://example.com/earnings/nvda"
+                "type": "positive",
+                "attributes": {
+                  "label": "View Earnings Details",
+                  "link": "https://example.com/earnings/nvda"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "Ask Ed",
-                "link": "ask-ed:What were the most important beats and misses in this earnings report?"
+                "type": "positive",
+                "attributes": {
+                  "label": "Ask Ed",
+                  "link": "ask-ed:What were the most important beats and misses in this earnings report?"
+                }
               }
             ]
           },
@@ -672,18 +702,24 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "negative",
-                "label": "Skip Highlights"
+                "type": "negative",
+                "attributes": {
+                  "label": "Skip Highlights"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "View Call Notes",
-                "link": "https://example.com/management-call/nvda"
+                "type": "positive",
+                "attributes": {
+                  "label": "View Call Notes",
+                  "link": "https://example.com/management-call/nvda"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "Ask Ed",
-                "link": "ask-ed:From the management call, what guidance matters most for next quarter?"
+                "type": "positive",
+                "attributes": {
+                  "label": "Ask Ed",
+                  "link": "ask-ed:From the management call, what guidance matters most for next quarter?"
+                }
               }
             ]
           },
@@ -769,18 +805,24 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "negative",
-                "label": "Skip Ranking"
+                "type": "negative",
+                "attributes": {
+                  "label": "Skip Ranking"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "View Rank Changes",
-                "link": "https://example.com/rank-movement/nvda"
+                "type": "positive",
+                "attributes": {
+                  "label": "View Rank Changes",
+                  "link": "https://example.com/rank-movement/nvda"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "Ask Ed",
-                "link": "ask-ed:Are these ranking changes driven by short-term noise or fundamental shifts?"
+                "type": "positive",
+                "attributes": {
+                  "label": "Ask Ed",
+                  "link": "ask-ed:Are these ranking changes driven by short-term noise or fundamental shifts?"
+                }
               }
             ]
           },
@@ -952,18 +994,24 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "negative",
-                "label": "Not Tracking"
+                "type": "negative",
+                "attributes": {
+                  "label": "Not Tracking"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "View Theme Changes",
-                "link": "https://example.com/rank-movement/theme"
+                "type": "positive",
+                "attributes": {
+                  "label": "View Theme Changes",
+                  "link": "https://example.com/rank-movement/theme"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "Ask Ed",
-                "link": "ask-ed:Which asset in this theme has the best risk-reward balance now?"
+                "type": "positive",
+                "attributes": {
+                  "label": "Ask Ed",
+                  "link": "ask-ed:Which asset in this theme has the best risk-reward balance now?"
+                }
               }
             ]
           },
@@ -1023,18 +1071,24 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "negative",
-                "label": "Skip Signal"
+                "type": "negative",
+                "attributes": {
+                  "label": "Skip Signal"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "View Technical Details",
-                "link": "https://example.com/technical-signal/btc"
+                "type": "positive",
+                "attributes": {
+                  "label": "View Technical Details",
+                  "link": "https://example.com/technical-signal/btc"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "Ask Ed",
-                "link": "ask-ed:Does this technical signal suggest holding, adding, or trimming?"
+                "type": "positive",
+                "attributes": {
+                  "label": "Ask Ed",
+                  "link": "ask-ed:Does this technical signal suggest holding, adding, or trimming?"
+                }
               }
             ]
           },
@@ -1110,18 +1164,24 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "negative",
-                "label": "Skip Picks"
+                "type": "negative",
+                "attributes": {
+                  "label": "Skip Picks"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "View Trending List",
-                "link": "https://example.com/asset/NVDA"
+                "type": "positive",
+                "attributes": {
+                  "label": "View Trending List",
+                  "link": "https://example.com/asset/NVDA"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "Ask Ed",
-                "link": "ask-ed:Which name in this trending set is best suited for a conservative portfolio?"
+                "type": "positive",
+                "attributes": {
+                  "label": "Ask Ed",
+                  "link": "ask-ed:Which name in this trending set is best suited for a conservative portfolio?"
+                }
               }
             ]
           },
@@ -1255,18 +1315,24 @@ const groups = [
           "props": {
             "actions": [
               {
-                "actionType": "negative",
-                "label": "No Action Yet"
+                "type": "negative",
+                "attributes": {
+                  "label": "No Action Yet"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "View Full Report",
-                "link": "https://example.com/asset/TSM"
+                "type": "positive",
+                "attributes": {
+                  "label": "View Full Report",
+                  "link": "https://example.com/asset/TSM"
+                }
               },
               {
-                "actionType": "positive",
-                "label": "Ask Ed",
-                "link": "ask-ed:Given the current score and valuation, suggest a step-by-step action plan."
+                "type": "positive",
+                "attributes": {
+                  "label": "Ask Ed",
+                  "link": "ask-ed:Given the current score and valuation, suggest a step-by-step action plan."
+                }
               }
             ]
           },

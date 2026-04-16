@@ -77,18 +77,24 @@ Summarize earnings insights as concise narrative bullet points instead of a nume
       "props": {
         "actions": [
           {
-            "actionType": "negative",
-            "label": "Skip Highlights"
+            "type": "negative",
+            "attributes": {
+              "label": "Skip Highlights"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "View Call Notes",
-            "link": "https://example.com/management-call/nvda"
+            "type": "positive",
+            "attributes": {
+              "label": "View Call Notes",
+              "link": "https://example.com/management-call/nvda"
+            }
           },
           {
-            "actionType": "positive",
-            "label": "Ask Ed",
-            "link": "ask-ed:From the management call, what guidance matters most for next quarter?"
+            "type": "positive",
+            "attributes": {
+              "label": "Ask Ed",
+              "link": "ask-ed:From the management call, what guidance matters most for next quarter?"
+            }
           }
         ]
       },
