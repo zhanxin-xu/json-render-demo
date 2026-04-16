@@ -9,11 +9,18 @@
     "title": {
       "type": "string",
       "description": "Main headline title displayed at the top of the notification card."
+    },
+    "generatedAtMs": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991,
+      "description": "Card generation timestamp in epoch milliseconds."
     }
   },
   "required": [
     "label",
-    "title"
+    "title",
+    "generatedAtMs"
   ],
   "additionalProperties": false,
   "description": "Props for the notification card container."

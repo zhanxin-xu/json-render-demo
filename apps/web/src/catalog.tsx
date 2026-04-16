@@ -186,7 +186,8 @@ const dimensionRankChangeTableSchema = z
 const notificationCardContainerPropsSchema = z
   .object({
     label: z.string().describe("Small category label displayed above the card title."),
-    title: z.string().describe("Main headline title displayed at the top of the notification card.")
+    title: z.string().describe("Main headline title displayed at the top of the notification card."),
+    generatedAtMs: z.number().int().describe("Card generation timestamp in epoch milliseconds.")
   })
   .describe("Props for the notification card container.");
 

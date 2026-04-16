@@ -9,7 +9,8 @@ const groups = [
           "type": "NotificationCardContainer",
           "props": {
             "label": "Ed's Picks for You",
-            "title": "Trending Stocks"
+            "title": "Trending Stocks",
+            "generatedAtMs": 1776297600000
           },
           "children": [
             "notice-text",
@@ -95,7 +96,8 @@ const groups = [
           "type": "NotificationCardContainer",
           "props": {
             "label": "Alpha Picks",
-            "title": "My Pick This Week: TSM"
+            "title": "My Pick This Week: TSM",
+            "generatedAtMs": 1776297600000
           },
           "children": [
             "notice-text",
@@ -187,7 +189,8 @@ const groups = [
           "type": "NotificationCardContainer",
           "props": {
             "label": "Ratings & Discovery",
-            "title": "Semiconductor Watchlist Comparison"
+            "title": "Semiconductor Watchlist Comparison",
+            "generatedAtMs": 1776297600000
           },
           "children": [
             "notice-text",
@@ -343,7 +346,8 @@ const groups = [
           "type": "NotificationCardContainer",
           "props": {
             "label": "Alpha Picks",
-            "title": "My Pick This Week: TSM"
+            "title": "My Pick This Week: TSM",
+            "generatedAtMs": 1776297600000
           },
           "children": [
             "notice-text",
@@ -435,7 +439,8 @@ const groups = [
           "type": "NotificationCardContainer",
           "props": {
             "label": "Earnings Call",
-            "title": "Earnings Update"
+            "title": "Earnings Update",
+            "generatedAtMs": 1776297600000
           },
           "children": [
             "notice-text",
@@ -616,7 +621,8 @@ const groups = [
           "type": "NotificationCardContainer",
           "props": {
             "label": "Earnings Call",
-            "title": "Earnings Update"
+            "title": "Earnings Update",
+            "generatedAtMs": 1776297600000
           },
           "children": [
             "notice-text",
@@ -696,7 +702,8 @@ const groups = [
           "type": "NotificationCardContainer",
           "props": {
             "label": "Ed's Daily Discovery",
-            "title": "Rating Rank Movement"
+            "title": "Rating Rank Movement",
+            "generatedAtMs": 1776297600000
           },
           "children": [
             "notice-text",
@@ -792,7 +799,8 @@ const groups = [
           "type": "NotificationCardContainer",
           "props": {
             "label": "Ed's Daily Discovery",
-            "title": "Rating Rank Movement"
+            "title": "Rating Rank Movement",
+            "generatedAtMs": 1776297600000
           },
           "children": [
             "notice-text",
@@ -974,7 +982,8 @@ const groups = [
           "type": "NotificationCardContainer",
           "props": {
             "label": "Ed's Daily Discovery",
-            "title": "Technical Signal Update"
+            "title": "Technical Signal Update",
+            "generatedAtMs": 1776297600000
           },
           "children": [
             "notice-text",
@@ -1044,7 +1053,8 @@ const groups = [
           "type": "NotificationCardContainer",
           "props": {
             "label": "Ed's Picks for You",
-            "title": "Trending Stocks"
+            "title": "Trending Stocks",
+            "generatedAtMs": 1776297600000
           },
           "children": [
             "notice-text",
@@ -1130,7 +1140,8 @@ const groups = [
           "type": "NotificationCardContainer",
           "props": {
             "label": "Alpha Picks",
-            "title": "My Pick This Week: TSM"
+            "title": "My Pick This Week: TSM",
+            "generatedAtMs": 1776297600000
           },
           "children": [
             "notice-text",
